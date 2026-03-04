@@ -1,5 +1,9 @@
 autoInstallPeers: true
 
+packages:
+  - "libs/*"
+  - "apps/*"
+
 onlyBuiltDependencies:
   - "@compodoc/compodoc"
   - "@swc/core"
