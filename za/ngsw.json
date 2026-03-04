@@ -1,0 +1,97 @@
+{
+  "configVersion": 1,
+  "timestamp": 1772665624450,
+  "index": "/za/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/za/index.html",
+        "/za/main-2747AYDX.js",
+        "/za/manifest.webmanifest",
+        "/za/polyfills-JYB3T52O.js",
+        "/za/styles-H6IFPXAU.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/za/favicon.png",
+        "/za/icons/icon-128x128.png",
+        "/za/icons/icon-144x144.png",
+        "/za/icons/icon-152x152.png",
+        "/za/icons/icon-192x192.png",
+        "/za/icons/icon-384x384.png",
+        "/za/icons/icon-512x512.png",
+        "/za/icons/icon-72x72.png",
+        "/za/icons/icon-96x96.png",
+        "/za/media/material-symbols-outlined-BSAYFINZ.woff2",
+        "/za/media/material-symbols-rounded-TVA34YS5.woff2",
+        "/za/media/material-symbols-sharp-JMBSOGNX.woff2",
+        "/za/media/roboto-flex-cyrillic-ext-full-normal-VVMG2R5G.woff2",
+        "/za/media/roboto-flex-cyrillic-full-normal-JWGCS4CX.woff2",
+        "/za/media/roboto-flex-greek-full-normal-EAC46KDA.woff2",
+        "/za/media/roboto-flex-latin-ext-full-normal-GKKMMDXM.woff2",
+        "/za/media/roboto-flex-latin-full-normal-6I6TROE5.woff2",
+        "/za/media/roboto-flex-vietnamese-full-normal-JC6TITYP.woff2"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/za/favicon.png": "266e1b017d27d830e3d2745e21133fae4761e629",
+    "/za/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/za/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/za/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/za/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/za/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/za/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/za/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/za/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/za/index.html": "6818a75acde3cec40024f481faa5faa284c6c50c",
+    "/za/main-2747AYDX.js": "54f690eb4a44824b0de0f2ec636afb18fff1ff67",
+    "/za/manifest.webmanifest": "08e6cfc40e8b519884f9f9e9ca4c3edb98862617",
+    "/za/media/material-symbols-outlined-BSAYFINZ.woff2": "7f5224f247c0ac9a40ebb71c389dc1459b126401",
+    "/za/media/material-symbols-rounded-TVA34YS5.woff2": "388727452d13a0d86c0234879459904728732275",
+    "/za/media/material-symbols-sharp-JMBSOGNX.woff2": "290356d1a2b10d9a4d021c1e462698a91ed133c8",
+    "/za/media/roboto-flex-cyrillic-ext-full-normal-VVMG2R5G.woff2": "8e46375093e4efbc9218253c55901921a5e78509",
+    "/za/media/roboto-flex-cyrillic-full-normal-JWGCS4CX.woff2": "78afc45cd56c5efa986e98105550957a23d21830",
+    "/za/media/roboto-flex-greek-full-normal-EAC46KDA.woff2": "840930ed13e9a258f63776dec66d5f1eaab2c8e7",
+    "/za/media/roboto-flex-latin-ext-full-normal-GKKMMDXM.woff2": "6c5d52c31aa0c82375cd5f62ab5ca49c1db05d8d",
+    "/za/media/roboto-flex-latin-full-normal-6I6TROE5.woff2": "2cd1039034136a25813431f4b9814264de59bee2",
+    "/za/media/roboto-flex-vietnamese-full-normal-JC6TITYP.woff2": "f67ebf24fb4defec495c2e6fc0292f4d0d2bdd35",
+    "/za/polyfills-JYB3T52O.js": "fc2a12838f41c2435abb7de776120b904ce152d4",
+    "/za/styles-H6IFPXAU.css": "03ff53d43a4029ead5db1cb7f8e6e4f9977fca07"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
