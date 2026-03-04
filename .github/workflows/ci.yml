@@ -37,7 +37,7 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm exec playwright install --with-deps
 
       - run: pnpm exec nx run-many -t lint test build e2e
