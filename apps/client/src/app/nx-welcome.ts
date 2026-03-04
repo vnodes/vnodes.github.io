@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-nx-welcome',
+  selector: 'vn-nx-welcome',
   imports: [CommonModule],
   template: `
     <!--
@@ -510,7 +510,7 @@ import { CommonModule } from '@angular/common';
         <!--  WELCOME  -->
         <div id="welcome">
           <h1>
-            <span> Hello there, </span>
+            <span> {{title()}}, </span>
             Welcome client 👋
           </h1>
         </div>
@@ -820,11 +820,7 @@ import { CommonModule } from '@angular/common';
               </div>
               <p>Your Nx Cloud remote cache setup is almost complete.</p>
 
-              <a
-                href="https://cloud.nx.app/connect/ERrmuTvysr"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="" target="_blank" rel="noreferrer">
                 Click here to finish
               </a>
             </div>
@@ -945,4 +941,7 @@ nx g &#64;nx/angular:component ui/src/lib/button</pre>
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class NxWelcome {}
+export class NxWelcome {
+
+  title = input.required()
+}

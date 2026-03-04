@@ -1,0 +1,192 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "InputText",
+            "id": "component-InputText-2765467e31c951777a7a82cfc97775e1b87e4858bf19c9b51d6cebb9e14342c6ca833c80df8932c7fe56505cf7aa77a6db58756d861c94ddfa08f3ee18ec9954",
+            "file": "libs/material/src/lib/input-text/input-text.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-input-text",
+            "styleUrls": [],
+            "styles": [
+                ""
+            ],
+            "template": "<mat-form-field>\n  <mat-label>{{label()}}</mat-label>\n  <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n</mat-form-field>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "isRequired",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 36,
+                    "required": false
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "\"Not set\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 37,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "onValueChange",
+                    "defaultValue": "outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "signal('')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { MatInputModule } from '@angular/material/input'\nimport { MatFormFieldModule } from '@angular/material/form-field'\nimport { FormsModule } from '@angular/forms';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n\n  value = signal('')\n\n\n\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n  isRequired = input<boolean>(false)\n  label = input<string>(\"Not set\")\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n",
+            "extends": [],
+            "implements": [
+                "OnInit"
+            ]
+        },
+        {
+            "name": "Material",
+            "id": "component-Material-38dd334cc55246af6f3b25848e9f987adf0f981ff954368578ab8704f7447b50a750ce1b94b80b674b2ca821d02b148657fa2c7133eb6ec2802fa3eee1d4a9b0",
+            "file": "libs/material/src/lib/material/material.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-material",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./material.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'vn-material',\n  imports: [],\n  templateUrl: './material.html',\n  styleUrl: './material.css',\n})\nexport class Material { }\n",
+            "styleUrl": "./material.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p>Material works!</p>\n"
+        }
+    ],
+    "modules": [],
+    "miscellaneous": [],
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "children": []
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "libs/material/src/lib/input-text/input-text.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InputText",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/material/material.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Material",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

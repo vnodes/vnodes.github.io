@@ -72,14 +72,30 @@
       "e2eTestRunner": "playwright",
       "linter": "eslint",
       "style": "scss",
-      "unitTestRunner": "vitest-angular"
+      "unitTestRunner": "vitest-angular",
+      "bundler": "esbuild",
+      "routing": true,
+      "standalone": true,
+      "ssr": false,
+      "prefix": "vn",
+      "inlineTemplate": true,
+      "inlineStyle": true,
+      "addTailwind": true
     },
     "@nx/angular:library": {
       "linter": "eslint",
       "unitTestRunner": "vitest-angular"
     },
     "@nx/angular:component": {
-      "style": "css"
+      "style": "scss",
+      "standalone": true,
+      "inlineStyle": true,
+      "inlineTemplate": true,
+      "prefix": "vn"
+    },
+    "@nx/angular:directive": {
+      "standalone": true,
+      "prefix": "vn"
     }
   },
   "release": {

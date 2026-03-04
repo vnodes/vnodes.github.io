@@ -1,16 +1,25 @@
 import type { StorybookConfig } from '@storybook/angular';
+import theme from './theme';
 
 const config: StorybookConfig = {
-  stories: ['../**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
-  addons: [],
+  stories: ['../src/**/*.stories.@(ts|tsx|js|jsx|mdx)'],
+  addons: ['@storybook/addon-docs'],
+
+
   framework: {
     name: '@storybook/angular',
-    options: {},
+    options: {
+      builder: {
+        viteConfigPath: 'vite.config.mts',
+      },
+      compodoc: {
+        compodocJson: '../documentation.json',
+      },
+      theme,
+      
+    }
   },
+  staticDirs: ['../../../static'],
 };
 
 export default config;
-
-// To customize your webpack configuration you can use the webpackFinal field.
-// Check https://storybook.js.org/docs/react/builders/webpack#extending-storybooks-webpack-config
-// and https://nx.dev/recipes/storybook/custom-builder-configs

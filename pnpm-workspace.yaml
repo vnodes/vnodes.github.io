@@ -1,8 +1,10 @@
 autoInstallPeers: true
 
 onlyBuiltDependencies:
-  - '@swc/core'
+  - "@compodoc/compodoc"
+  - "@swc/core"
   - esbuild
+  - highlight.js
   - lmdb
   - msgpackr-extract
   - nx

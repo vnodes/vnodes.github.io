@@ -2,11 +2,13 @@
   "name": "material",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/material/src",
-  "prefix": "lib",
+  "prefix": "vn",
   "projectType": "library",
   "release": {
     "version": {
-      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ],
       "currentVersionResolver": "git-tag",
       "fallbackCurrentVersionResolver": "disk"
     }
@@ -15,7 +17,9 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
       "options": {
         "project": "libs/material/ng-package.json",
         "tsConfig": "libs/material/tsconfig.lib.json"
@@ -39,6 +43,75 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/material/.storybook",
+        "browserTarget": "material:build-storybook",
+        "compodoc": true,
+        "compodocArgs": [
+          "-p",
+          "libs/material/tsconfig.lib.json",
+          "-e",
+          "json",
+          "-d",
+          "libs/material"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": [
+        "{options.outputDir}"
+      ],
+      "options": {
+        "outputDir": "public/libs/material",
+        "configDir": "libs/material/.storybook",
+        "browserTarget": "material:build-storybook",
+        "compodoc": true,
+        "compodocArgs": [
+          "-p",
+          "libs/material/tsconfig.lib.json",
+          "-e",
+          "json",
+          "-d",
+          "libs/material/.storybook"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/material/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": [
+        "build-storybook"
+      ],
+      "options": {
+        "buildTarget": "material:build-storybook",
+        "staticFilePath": "public/libs/material",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "material:build-storybook:ci"
+        }
+      }
     }
   }
 }

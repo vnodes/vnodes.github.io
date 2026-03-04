@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-material',
+  selector: 'vn-material',
   imports: [],
   templateUrl: './material.html',
   styleUrl: './material.css',
 })
-export class Material {}
+export class Material { }
