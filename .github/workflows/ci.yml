@@ -67,7 +67,8 @@ jobs:
 
       - name: Build client app
         run: >
-          pnpm exec nx build client
+          pnpm exec nx build client --localize=false
+          pnpm exec nx build client --deleteOutputPath=false
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
