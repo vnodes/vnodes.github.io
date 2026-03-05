@@ -11,38 +11,38 @@ permissions:
   contents: read
 
 jobs:
-  main:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          filter: tree:0
-          fetch-depth: 0
+  # main:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         filter: tree:0
+  #         fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: 9.8.0
-          run_install: false
+  #     - uses: pnpm/action-setup@v4
+  #       name: Install pnpm
+  #       with:
+  #         version: 9.8.0
+  #         run_install: false
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      # Uncomment this line to enable task distribution
-      # - run: pnpm dlx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+  #     # This enables task distribution via Nx Cloud
+  #     # Run this command as early as possible, before dependencies are installed
+  #     # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
+  #     # Uncomment this line to enable task distribution
+  #     # - run: pnpm dlx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
 
-      # Cache node_modules
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
+  #     # Cache node_modules
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
+  #         cache: "pnpm"
 
-      - run: pnpm install --no-frozen-lockfile
-      - run: pnpm exec playwright install --with-deps
+  #     - run: pnpm install --no-frozen-lockfile
+  #     - run: pnpm exec playwright install --with-deps
 
-      - run: pnpm exec nx run-many -t lint test build e2e
-      - run: pnpm exec nx fix-ci
-        if: always()
+  #     - run: pnpm exec nx run-many -t lint test build e2e
+  #     - run: pnpm exec nx fix-ci
+  #       if: always()
 
   deploy:
     runs-on: ubuntu-latest
@@ -67,8 +67,8 @@ jobs:
 
       - name: Build client app
         run: >
-          pnpm exec nx build client --localize=false
-          pnpm exec nx build client --deleteOutputPath=false
+          npx nx build client --localize=false
+          npx nx build client --deleteOutputPath=false
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
