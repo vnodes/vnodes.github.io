@@ -29,10 +29,11 @@ jobs:
 
       - run: pnpm install --no-frozen-lockfile
 
-      - name: Build client app
-        run: >
-          npx nx build client --localize=false
-          npx nx build client --deleteOutputPath=false
+      - name: Build main app
+        run: npx nx build client --localize=false
+
+      - name: Build app with locale
+        run: npx nx build client --deleteOutputPath=false
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
