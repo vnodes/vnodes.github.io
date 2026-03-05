@@ -39,5 +39,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public/apps/client/browser
-          branch: main
+          branch: gh-pages
           clean: true
