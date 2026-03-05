@@ -5,22 +5,30 @@
   "prefix": "vn",
   "sourceRoot": "apps/client/src",
   "i18n": {
-    "sourceLocale": "en",
+    "sourceLocale": {
+      "code": "en",
+      "baseHref": ""
+    },
     "locales": {
       "es": {
-        "translation": "apps/client/locales/message.es.xlf"
+        "translation": "apps/client/locales/message.es.xlf",
+        "baseHref": ""
       },
       "fr": {
-        "translation": "apps/client/locales/message.fr.xlf"
+        "translation": "apps/client/locales/message.fr.xlf",
+        "baseHref": ""
       },
       "ru": {
-        "translation": "apps/client/locales/message.ru.xlf"
+        "translation": "apps/client/locales/message.ru.xlf",
+        "baseHref": ""
       },
       "tr": {
-        "translation": "apps/client/locales/message.tr.xlf"
+        "translation": "apps/client/locales/message.tr.xlf",
+        "baseHref": ""
       },
       "za": {
-        "translation": "apps/client/locales/message.za.xlf"
+        "translation": "apps/client/locales/message.za.xlf",
+        "baseHref": ""
       }
     }
   },
@@ -62,7 +70,6 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all",
           "serviceWorker": "apps/client/ngsw-config.json",
           "localize": true
         },
