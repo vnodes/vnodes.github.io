@@ -1,13 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterModule,
+
+    MatIconModule,
+    MatButtonModule
+  ],
   selector: 'vn-root',
-  template: `<vn-nx-welcome [title]="title"></vn-nx-welcome> <router-outlet></router-outlet>`,
-  styles: ``,
+templateUrl:"./app.html"
+
 })
 export class App implements OnInit {
   titleManager = inject(Title);

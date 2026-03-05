@@ -2,6 +2,7 @@ import { provideRouter } from '@angular/router';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { applicationConfig, type Preview } from '@storybook/angular';
 import docJson from '../documentation.json';
+
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 
 setCompodocJson(docJson);
@@ -12,6 +13,7 @@ const preview: Preview = {
 
     applicationConfig({
       providers: [
+
         provideRouter([]),
         {
           provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

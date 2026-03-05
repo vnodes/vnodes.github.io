@@ -8,8 +8,351 @@
     "directives": [],
     "components": [
         {
+            "name": "AppLogo",
+            "id": "component-AppLogo-c04e8c1bf06e2f2cad7e57c34f52c5ed2280cd5f3a5c49453b78ad52484f80d8ebb8bad2ddd20067412d3698a0fc932d754c4464692a9f3bd3bd68e3d9235764",
+            "file": "libs/material/src/lib/app-logo/app-logo.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-app-logo",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<bm-image [src]=\"src()\" [alt]=\"alt()\" />",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "alt",
+                    "defaultValue": "'App Logo'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "<p>Image description</p>\n",
+                    "line": 19,
+                    "rawdescription": "\nImage description",
+                    "required": false
+                },
+                {
+                    "name": "src",
+                    "defaultValue": "'favicon.png'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "<p>Image source url</p>\n",
+                    "line": 16,
+                    "rawdescription": "\nImage source url",
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "Image"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { Image } from '../image/image';\n\n@Component({\n  selector: 'vn-app-logo',\n  imports: [Image],\n  template: `<bm-image [src]=\"src()\" [alt]=\"alt()\" />`,\n  standalone: true,\n  host: {\n    class: 'h-full p-2',\n    '[class]': \"''\",\n  },\n})\nexport class AppLogo {\n  /** Image source url */\n  src = input('favicon.png');\n  \n  /** Image description */\n  alt = input('App Logo');\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "Box",
+            "id": "component-Box-ab311bf94ef66702aee7b6b7ad9d531e0f2d9802e3136ce72c366a4c8a1331adb1e8ebdd44e50ebf9ef815336026dc523a5ef499b35d900b6eed2e075d9fbcf0",
+            "file": "libs/material/src/lib/box/box.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-box",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div\n  class=\"flex flex-col\"\n  [style.height]=\"computedHeight()\"\n  [style.width]=\"computedWidth()\"\n  [title]=\"title()\"\n  [style.aspectRatio]=\"computedRatio()\"\n>\n  <ng-content>\n    <p>No Content</p>\n  </ng-content>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "heightRatio",
+                    "defaultValue": "1",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24,
+                    "required": false
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22,
+                    "required": false
+                },
+                {
+                    "name": "unit",
+                    "defaultValue": "'px'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "required": false
+                },
+                {
+                    "name": "widthRatio",
+                    "defaultValue": "1",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 25,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "computedHeight",
+                    "defaultValue": "computed(() => {\n    return this.size() * this.heightRatio() + this.unit();\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                },
+                {
+                    "name": "computedRatio",
+                    "defaultValue": "computed(() => {\n    return this.heightRatio() + '/' + this.widthRatio();\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
+                },
+                {
+                    "name": "computedWidth",
+                    "defaultValue": "computed(() => {\n    return this.size() * this.widthRatio() + this.unit();\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "computed(() => {\n    return this.computedWidth() + ' X ' + this.computedHeight();\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-box',\n  imports: [],\n  standalone: true,\n  template: `\n    <div\n      class=\"flex flex-col\"\n      [style.height]=\"computedHeight()\"\n      [style.width]=\"computedWidth()\"\n      [title]=\"title()\"\n      [style.aspectRatio]=\"computedRatio()\"\n    >\n      <ng-content>\n        <p>No Content</p>\n      </ng-content>\n    </div>\n  `,\n})\nexport class Box {\n  size = input(0);\n\n  heightRatio = input(1);\n  widthRatio = input(1);\n\n  computedWidth = computed(() => {\n    return this.size() * this.widthRatio() + this.unit();\n  });\n\n  computedHeight = computed(() => {\n    return this.size() * this.heightRatio() + this.unit();\n  });\n\n  computedRatio = computed(() => {\n    return this.heightRatio() + '/' + this.widthRatio();\n  });\n\n  unit = input('px');\n\n  title = computed(() => {\n    return this.computedWidth() + ' X ' + this.computedHeight();\n  });\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "FlexCol",
+            "id": "component-FlexCol-2744afd3db038fa320bb753d89b660a17aba04c9d2dd9df46afd42fcfa2f6037a1e2efe197f8c1aa900a3e6fcb015dd2bf62654f0725ca025ca0cdc7b60287a6",
+            "file": "libs/material/src/lib/flex-col/flex-col.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-flex-col",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<ng-content></ng-content>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "<p>Flex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)</p>\n",
+            "rawdescription": "\n\nFlex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n/**\n * Flex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)\n */\n@Component({\n  selector: 'vn-flex-col',\n  template: `<ng-content></ng-content>`,\n  host: {\n    class:\n      'flex flex-col justify-start grow h-full w-full overflow-hidden overflow-y-auto',\n    '[class]': '\"\"',\n  },\n})\nexport class FlexCol {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "FlexRow",
+            "id": "component-FlexRow-95126eec0a709b5219b5ec23ed0a1a8647c9839be46e498b7dd5d623d179b520921e2a2687ecc0b6d826ae0d3c00c437d9a1f5daf6967410e511763a1ad7a930",
+            "file": "libs/material/src/lib/flex-row/flex-row.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-flex-row",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<ng-content></ng-content>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "<p>Flex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)</p>\n",
+            "rawdescription": "\n\nFlex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n/**\n * Flex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)\n */\n@Component({\n  selector: 'vn-flex-row',\n  template: `<ng-content></ng-content>`,\n  host: {\n    class:\n      'flex flex-row justify-start grow w-full overflow-hidden h-full items-center',\n    '[class]': '\"\"',\n  },\n})\nexport class FlexRow {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "Image",
+            "id": "component-Image-3c955c5133d1df9632ddc6033a7cbba02efe78f6743f4a7ad26101a32bf94fb611901822cbfec5e14ee8f791b0b04dc6cd74b70e6eeb260849f80cd04d273552",
+            "file": "libs/material/src/lib/image/image.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-image",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<img    [src]=\"src()\"\n    [alt]=\"alt()\"\n    class=\"h-auto max-h-full w-auto max-w-full \"\n    [style.width]=\"width() + 'px'\"\n    [style.height]=\"height() + 'px'\"\n  />",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "alt",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21,
+                    "required": false
+                },
+                {
+                    "name": "height",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "required": false
+                },
+                {
+                    "name": "src",
+                    "defaultValue": "'favicon.png'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "required": false
+                },
+                {
+                    "name": "width",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-image',\n  template: `<img\n    [src]=\"src()\"\n    [alt]=\"alt()\"\n    class=\"h-auto max-h-full w-auto max-w-full \"\n    [style.width]=\"width() + 'px'\"\n    [style.height]=\"height() + 'px'\"\n  />`,\n  standalone: true,\n  host: {\n    class: 'h-full',\n  },\n})\nexport class Image {\n  width = input<number>();\n  height = input<number>();\n  src = input('favicon.png');\n  alt = input('');\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
             "name": "InputText",
-            "id": "component-InputText-2765467e31c951777a7a82cfc97775e1b87e4858bf19c9b51d6cebb9e14342c6ca833c80df8932c7fe56505cf7aa77a6db58756d861c94ddfa08f3ee18ec9954",
+            "id": "component-InputText-44c780126d91db6fa160179cfe565f2b213b84fcd9ea311d20ee20fb3f88c132fb278add5b8ecc0bc64563a2ceb2ed30b07fb0ea1e3abcc253407db90d1db63b",
             "file": "libs/material/src/lib/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -35,7 +378,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 36,
+                    "line": 33,
                     "required": false
                 },
                 {
@@ -47,7 +390,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 37,
+                    "line": 34,
                     "required": false
                 }
             ],
@@ -62,7 +405,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 28
                 },
                 {
                     "name": "value",
@@ -83,7 +426,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 36,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -110,7 +453,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { MatInputModule } from '@angular/material/input'\nimport { MatFormFieldModule } from '@angular/material/form-field'\nimport { FormsModule } from '@angular/forms';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n\n  value = signal('')\n\n\n\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n  isRequired = input<boolean>(false)\n  label = input<string>(\"Not set\")\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
+            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n  isRequired = input<boolean>(false)\n  label = input<string>(\"Not set\")\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n",
@@ -118,6 +461,114 @@
             "implements": [
                 "OnInit"
             ]
+        },
+        {
+            "name": "Layout",
+            "id": "component-Layout-b9bca5dae269dfe1df123e5e6c79e60f04e1f3cfcdc3346d59f13d62eaf120a6b4b72b27022ecce3563038f291e0ae0443aa9df778921fea7de262ac0aaebf6d",
+            "file": "libs/material/src/lib/layout/layout.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-layout",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./layout.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "_fullContainer",
+                    "defaultValue": "`\n      !flex !flex-col grow !w-auto\n      !max-w-full !h-full !overflow-hidden\n  `",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 36,
+                    "modifierKind": [
+                        148
+                    ]
+                },
+                {
+                    "name": "_sideNav",
+                    "defaultValue": "'!flex !flex-col !grow h-full !w-fit !rounded-none'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "modifierKind": [
+                        148
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatSidenavModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatButtonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatIconModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatToolbarModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ProjectionModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatDividerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "AppLogo"
+                },
+                {
+                    "name": "Viewport"
+                },
+                {
+                    "name": "FlexCol"
+                },
+                {
+                    "name": "FlexRow"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { ProjectionModule, Viewport } from '@vnodes/cdk';\nimport { AppLogo } from '../app-logo/app-logo';\nimport { FlexCol } from '../flex-col/flex-col';\nimport { FlexRow } from '../flex-row/flex-row';\n@Component({\n  selector: 'vn-layout',\n  imports: [\n\n    CommonModule,\n    MatSidenavModule,\n    MatButtonModule,\n    MatIconModule,\n    MatToolbarModule,\n    ProjectionModule,\n    MatDividerModule,\n    AppLogo,\n    Viewport,\n    FlexCol,\n    FlexRow,\n  ],\n  templateUrl: \"./layout.html\",\n  host: {\n    class: \"w-full h-full flex flex-col border-4 border-green-400\"\n  }\n})\nexport class Layout {\n\n\n  readonly _fullContainer = `\n      !flex !flex-col grow !w-auto\n      !max-w-full !h-full !overflow-hidden\n  `;\n\n  readonly _sideNav = '!flex !flex-col !grow h-full !w-fit !rounded-none';\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<mat-sidenav-container #vp=\"viewport\" vnViewport [class]=\"_fullContainer\">\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n    <!-- Sidenav  -->\n    <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class]=\"_sideNav\" [class.!w-full]=\"isXSmall\"\n        [class.!w-96]=\"!isXSmall\">\n        <vn-flex-col>\n            <!-- Logo/toolbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <ng-content select=\"[bmSidenavLogo]\">\n                        <vn-app-logo></vn-app-logo>\n                    </ng-content>\n\n                    <!-- if is handset then show menu.close button -->\n                    @if(isHandset){\n                    <!-- Mobile drawer close button -->\n                    <button matIconButton (click)=\"drawer.close()\">\n                        <mat-icon> close </mat-icon>\n                    </button>\n                    }\n                </vn-flex-row>\n            </mat-toolbar>\n\n            <!-- Menu items -->\n            <vn-flex-col>\n                <!-- Sidenav content  -->\n                <vn-flex-col>\n                    <!-- Sidenav top -->\n                    <ng-content select=\"[bmSidenavTop]\"></ng-content>\n                    <!-- Sidenav bottom -->\n                    <ng-content select=\"[bmSidenavBottom]\"></ng-content>\n\n                    <!--  -->\n                </vn-flex-col>\n            </vn-flex-col>\n        </vn-flex-col>\n    </mat-sidenav>\n\n    <!--  -->\n    <mat-sidenav-content [class]=\"_fullContainer\">\n        <!--  -->\n        <vn-flex-col>\n            <!-- Toolbar  -->\n            <mat-toolbar>\n                <mat-toolbar-row>\n                    <!-- Menu toggle button -->\n                    @if(isHandset){\n\n                    <button matIconButton (click)=\"drawer.toggle()\">\n                        <mat-icon>\n                            {{ drawer.opened ? 'menu_open' : 'menu' }}\n                        </mat-icon>\n                    </button>\n\n                    }\n\n                    <!--  -->\n                    <vn-flex-row>\n                        <!-- Toolbar left -->\n                        <ng-content select=\"[bmToolbarLeft]\"></ng-content>\n                        <!-- Toolbar right -->\n                        <ng-content select=\"[bmToolbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar-row>\n            </mat-toolbar>\n\n            <!-- Content  -->\n            <vn-flex-col>\n                <!-- Content top -->\n                <ng-content select=\"[bmContentTop]\"></ng-content>\n                <!-- Bottom Content  -->\n                <ng-content select=\"[bmContentBottom]\"></ng-content>\n            </vn-flex-col>\n\n            <!-- Statusbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <!-- Statusbar left -->\n                    <ng-content select=\"[bmStatusbarLeft]\"></ng-content>\n                    <!-- Statusbar right -->\n                    <ng-content select=\"[bmStatusbarRight]\"></ng-content>\n                </vn-flex-row>\n            </mat-toolbar>\n            <!--  -->\n        </vn-flex-col>\n        <!--  -->\n    </mat-sidenav-content>\n    <!--  -->\n</mat-sidenav-container>"
         },
         {
             "name": "Material",
@@ -166,9 +617,54 @@
         "children": []
     },
     "coverage": {
-        "count": 0,
-        "status": "low",
+        "count": 33,
+        "status": "medium",
         "files": [
+            {
+                "filePath": "libs/material/src/lib/app-logo/app-logo.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppLogo",
+                "coveragePercent": 66,
+                "coverageCount": "2/3",
+                "status": "good"
+            },
+            {
+                "filePath": "libs/material/src/lib/box/box.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Box",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/flex-col/flex-col.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FlexCol",
+                "coveragePercent": 100,
+                "coverageCount": "1/1",
+                "status": "very-good"
+            },
+            {
+                "filePath": "libs/material/src/lib/flex-row/flex-row.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FlexRow",
+                "coveragePercent": 100,
+                "coverageCount": "1/1",
+                "status": "very-good"
+            },
+            {
+                "filePath": "libs/material/src/lib/image/image.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Image",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
             {
                 "filePath": "libs/material/src/lib/input-text/input-text.ts",
                 "type": "component",
@@ -176,6 +672,15 @@
                 "name": "InputText",
                 "coveragePercent": 0,
                 "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/layout/layout.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Layout",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

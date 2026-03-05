@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="@angular/localize" />
+import { isDevMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app';
 import { appConfig } from './app/app.config';
@@ -10,7 +11,7 @@ async function main() {
     await bootstrapApplication(App, appConfig)
 
 
-    {
+    if (!isDevMode()) {
         const browserLang = navigator.language || (navigator as any).userLanguage;
         const supportedLocales = ['es', 'fr', 'ru', 'tr', 'za'];
         const defaultLocale = 'en';
