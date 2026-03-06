@@ -39,10 +39,7 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
 
       - name: Build main app
-        run: npx nx build client --localize=false
-
-      - name: Build app with locale
-        run: npx nx build client --deleteOutputPath=false
+        run: npx nx build client
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
