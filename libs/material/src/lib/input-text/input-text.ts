@@ -22,6 +22,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   styles: ``,
 })
 export class InputText implements OnInit {
+  label = input<string>("Not set")
+  isRequired = input<boolean>(false)
 
   value = signal('')
 
@@ -30,8 +32,6 @@ export class InputText implements OnInit {
     distinctUntilChanged()
   ))
 
-  isRequired = input<boolean>(false)
-  label = input<string>("Not set")
 
   ngOnInit(): void {
     this.onValueChange.subscribe(v => {

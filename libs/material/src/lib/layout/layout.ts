@@ -5,15 +5,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 import { ProjectionModule, Viewport } from '@vnodes/cdk';
 import { AppLogo } from '../app-logo/app-logo';
 import { FlexCol } from '../flex-col/flex-col';
 import { FlexRow } from '../flex-row/flex-row';
+
 @Component({
   selector: 'vn-layout',
   imports: [
-
     CommonModule,
+    RouterModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
@@ -31,13 +33,4 @@ import { FlexRow } from '../flex-row/flex-row';
   }
 })
 export class Layout {
-
-
-  readonly _fullContainer = `
-      !flex !flex-col grow !w-auto
-      !max-w-full !h-full !overflow-hidden
-  `;
-
-  readonly _sideNav = '!flex !flex-col !grow h-full !w-fit !rounded-none';
-
 }

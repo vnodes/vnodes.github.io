@@ -1,9 +1,9 @@
 {
-  "name": "web",
-  "short_name": "web",
+  "name": "client",
+  "short_name": "client",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "icons/icon-72x72.png",

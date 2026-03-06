@@ -6,62 +6,62 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  @include mat.theme((color: (primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: 'Roboto Flex Variable',
-      density: 0,
-    ));
+    @include mat.theme(( // Colors
+            color: (primary: mat.$azure-palette, tertiary: mat.$blue-palette),
+            // Font
+            typography: 'Roboto Flex Variable',
+            density: 0,
+        ));
 
-  zoom: 0.82;
+    zoom: 0.82;
 }
 
 body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-  font-family: 'Roboto Flex Variable';
-  font-size: 16px;
-  line-height: 1.5;
+    color-scheme: light;
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+    font: var(--mat-sys-body-medium);
+    font-family: 'Roboto Flex Variable';
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 
 .mat-icon {
-  font-family: 'Material Symbols Rounded';
-  line-height: 1;
-  vertical-align: top;
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
+    font-family: 'Material Symbols Rounded';
+    line-height: 1;
+    vertical-align: top;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .mat-icon.fill {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }

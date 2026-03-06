@@ -1,4 +1,9 @@
-<mat-sidenav-container #vp="viewport" vnViewport [class]="_fullContainer">
+@let fullStyle ="!flex !flex-col grow !w-auto !max-w-full !h-full !overflow-hidden";
+@let sidenavStyle = "!flex !flex-col !grow h-full !w-fit !rounded-none";
+
+<mat-sidenav-container #vp="viewport" vnViewport [class]="fullStyle">
+
+
     <!-- is movile viewport? -->
     @let isHandset = (vp.isHandset | async);
 
@@ -12,7 +17,7 @@
     @let mode = (isHandset ? "over": "side");
 
     <!-- Sidenav  -->
-    <mat-sidenav #drawer [opened]="isNotMobile" [mode]="mode" [class]="_sideNav" [class.!w-full]="isXSmall"
+    <mat-sidenav #drawer [opened]="isNotMobile" [mode]="mode" [class]="sidenavStyle" [class.!w-full]="isXSmall"
         [class.!w-96]="!isXSmall">
         <vn-flex-col>
             <!-- Logo/toolbar -->
@@ -49,7 +54,7 @@
     </mat-sidenav>
 
     <!--  -->
-    <mat-sidenav-content [class]="_fullContainer">
+    <mat-sidenav-content [class]="fullStyle">
         <!--  -->
         <vn-flex-col>
             <!-- Toolbar  -->
@@ -66,10 +71,13 @@
 
                     }
 
+
+
                     <!--  -->
-                    <vn-flex-row>
+                    <vn-flex-row >
                         <!-- Toolbar left -->
                         <ng-content select="[vnToolbarLeft]"></ng-content>
+                        <vn-flex-row></vn-flex-row>
                         <!-- Toolbar right -->
                         <ng-content select="[vnToolbarRight]"></ng-content>
                     </vn-flex-row>

@@ -9,7 +9,7 @@
     "components": [
         {
             "name": "AppLogo",
-            "id": "component-AppLogo-c04e8c1bf06e2f2cad7e57c34f52c5ed2280cd5f3a5c49453b78ad52484f80d8ebb8bad2ddd20067412d3698a0fc932d754c4464692a9f3bd3bd68e3d9235764",
+            "id": "component-AppLogo-5dd2b506cf73f40228d0adbcecc31619d6ce31dcc192fe5e11c73a811f507201aeb450fe4bbf4fb6311c42549c86cfd0de788a4db330758d03ee2ef5bfad6ae7",
             "file": "libs/material/src/lib/app-logo/app-logo.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -20,7 +20,7 @@
             "selector": "vn-app-logo",
             "styleUrls": [],
             "styles": [],
-            "template": "<bm-image [src]=\"src()\" [alt]=\"alt()\" />",
+            "template": "<vn-image [src]=\"src()\" [alt]=\"alt()\" />",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -66,7 +66,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\nimport { Image } from '../image/image';\n\n@Component({\n  selector: 'vn-app-logo',\n  imports: [Image],\n  template: `<bm-image [src]=\"src()\" [alt]=\"alt()\" />`,\n  standalone: true,\n  host: {\n    class: 'h-full p-2',\n    '[class]': \"''\",\n  },\n})\nexport class AppLogo {\n  /** Image source url */\n  src = input('favicon.png');\n  \n  /** Image description */\n  alt = input('App Logo');\n}\n",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { Image } from '../image/image';\n\n@Component({\n  selector: 'vn-app-logo',\n  imports: [Image],\n  template: `<vn-image [src]=\"src()\" [alt]=\"alt()\" />`,\n  standalone: true,\n  host: {\n    class: 'h-full p-2',\n    '[class]': \"''\",\n  },\n})\nexport class AppLogo {\n  /** Image source url */\n  src = input('favicon.png');\n\n  /** Image description */\n  alt = input('App Logo');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -352,7 +352,7 @@
         },
         {
             "name": "InputText",
-            "id": "component-InputText-44c780126d91db6fa160179cfe565f2b213b84fcd9ea311d20ee20fb3f88c132fb278add5b8ecc0bc64563a2ceb2ed30b07fb0ea1e3abcc253407db90d1db63b",
+            "id": "component-InputText-ab9bb72c69415fe261926ae11152000948ede3f9865115e9c84b87672f663a0932648482048b62a701550f4647b71d0bc124df05ccfba62458f35c2c19956fe3",
             "file": "libs/material/src/lib/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -378,7 +378,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 33,
+                    "line": 26,
                     "required": false
                 },
                 {
@@ -390,7 +390,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 34,
+                    "line": 25,
                     "required": false
                 }
             ],
@@ -405,7 +405,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 28
+                    "line": 30
                 },
                 {
                     "name": "value",
@@ -416,7 +416,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 28
                 }
             ],
             "methodsClass": [
@@ -453,7 +453,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n  isRequired = input<boolean>(false)\n  label = input<string>(\"Not set\")\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
+            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n  label = input<string>(\"Not set\")\n  isRequired = input<boolean>(false)\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n",
@@ -464,7 +464,7 @@
         },
         {
             "name": "Layout",
-            "id": "component-Layout-b9bca5dae269dfe1df123e5e6c79e60f04e1f3cfcdc3346d59f13d62eaf120a6b4b72b27022ecce3563038f291e0ae0443aa9df778921fea7de262ac0aaebf6d",
+            "id": "component-Layout-eb03ecf1ee08f0060ca25d8f584d3d2db6faf41c0f7f7b7c678980e3e533cf7da28e8de6c895abbf58a2061ebc7bf174d7f0099f9a67fccc6df5f6465b927c29",
             "file": "libs/material/src/lib/layout/layout.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -482,36 +482,7 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "_fullContainer",
-                    "defaultValue": "`\n      !flex !flex-col grow !w-auto\n      !max-w-full !h-full !overflow-hidden\n  `",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "unknown",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 36,
-                    "modifierKind": [
-                        148
-                    ]
-                },
-                {
-                    "name": "_sideNav",
-                    "defaultValue": "'!flex !flex-col !grow h-full !w-fit !rounded-none'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 41,
-                    "modifierKind": [
-                        148
-                    ]
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -521,6 +492,10 @@
             "imports": [
                 {
                     "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "RouterModule",
                     "type": "module"
                 },
                 {
@@ -563,50 +538,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { ProjectionModule, Viewport } from '@vnodes/cdk';\nimport { AppLogo } from '../app-logo/app-logo';\nimport { FlexCol } from '../flex-col/flex-col';\nimport { FlexRow } from '../flex-row/flex-row';\n@Component({\n  selector: 'vn-layout',\n  imports: [\n\n    CommonModule,\n    MatSidenavModule,\n    MatButtonModule,\n    MatIconModule,\n    MatToolbarModule,\n    ProjectionModule,\n    MatDividerModule,\n    AppLogo,\n    Viewport,\n    FlexCol,\n    FlexRow,\n  ],\n  templateUrl: \"./layout.html\",\n  host: {\n    class: \"w-full h-full flex flex-col border-4 border-green-400\"\n  }\n})\nexport class Layout {\n\n\n  readonly _fullContainer = `\n      !flex !flex-col grow !w-auto\n      !max-w-full !h-full !overflow-hidden\n  `;\n\n  readonly _sideNav = '!flex !flex-col !grow h-full !w-fit !rounded-none';\n\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { RouterModule } from '@angular/router';\nimport { ProjectionModule, Viewport } from '@vnodes/cdk';\nimport { AppLogo } from '../app-logo/app-logo';\nimport { FlexCol } from '../flex-col/flex-col';\nimport { FlexRow } from '../flex-row/flex-row';\n\n@Component({\n  selector: 'vn-layout',\n  imports: [\n    CommonModule,\n    RouterModule,\n    MatSidenavModule,\n    MatButtonModule,\n    MatIconModule,\n    MatToolbarModule,\n    ProjectionModule,\n    MatDividerModule,\n    AppLogo,\n    Viewport,\n    FlexCol,\n    FlexRow,\n  ],\n  templateUrl: \"./layout.html\",\n  host: {\n    class: \"w-full h-full flex flex-col border-4 border-green-400\"\n  }\n})\nexport class Layout {\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<mat-sidenav-container #vp=\"viewport\" vnViewport [class]=\"_fullContainer\">\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n    <!-- Sidenav  -->\n    <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class]=\"_sideNav\" [class.!w-full]=\"isXSmall\"\n        [class.!w-96]=\"!isXSmall\">\n        <vn-flex-col>\n            <!-- Logo/toolbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <ng-content select=\"[bmSidenavLogo]\">\n                        <vn-app-logo></vn-app-logo>\n                    </ng-content>\n\n                    <!-- if is handset then show menu.close button -->\n                    @if(isHandset){\n                    <!-- Mobile drawer close button -->\n                    <button matIconButton (click)=\"drawer.close()\">\n                        <mat-icon> close </mat-icon>\n                    </button>\n                    }\n                </vn-flex-row>\n            </mat-toolbar>\n\n            <!-- Menu items -->\n            <vn-flex-col>\n                <!-- Sidenav content  -->\n                <vn-flex-col>\n                    <!-- Sidenav top -->\n                    <ng-content select=\"[bmSidenavTop]\"></ng-content>\n                    <!-- Sidenav bottom -->\n                    <ng-content select=\"[bmSidenavBottom]\"></ng-content>\n\n                    <!--  -->\n                </vn-flex-col>\n            </vn-flex-col>\n        </vn-flex-col>\n    </mat-sidenav>\n\n    <!--  -->\n    <mat-sidenav-content [class]=\"_fullContainer\">\n        <!--  -->\n        <vn-flex-col>\n            <!-- Toolbar  -->\n            <mat-toolbar>\n                <mat-toolbar-row>\n                    <!-- Menu toggle button -->\n                    @if(isHandset){\n\n                    <button matIconButton (click)=\"drawer.toggle()\">\n                        <mat-icon>\n                            {{ drawer.opened ? 'menu_open' : 'menu' }}\n                        </mat-icon>\n                    </button>\n\n                    }\n\n                    <!--  -->\n                    <vn-flex-row>\n                        <!-- Toolbar left -->\n                        <ng-content select=\"[bmToolbarLeft]\"></ng-content>\n                        <!-- Toolbar right -->\n                        <ng-content select=\"[bmToolbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar-row>\n            </mat-toolbar>\n\n            <!-- Content  -->\n            <vn-flex-col>\n                <!-- Content top -->\n                <ng-content select=\"[bmContentTop]\"></ng-content>\n                <!-- Bottom Content  -->\n                <ng-content select=\"[bmContentBottom]\"></ng-content>\n            </vn-flex-col>\n\n            <!-- Statusbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <!-- Statusbar left -->\n                    <ng-content select=\"[bmStatusbarLeft]\"></ng-content>\n                    <!-- Statusbar right -->\n                    <ng-content select=\"[bmStatusbarRight]\"></ng-content>\n                </vn-flex-row>\n            </mat-toolbar>\n            <!--  -->\n        </vn-flex-col>\n        <!--  -->\n    </mat-sidenav-content>\n    <!--  -->\n</mat-sidenav-container>"
-        },
-        {
-            "name": "Material",
-            "id": "component-Material-38dd334cc55246af6f3b25848e9f987adf0f981ff954368578ab8704f7447b50a750ce1b94b80b674b2ca821d02b148657fa2c7133eb6ec2802fa3eee1d4a9b0",
-            "file": "libs/material/src/lib/material/material.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "vn-material",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "./material.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": false,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'vn-material',\n  imports: [],\n  templateUrl: './material.html',\n  styleUrl: './material.css',\n})\nexport class Material { }\n",
-            "styleUrl": "./material.css",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<p>Material works!</p>\n"
+            "templateData": "@let fullStyle =\"!flex !flex-col grow !w-auto !max-w-full !h-full !overflow-hidden\";\n@let sidenavStyle = \"!flex !flex-col !grow h-full !w-fit !rounded-none\";\n\n<mat-sidenav-container #vp=\"viewport\" vnViewport [class]=\"fullStyle\">\n\n\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n    <!-- Sidenav  -->\n    <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class]=\"sidenavStyle\" [class.!w-full]=\"isXSmall\"\n        [class.!w-96]=\"!isXSmall\">\n        <vn-flex-col>\n            <!-- Logo/toolbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <ng-content select=\"[vnSidenavLogo]\">\n                        <vn-app-logo></vn-app-logo>\n                    </ng-content>\n\n                    <!-- if is handset then show menu.close button -->\n                    @if(isHandset){\n                    <vn-flex-col></vn-flex-col>\n                    <!-- Mobile drawer close button -->\n                    <button matIconButton (click)=\"drawer.close()\">\n                        <mat-icon> close </mat-icon>\n                    </button>\n                    }\n                </vn-flex-row>\n            </mat-toolbar>\n\n            <!-- Menu items -->\n            <vn-flex-col>\n                <!-- Sidenav content  -->\n                <vn-flex-col>\n                    <!-- Sidenav top -->\n                    <ng-content select=\"[vnSidenavTop]\"></ng-content>\n                    <!-- Sidenav bottom -->\n                    <ng-content select=\"[vnSidenavBottom]\"></ng-content>\n\n                    <!--  -->\n                </vn-flex-col>\n            </vn-flex-col>\n        </vn-flex-col>\n    </mat-sidenav>\n\n    <!--  -->\n    <mat-sidenav-content [class]=\"fullStyle\">\n        <!--  -->\n        <vn-flex-col>\n            <!-- Toolbar  -->\n            <mat-toolbar>\n                <mat-toolbar-row>\n                    <!-- Menu toggle button -->\n                    @if(isHandset){\n\n                    <button matIconButton (click)=\"drawer.toggle()\">\n                        <mat-icon>\n                            {{ drawer.opened ? 'menu_open' : 'menu' }}\n                        </mat-icon>\n                    </button>\n\n                    }\n\n\n\n                    <!--  -->\n                    <vn-flex-row>\n                        <!-- Toolbar left -->\n                        <ng-content select=\"[vnToolbarLeft]\"></ng-content>\n                        <vn-flex-row></vn-flex-row>\n                        <!-- Toolbar right -->\n                        <ng-content select=\"[vnToolbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar-row>\n            </mat-toolbar>\n\n            <!-- Content  -->\n            <vn-flex-col>\n                <!-- Content top -->\n                <ng-content select=\"[vnContentTop]\"></ng-content>\n                <!-- Bottom Content  -->\n                <ng-content select=\"[vnContentBottom]\"></ng-content>\n            </vn-flex-col>\n\n            <!-- Statusbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <!-- Statusbar left -->\n                    <ng-content select=\"[vnStatusbarLeft]\"></ng-content>\n                    <!-- Statusbar right -->\n                    <ng-content select=\"[vnStatusbarRight]\"></ng-content>\n                </vn-flex-row>\n            </mat-toolbar>\n            <!--  -->\n        </vn-flex-col>\n        <!--  -->\n    </mat-sidenav-content>\n    <!--  -->\n</mat-sidenav-container>"
         }
     ],
     "modules": [],
@@ -617,7 +554,7 @@
         "children": []
     },
     "coverage": {
-        "count": 33,
+        "count": 38,
         "status": "medium",
         "files": [
             {
@@ -679,15 +616,6 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "Layout",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/lib/material/material.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "Material",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

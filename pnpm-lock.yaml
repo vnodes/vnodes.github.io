@@ -23,9 +23,6 @@ importers:
       '@angular/forms':
         specifier: ~21.1.0
         version: 21.1.6(@angular/common@21.1.6(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2))(@angular/platform-browser@21.1.6(@angular/common@21.1.6(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2)))(rxjs@7.8.2)
-      '@angular/localize':
-        specifier: ^21.2.1
-        version: 21.2.1(@angular/compiler-cli@21.1.6(@angular/compiler@21.1.6)(typescript@5.9.3))(@angular/compiler@21.1.6)
       '@angular/material':
         specifier: ^21.2.0
         version: 21.2.0(3d186533800461c6025fe439014ab1a7)
@@ -44,6 +41,12 @@ importers:
       '@fontsource-variable/roboto-flex':
         specifier: ^5.2.8
         version: 5.2.8
+      '@jsverse/transloco':
+        specifier: ^8.2.1
+        version: 8.2.1(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2))(rxjs@7.8.2)(typescript@5.9.3)
+      '@jsverse/transloco-utils':
+        specifier: ^8.2.1
+        version: 8.2.1(typescript@5.9.3)
       material-symbols:
         specifier: ^0.40.2
         version: 0.40.2
@@ -2000,6 +2003,19 @@ packages:
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: '2'
+
+  '@jsverse/transloco-utils@8.2.1':
+    resolution: {integrity: sha512-sAKJQuGgAYRYwndM8X1xVbwOrjENBxKxOwhXE7gFnS8fWUEwBGMswp3wbAOS5jZlLDhyaReesU16ToXLegBCjg==}
+    engines: {node: '>=18'}
+
+  '@jsverse/transloco@8.2.1':
+    resolution: {integrity: sha512-uuapT1vNi/P9wqklO2VY/sIj8HPVQJ1h+IJFhPbiQvk1FP/vgn2LLwGz/iIcet2bAMJVKKxO8FXytdrwRXXyvg==}
+    peerDependencies:
+      '@angular/core': '>=16.0.0'
+      rxjs: '>=6.0.0'
+
+  '@jsverse/utils@1.0.0-beta.5':
+    resolution: {integrity: sha512-z7IdlV6BdSeF3Veii8Yyk64KuyTjNIQnFaW5PAhmDx0wN29lB2BFp8WO6+tJPLPjtlz2yKeNrjkp1XqnMPaeHA==}
 
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
@@ -9805,6 +9821,7 @@ snapshots:
       yargs: 18.0.0
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@angular/material@21.2.0(3d186533800461c6025fe439014ab1a7)':
     dependencies:
@@ -11863,6 +11880,25 @@ snapshots:
       '@jsonjoy.com/buffers': 17.67.0(tslib@2.8.1)
       '@jsonjoy.com/codegen': 17.67.0(tslib@2.8.1)
       tslib: 2.8.1
+
+  '@jsverse/transloco-utils@8.2.1(typescript@5.9.3)':
+    dependencies:
+      cosmiconfig: 8.3.6(typescript@5.9.3)
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - typescript
+
+  '@jsverse/transloco@8.2.1(@angular/core@21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2))(rxjs@7.8.2)(typescript@5.9.3)':
+    dependencies:
+      '@angular/core': 21.1.6(@angular/compiler@21.1.6)(rxjs@7.8.2)
+      '@jsverse/transloco-utils': 8.2.1(typescript@5.9.3)
+      '@jsverse/utils': 1.0.0-beta.5
+      rxjs: 7.8.2
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - typescript
+
+  '@jsverse/utils@1.0.0-beta.5': {}
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
@@ -13955,19 +13991,23 @@ snapshots:
       '@types/babel__generator': 7.27.0
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.28.0
+    optional: true
 
   '@types/babel__generator@7.27.0':
     dependencies:
       '@babel/types': 7.29.0
+    optional: true
 
   '@types/babel__template@7.4.4':
     dependencies:
       '@babel/parser': 7.29.0
       '@babel/types': 7.29.0
+    optional: true
 
   '@types/babel__traverse@7.28.0':
     dependencies:
       '@babel/types': 7.29.0
+    optional: true
 
   '@types/body-parser@1.19.6':
     dependencies:

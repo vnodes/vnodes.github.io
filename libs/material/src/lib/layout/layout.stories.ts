@@ -13,6 +13,51 @@ export const Primary: Story = {
   args: {},
 };
 
+
+export const Inventory: Story = {
+  render() {
+    return {
+      template: `
+      <vn-layout>
+      // 
+        <ng-container  vnToolbarLeft> 
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+        </ng-container>
+
+        <ng-container  vnToolbarRight> 
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+          <button matIconButton> <mat-icon>home</mat-icon></button>
+        </ng-container>
+
+        <ng-container  vnSidenavTop> 
+
+        <mat-nav-list>
+
+          <h1>Product</h1>
+          <h2>Product</h2>
+          <h3>Product</h3>
+          <a mat-list-item  routerLink="/" routerLinkActive="active-class" 
+   #rla="routerLinkActive"> 
+            <span matListItemIcon><mat-icon [class.fill]="rla.isActive">home</mat-icon></span>
+            <span matListItemTitle>List item 1</span>
+          </a>
+          <a mat-list-item  routerLink="/" routerLinkActive="active-class" 
+   #rla="routerLinkActive"> 
+            <span matListItemIcon><mat-icon [class.fill]="rla.isActive">home</mat-icon></span>
+            <span matListItemTitle>List item 1</span>
+          </a>
+        </mat-nav-list>
+          
+        </ng-container>
+
+      </vn-layout>
+      `
+    }
+  }
+}
 export const Heading: Story = {
   args: {},
   play: async ({ canvas }) => {

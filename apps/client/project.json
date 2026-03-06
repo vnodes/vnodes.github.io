@@ -4,34 +4,6 @@
   "projectType": "application",
   "prefix": "vn",
   "sourceRoot": "apps/client/src",
-  "i18n": {
-    "sourceLocale": {
-      "code": "en",
-      "baseHref": ""
-    },
-    "locales": {
-      "es": {
-        "translation": "apps/client/locales/message.es.xlf",
-        "baseHref": ""
-      },
-      "fr": {
-        "translation": "apps/client/locales/message.fr.xlf",
-        "baseHref": ""
-      },
-      "ru": {
-        "translation": "apps/client/locales/message.ru.xlf",
-        "baseHref": ""
-      },
-      "tr": {
-        "translation": "apps/client/locales/message.tr.xlf",
-        "baseHref": ""
-      },
-      "za": {
-        "translation": "apps/client/locales/message.za.xlf",
-        "baseHref": ""
-      }
-    }
-  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -41,16 +13,11 @@
       "options": {
         "outputPath": "public/apps/client",
         "browser": "apps/client/src/main.ts",
-        "polyfills": [
-          "@angular/localize/init"
-        ],
         "tsConfig": "apps/client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "outputHashing": "all",
         "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/client/public"
-          }
+          "apps/client/assets"
         ],
         "styles": [
           "apps/client/src/styles.scss"
@@ -70,8 +37,7 @@
               "maximumError": "8kb"
             }
           ],
-          "serviceWorker": "apps/client/ngsw-config.json",
-          "localize": true
+          "serviceWorker": "apps/client/ngsw-config.json"
         },
         "development": {
           "optimization": false,
@@ -94,14 +60,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "client:build",
-        "outputPath": "apps/client/locales",
-        "outFile": "message.xlf"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },
@@ -115,7 +73,7 @@
       "options": {
         "buildTarget": "client:build",
         "port": 4200,
-        "staticFilePath": "dist/apps/client/browser",
+        "staticFilePath": "public/apps/client",
         "spa": true
       }
     }
