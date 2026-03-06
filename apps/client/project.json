@@ -17,7 +17,11 @@
         "inlineStyleLanguage": "scss",
         "outputHashing": "all",
         "assets": [
-          "apps/client/assets"
+          {
+            "glob": "**/*",
+            "input": "apps/client/assets",
+            "output": "/"
+          }
         ],
         "styles": [
           "apps/client/src/styles.scss"
