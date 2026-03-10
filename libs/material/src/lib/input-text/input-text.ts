@@ -1,43 +1,50 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { InputCommon } from '../input-common/input-common';
+import { InputCommonModule } from '../input-common/input-common.module';
+
+
+// <!-- 
+
+//       < div > badInput: { { inputRef.validity.badInput } } </div>
+//   < div > customError: { { inputRef.validity.customError } } </div>
+//     < div > patternMismatch: { { inputRef.validity.patternMismatch } } </div>
+//       < div > rangeOverflow: { { inputRef.validity.rangeOverflow } } </div>
+//         < div > rangeUnderflow: { { inputRef.validity.rangeUnderflow } } </div>
+//           < div > stepMismatch: { { inputRef.validity.stepMismatch } } </div>
+//             < div > tooLong: { { inputRef.validity.tooLong } } </div>
+//               < div > tooShort: { { inputRef.validity.tooShort } } </div>
+//                 < div > typeMismatch: { { inputRef.validity.typeMismatch } } </div>
+//                   < div > valid: { { inputRef.validity.valid } } </div>
+//                     < div > valueMissing: { { inputRef.validity.valueMissing } } </div> -->
 
 
 @Component({
   selector: 'vn-input-text',
   imports: [
-    FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
+    InputCommonModule
   ],
-  template: `
-    <mat-form-field>  
-      <mat-label>{{label()}}</mat-label>
-      <input type="text" matInput [required]="isRequired()" [(ngModel)]="value">
-    </mat-form-field>
-  `,
+  templateUrl: './input-text.html',
   host: {
-    class: "w-full"
+    class: "w-full!"
   }
 })
-export class InputText implements OnInit {
-  label = input<string>("Not set")
-  isRequired = input<boolean>(false)
+export class InputText extends InputCommon<string> {
 
-  value = signal('')
+  minLength = input<number>(0);
+  maxLength = input<number>(1000)
+
+
 
   onValueChange = outputFromObservable(toObservable(this.value).pipe(
-    debounceTime(300),
-    distinctUntilChanged()
+    debounceTime(1000),
+    distinctUntilChanged(),
+    tap(value => {
+      console.log("Change: ", value)
+    })
   ))
 
 
-  ngOnInit(): void {
-    this.onValueChange.subscribe(v => {
-      console.log("Change: ", v)
-    })
-  }
+
 }

@@ -1,0 +1,36 @@
+@let __errors = errors();
+@let __prefixText =prefixText();
+@let __suffixText =suffixText();
+@let __prefixIcon =prefixIcon();
+@let __suffixIcon =suffixIcon();
+
+<mat-form-field class="w-full">
+    <mat-label>{{label()}}
+        <vn-text-input-indicator [value]="value()" [minLength]="minLength()" [maxLength]="maxLength()"
+            [required]="required()">
+        </vn-text-input-indicator>
+    </mat-label>
+
+    <input #inputRef matInput type="text" [minlength]="minLength()" [maxlength]="maxLength()" [required]="required()"
+        [(ngModel)]="value">
+
+    @if(__prefixIcon) { <mat-icon matIconPrefix>{{__prefixIcon}}</mat-icon>}
+    @if(__suffixIcon) { <mat-icon matIconSuffix>{{__suffixIcon}}</mat-icon>}
+
+    @if(__prefixText){ <span matTextPrefix>{{__prefixText}}</span>}
+    @if(__suffixText){ <span matTextSuffix>{{__suffixText}}</span>}
+
+
+
+    @if(inputRef.validity.valid===false && __errors){
+
+    @for(error of __errors; track error){
+
+    <mat-error>{{error}}</mat-error>
+
+    }
+
+    }
+    <!--  -->
+    @if(hint()){ <mat-hint>{{hint()}}</mat-hint> }
+</mat-form-field>

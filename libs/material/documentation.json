@@ -397,8 +397,168 @@
             "extends": []
         },
         {
+            "name": "InputCommon",
+            "id": "component-InputCommon-c4f17ace4398b889fe597de3ef5824b5f5c93eac54e61625813f43d856363c36e56b2597e440b5d41980b7f535ae0c32bb2d4d506fbbee0ce53521dd602d94c9",
+            "file": "libs/material/src/lib/input-common/input-common.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-input-common",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<span>Abstract component</span>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "errors",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string[]",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 43,
+                    "required": false
+                },
+                {
+                    "name": "hint",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 36,
+                    "required": false
+                },
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 35,
+                    "required": false
+                },
+                {
+                    "name": "prefixIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 38,
+                    "required": false
+                },
+                {
+                    "name": "prefixText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 37,
+                    "required": false
+                },
+                {
+                    "name": "required",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "required": false
+                },
+                {
+                    "name": "suffixIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "required": false
+                },
+                {
+                    "name": "suffixText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "required": false
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 34,
+                    "required": false
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "required": false
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "required": false
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "_inputCommonModules",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\nimport { Component, input, model, NgModule } from \"@angular/core\";\nimport { FormsModule, ReactiveFormsModule } from \"@angular/forms\";\nimport { MatButtonModule } from \"@angular/material/button\";\nimport { MatFormFieldModule } from \"@angular/material/form-field\";\nimport { MatIconModule } from \"@angular/material/icon\";\nimport { MatInputModule } from \"@angular/material/input\";\n\n\n\n\nconst _inputCommonModules = [\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]\n\n@NgModule({\n    imports: [_inputCommonModules],\n    exports: [_inputCommonModules]\n})\nexport class InputCommonModule { }\n\n@Component({\n    imports: _inputCommonModules,\n    selector: \"vn-input-common\",\n    template: '<span>Abstract component</span>'\n})\nexport class InputCommon {\n    type = input<string>('text')\n    label = input()\n    hint = input()\n    prefixText = input();\n    prefixIcon = input();\n    suffixText = input();\n    suffixIcon = input();\n    required = input(false)\n    value = model<string>('')\n    errors = input<string[]>()\n}",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
             "name": "InputText",
-            "id": "component-InputText-4364e697a91d43394ce7b31133eff526e08e880a374e655229c3619fe8dc25ef35d5744c11685937a14b34503f301a77a072ec6a64aa67ea76adfe9e93d398d0",
+            "id": "component-InputText-0f02ae8bcd443c928857b000e274ca3c40543592c548d1501c1e13217ec205593038c1ae11247b9f0358398d91fc5219847f089573ffdb622caf65029d453628",
             "file": "libs/material/src/lib/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -409,37 +569,165 @@
             "selector": "vn-input-text",
             "styleUrls": [],
             "styles": [],
-            "template": "<mat-form-field>\n  <mat-label>{{label()}}</mat-label>\n  <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n</mat-form-field>\n",
+            "template": "\n@let __errors = errors();\n@let __prefixText =prefixText();\n@let __suffixText =suffixText();\n@let __prefixIcon =prefixIcon();\n@let __suffixIcon =suffixIcon();\n\n<mat-form-field >\n  <mat-label>{{label()}} </mat-label>\n  <input #inputRef matInput [type]=\"type()\"  [required]=\"required()\" [(ngModel)]=\"value\">\n\n\n @if(__prefixIcon) {  <mat-icon matIconPrefix>{{__prefixIcon}}</mat-icon>}\n @if(__suffixIcon) {  <mat-icon matIconSuffix>{{__suffixIcon}}</mat-icon>}\n\n  @if(__prefixText){  <span matTextPrefix>{{__prefixText}}</span>}\n  @if(__suffixText){  <span matTextSuffix>{{__suffixText}}</span>}\n\n\n\n  @if(!inputRef.validity.valid){\n    @if(__errors){\n      @for(error of __errors; track error){\n        <mat-error>{{error}}</mat-error>\n      }\n    }\n  }\n  <!--  -->\n  @if(hint()){\n    <mat-hint>{{hint()}}</mat-hint>\n  }\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
                 {
-                    "name": "isRequired",
-                    "defaultValue": "false",
+                    "name": "errors",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "boolean",
+                    "type": "string[]",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 28,
-                    "required": false
+                    "line": 43,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "hint",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 36,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
                 },
                 {
                     "name": "label",
-                    "defaultValue": "\"Not set\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 35,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "prefixIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 38,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "prefixText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 37,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "required",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "suffixIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "suffixText",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 27,
-                    "required": false
+                    "line": 34,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "required": false,
+                    "inheritance": {
+                        "file": "InputCommon"
+                    }
+                }
+            ],
             "propertiesClass": [
                 {
                     "name": "onValueChange",
@@ -450,32 +738,10 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 32
-                },
-                {
-                    "name": "value",
-                    "defaultValue": "signal('')",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "unknown",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 30
+                    "line": 55
                 }
             ],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 38,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -483,28 +749,19 @@
             "standalone": false,
             "imports": [
                 {
-                    "name": "FormsModule",
-                    "type": "module"
-                },
-                {
-                    "name": "MatInputModule",
-                    "type": "module"
-                },
-                {
-                    "name": "MatFormFieldModule",
+                    "name": "InputCommonModule",
                     "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  host: {\n    class: \"w-full\"\n  }\n})\nexport class InputText implements OnInit {\n  label = input<string>(\"Not set\")\n  isRequired = input<boolean>(false)\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\nimport { InputCommon } from '../input-common/input-common';\nimport { InputCommonModule } from '../input-common/input-common.module';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    InputCommonModule\n  ],\n  template: `\n\n    @let __errors = errors();\n    @let __prefixText =prefixText();\n    @let __suffixText =suffixText();\n    @let __prefixIcon =prefixIcon();\n    @let __suffixIcon =suffixIcon();\n\n    <mat-form-field >  \n      <mat-label>{{label()}} </mat-label>\n      <input #inputRef matInput [type]=\"type()\"  [required]=\"required()\" [(ngModel)]=\"value\">\n\n\n     @if(__prefixIcon) {  <mat-icon matIconPrefix>{{__prefixIcon}}</mat-icon>}\n     @if(__suffixIcon) {  <mat-icon matIconSuffix>{{__suffixIcon}}</mat-icon>}\n\n      @if(__prefixText){  <span matTextPrefix>{{__prefixText}}</span>}\n      @if(__suffixText){  <span matTextSuffix>{{__suffixText}}</span>}\n\n      \n\n      @if(!inputRef.validity.valid){ \n        @if(__errors){ \n          @for(error of __errors; track error){ \n            <mat-error>{{error}}</mat-error>\n          }\n        }\n      }\n      <!--  -->\n      @if(hint()){ \n        <mat-hint>{{hint()}}</mat-hint>\n      }\n      </mat-form-field>\n  `,\n  host: {\n    class: \"w-full\"\n  }\n})\nexport class InputText extends InputCommon {\n\n\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "extends": [],
-            "implements": [
-                "OnInit"
+            "extends": [
+                "InputCommon"
             ]
         },
         {
@@ -588,19 +845,147 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<!-- @let hiddenStyle = \"position:fixed !important; left: 10000px !important;\";\n<span #sidenavContainerStore class=\"flex! flex-col! grow w-auto! max-w-full! h-full! overflow-hidden!\"\n    [style]=\"hiddenStyle\"></span>\n\n<span #sidenavStore class=\"flex! flex!-col grow! h-full! w-fit! rounded-none!\" [style]=\"hiddenStyle\">\n</span> -->\n\n\n<vn-flex-col #vp=\"viewport\" vnViewport>\n\n\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n\n    <!-- App toolbar  -->\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <!-- Menu toggle button -->\n            <vn-flex-row [flexGap]=\"true\">\n                <button matIconButton (click)=\"drawer.toggle()\">\n                    @let menuIcon = drawer.opened ? 'menu_open' : 'menu';\n                    <mat-icon>\n                        {{ menuIcon }}\n                    </mat-icon>\n                </button>\n                <!--  -->\n                <!-- Toolbar left -->\n                <ng-content select=\"[vnToolbarLeft]\"></ng-content>\n\n                <vn-flex-row></vn-flex-row>\n                <!-- Toolbar right -->\n                <ng-content select=\"[vnToolbarRight]\"></ng-content>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n    <!-- Sidenav container  -->\n    <mat-sidenav-container class=\"w-full flex grow\">\n\n        <!-- Sidenav  -->\n        <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class.!w-full]=\"isXSmall\" [class.!w-96]=\"!isXSmall\">\n            <vn-flex-col>\n                <!-- Logo/toolbar -->\n                <mat-toolbar>\n                    <vn-flex-row>\n                        <ng-content select=\"[vnSidenavLogo]\">\n                            <vn-app-logo></vn-app-logo>\n                        </ng-content>\n\n                        <!-- if is handset then show menu.close button -->\n                        @if(isHandset){\n                        <vn-flex-col></vn-flex-col>\n                        <!-- Mobile drawer close button -->\n                        <button matIconButton (click)=\"drawer.close()\">\n                            <mat-icon> close </mat-icon>\n                        </button>\n                        }\n                    </vn-flex-row>\n                </mat-toolbar>\n\n                <!-- Menu items -->\n                <vn-flex-col>\n                    <!-- Sidenav content  -->\n                    <vn-flex-col (click)=\"isHandset && drawer.close()\">\n                        <!-- Sidenav top -->\n                        <ng-content select=\"[vnSidenavTop]\"></ng-content>\n                        <!-- Sidenav bottom -->\n                        <ng-content select=\"[vnSidenavBottom]\"></ng-content>\n                        <!--  -->\n                    </vn-flex-col>\n                </vn-flex-col>\n            </vn-flex-col>\n        </mat-sidenav>\n\n\n        <!--  -->\n        <mat-sidenav-content>\n\n            <!-- Main content  -->\n            <vn-flex-col>\n                <!-- Content  -->\n                <vn-flex-col>\n                    <!-- Content top -->\n                    <ng-content select=\"[vnContentTop]\"></ng-content>\n                    <!-- Bottom Content  -->\n                    <ng-content select=\"[vnContentBottom]\"></ng-content>\n                </vn-flex-col>\n\n                <!-- Statusbar -->\n                <mat-toolbar>\n                    <vn-flex-row>\n                        <!-- Statusbar left -->\n                        <ng-content select=\"[vnStatusbarLeft]\"></ng-content>\n                        <!-- Statusbar right -->\n                        <ng-content select=\"[vnStatusbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar>\n                <!--  -->\n            </vn-flex-col>\n            <!--  -->\n        </mat-sidenav-content>\n        <!--  -->\n    </mat-sidenav-container>\n\n\n\n    <vn-flex-row></vn-flex-row>\n    <mat-toolbar>\n\n        <mat-toolbar-row>\n\n            <vn-flex-row>\n                LEft\n            </vn-flex-row>\n            <vn-flex-row></vn-flex-row>\n            <vn-flex-row [justifyEnd]=\"true\" [flexGap]=\"true\">\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n</vn-flex-col>"
+            "templateData": "<vn-flex-col #vp=\"viewport\" vnViewport>\n\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n\n    <!-- App toolbar  -->\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <!-- Menu toggle button -->\n            <vn-flex-row>\n                <button matIconButton (click)=\"drawer.toggle()\">\n                    @let menuIcon = drawer.opened ? 'menu_open' : 'menu';\n                    <mat-icon>\n                        {{ menuIcon }}\n                    </mat-icon>\n                </button>\n\n                <!--  -->\n                <!-- Toolbar left -->\n                <ng-content select=\"[vnToolbarLeft]\"></ng-content>\n\n                <vn-flex-row></vn-flex-row>\n                <!-- Toolbar right -->\n                <ng-content select=\"[vnToolbarRight]\"></ng-content>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n    <!-- Sidenav container  -->\n    <mat-sidenav-container class=\"w-full flex grow\">\n\n        <!-- Sidenav  -->\n        <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class.!w-full]=\"isXSmall\" [class.!w-96]=\"!isXSmall\">\n            <vn-flex-col>\n                <!-- Logo/toolbar -->\n                <mat-toolbar>\n                    <vn-flex-row>\n                        <ng-content select=\"[vnSidenavLogo]\">\n                            <vn-app-logo></vn-app-logo>\n                        </ng-content>\n\n                        <!-- if is handset then show menu.close button -->\n                        @if(isHandset){\n                        <vn-flex-col></vn-flex-col>\n                        <!-- Mobile drawer close button -->\n                        <button matIconButton (click)=\"drawer.close()\">\n                            <mat-icon> close </mat-icon>\n                        </button>\n                        }\n                    </vn-flex-row>\n                </mat-toolbar>\n\n                <!-- Menu items -->\n                <vn-flex-col>\n                    <!-- Sidenav content  -->\n                    <vn-flex-col (click)=\"isHandset && drawer.close()\">\n                        <!-- Sidenav top -->\n                        <ng-content select=\"[vnSidenavTop]\"></ng-content>\n                        <!-- Sidenav bottom -->\n                        <ng-content select=\"[vnSidenavBottom]\"></ng-content>\n                        <!--  -->\n                    </vn-flex-col>\n                </vn-flex-col>\n            </vn-flex-col>\n        </mat-sidenav>\n\n\n        <!--  -->\n        <mat-sidenav-content>\n\n            <!-- Main content  -->\n            <vn-flex-col>\n                <!-- Content  -->\n                <vn-flex-col>\n                    <!-- Content top -->\n                    <ng-content select=\"[vnContentTop]\"></ng-content>\n                    <!-- Bottom Content  -->\n                    <ng-content select=\"[vnContentBottom]\"></ng-content>\n                </vn-flex-col>\n\n\n                <!--  -->\n            </vn-flex-col>\n            <!--  -->\n        </mat-sidenav-content>\n        <!--  -->\n    </mat-sidenav-container>\n\n    <!-- Statusbar -->\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <vn-flex-row>\n                <!-- Statusbar left -->\n                <ng-content select=\"[vnStatusbarLeft]\"></ng-content>\n                <vn-flex-row></vn-flex-row>\n                <!-- Statusbar right -->\n                <ng-content select=\"[vnStatusbarRight]\"></ng-content>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n</vn-flex-col>"
         }
     ],
-    "modules": [],
-    "miscellaneous": [],
+    "modules": [
+        {
+            "name": "InputCommonModule",
+            "id": "module-InputCommonModule-e8fdb42e441310d8d1b30ac5ddd8d86e87fac8f6b75d634a1b2aae4b417c13387787d4d20be7bf9dbdccd483c8d9f82814f874b1bb3238ea88d4190e85bec8c3",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "libs/material/src/lib/input-common/input-common.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\nimport { NgModule } from \"@angular/core\";\nimport { FormsModule, ReactiveFormsModule } from \"@angular/forms\";\nimport { MatButtonModule } from \"@angular/material/button\";\nimport { MatFormFieldModule } from \"@angular/material/form-field\";\nimport { MatIconModule } from \"@angular/material/icon\";\nimport { MatInputModule } from \"@angular/material/input\";\n\n\nconst modules = [\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]\n\n\n@NgModule({\n    imports: modules,\n    exports: modules\n})\nexport class InputCommonModule { }",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "InputCommonModule",
+            "id": "module-InputCommonModule-c4f17ace4398b889fe597de3ef5824b5f5c93eac54e61625813f43d856363c36e56b2597e440b5d41980b7f535ae0c32bb2d4d506fbbee0ce53521dd602d94c9-1",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "libs/material/src/lib/input-common/input-common.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from \"@angular/common\";\nimport { Component, input, model, NgModule } from \"@angular/core\";\nimport { FormsModule, ReactiveFormsModule } from \"@angular/forms\";\nimport { MatButtonModule } from \"@angular/material/button\";\nimport { MatFormFieldModule } from \"@angular/material/form-field\";\nimport { MatIconModule } from \"@angular/material/icon\";\nimport { MatInputModule } from \"@angular/material/input\";\n\n\n\n\nconst _inputCommonModules = [\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]\n\n@NgModule({\n    imports: [_inputCommonModules],\n    exports: [_inputCommonModules]\n})\nexport class InputCommonModule { }\n\n@Component({\n    imports: _inputCommonModules,\n    selector: \"vn-input-common\",\n    template: '<span>Abstract component</span>'\n})\nexport class InputCommon {\n    type = input<string>('text')\n    label = input()\n    hint = input()\n    prefixText = input();\n    prefixIcon = input();\n    suffixText = input();\n    suffixIcon = input();\n    required = input(false)\n    value = model<string>('')\n    errors = input<string[]>()\n}",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "_inputCommonModules",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/input-common/input-common.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]"
+            },
+            {
+                "name": "modules",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/lib/input-common/input-common.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "libs/material/src/lib/input-common/input-common.ts": [
+                {
+                    "name": "_inputCommonModules",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/input-common/input-common.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]"
+                }
+            ],
+            "libs/material/src/lib/input-common/input-common.module.ts": [
+                {
+                    "name": "modules",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/lib/input-common/input-common.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n    CommonModule,\n    FormsModule,\n    ReactiveFormsModule,\n    MatFormFieldModule,\n    MatInputModule,\n    MatIconModule,\n    MatButtonModule,\n]"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
     "routes": {
         "name": "<root>",
         "kind": "module",
         "children": []
     },
     "coverage": {
-        "count": 26,
-        "status": "medium",
+        "count": 18,
+        "status": "low",
         "files": [
             {
                 "filePath": "libs/material/src/lib/app-logo/app-logo.ts",
@@ -648,12 +1033,41 @@
                 "status": "low"
             },
             {
+                "filePath": "libs/material/src/lib/input-common/input-common.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "modules",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/input-common/input-common.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InputCommon",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/lib/input-common/input-common.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "_inputCommonModules",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "libs/material/src/lib/input-text/input-text.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "InputText",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/13",
                 "status": "low"
             },
             {
