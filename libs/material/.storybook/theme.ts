@@ -4,8 +4,8 @@ import { create } from 'storybook/theming';
 
 export default create({
   base: 'light',
-  brandTitle: '@beemood/material | Angular Material Library',
-  brandUrl: 'https://beemood.github.io/assets/favicon.png',
-  brandImage: './favicon.png',
+  brandTitle: '@vnodes/material | Angular Material Library',
+  brandUrl: 'https://vnodes.github.io/favicon.ico',
+  brandImage: './favicon.ico',
   brandTarget: '_self',
 });

@@ -9,7 +9,7 @@
     "components": [
         {
             "name": "AppLogo",
-            "id": "component-AppLogo-5dd2b506cf73f40228d0adbcecc31619d6ce31dcc192fe5e11c73a811f507201aeb450fe4bbf4fb6311c42549c86cfd0de788a4db330758d03ee2ef5bfad6ae7",
+            "id": "component-AppLogo-9110e075c78ed32189b04a6e32e57523f7f8fef0e84c0715e57933cc152ccab77b1134d5c193c9514ce2116915f745d2dd4c95c8e129b0661b64dfb5aaac8d26",
             "file": "libs/material/src/lib/app-logo/app-logo.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -39,7 +39,7 @@
                 },
                 {
                     "name": "src",
-                    "defaultValue": "'favicon.png'",
+                    "defaultValue": "'favicon.ico'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "indexKey": "",
@@ -66,7 +66,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\nimport { Image } from '../image/image';\n\n@Component({\n  selector: 'vn-app-logo',\n  imports: [Image],\n  template: `<vn-image [src]=\"src()\" [alt]=\"alt()\" />`,\n  standalone: true,\n  host: {\n    class: 'h-full p-2',\n    '[class]': \"''\",\n  },\n})\nexport class AppLogo {\n  /** Image source url */\n  src = input('favicon.png');\n\n  /** Image description */\n  alt = input('App Logo');\n}\n",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { Image } from '../image/image';\n\n@Component({\n  selector: 'vn-app-logo',\n  imports: [Image],\n  template: `<vn-image [src]=\"src()\" [alt]=\"alt()\" />`,\n  standalone: true,\n  host: {\n    class: 'h-full p-2',\n    '[class]': \"''\",\n  },\n})\nexport class AppLogo {\n  /** Image source url */\n  src = input('favicon.ico');\n\n  /** Image description */\n  alt = input('App Logo');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -74,7 +74,7 @@
         },
         {
             "name": "Box",
-            "id": "component-Box-ab311bf94ef66702aee7b6b7ad9d531e0f2d9802e3136ce72c366a4c8a1331adb1e8ebdd44e50ebf9ef815336026dc523a5ef499b35d900b6eed2e075d9fbcf0",
+            "id": "component-Box-056cd0b9ea0c184c75b6c0ecdc6160c3c286c70ea003a76326a839e296a06af7493caebca469728e2bbc4c03aeeca4d0fd00f9e3a25b85f8e61146762f56a779",
             "file": "libs/material/src/lib/box/box.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -84,7 +84,7 @@
             "selector": "vn-box",
             "styleUrls": [],
             "styles": [],
-            "template": "<div\n  class=\"flex flex-col\"\n  [style.height]=\"computedHeight()\"\n  [style.width]=\"computedWidth()\"\n  [title]=\"title()\"\n  [style.aspectRatio]=\"computedRatio()\"\n>\n  <ng-content>\n    <p>No Content</p>\n  </ng-content>\n</div>\n",
+            "template": "<div\n  class=\"flex flex-col\"\n  [style.height]=\"computedHeight()\"\n  [style.width]=\"computedWidth()\"\n  [title]=\"title()\"\n  [style.aspectRatio]=\"computedRatio()\"\n>\n  <ng-content>\n    <p> No Content</p>\n  </ng-content>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -97,7 +97,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 24,
+                    "line": 23,
                     "required": false
                 },
                 {
@@ -108,7 +108,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 21,
                     "required": false
                 },
                 {
@@ -119,7 +119,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 39,
+                    "line": 38,
                     "required": false
                 },
                 {
@@ -130,7 +130,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 25,
+                    "line": 24,
                     "required": false
                 }
             ],
@@ -145,7 +145,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 30
                 },
                 {
                     "name": "computedRatio",
@@ -156,7 +156,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 35
+                    "line": 34
                 },
                 {
                     "name": "computedWidth",
@@ -167,7 +167,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 26
                 },
                 {
                     "name": "title",
@@ -178,7 +178,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 41
+                    "line": 40
                 }
             ],
             "methodsClass": [],
@@ -191,7 +191,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-box',\n  imports: [],\n  standalone: true,\n  template: `\n    <div\n      class=\"flex flex-col\"\n      [style.height]=\"computedHeight()\"\n      [style.width]=\"computedWidth()\"\n      [title]=\"title()\"\n      [style.aspectRatio]=\"computedRatio()\"\n    >\n      <ng-content>\n        <p>No Content</p>\n      </ng-content>\n    </div>\n  `,\n})\nexport class Box {\n  size = input(0);\n\n  heightRatio = input(1);\n  widthRatio = input(1);\n\n  computedWidth = computed(() => {\n    return this.size() * this.widthRatio() + this.unit();\n  });\n\n  computedHeight = computed(() => {\n    return this.size() * this.heightRatio() + this.unit();\n  });\n\n  computedRatio = computed(() => {\n    return this.heightRatio() + '/' + this.widthRatio();\n  });\n\n  unit = input('px');\n\n  title = computed(() => {\n    return this.computedWidth() + ' X ' + this.computedHeight();\n  });\n}\n",
+            "sourceCode": "import { Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-box',\n  standalone: true,\n  template: `\n    <div\n      class=\"flex flex-col\"\n      [style.height]=\"computedHeight()\"\n      [style.width]=\"computedWidth()\"\n      [title]=\"title()\"\n      [style.aspectRatio]=\"computedRatio()\"\n    >\n      <ng-content>\n        <p> No Content</p>\n      </ng-content>\n    </div>\n  `,\n})\nexport class Box {\n  size = input(0);\n\n  heightRatio = input(1);\n  widthRatio = input(1);\n\n  computedWidth = computed(() => {\n    return this.size() * this.widthRatio() + this.unit();\n  });\n\n  computedHeight = computed(() => {\n    return this.size() * this.heightRatio() + this.unit();\n  });\n\n  computedRatio = computed(() => {\n    return this.heightRatio() + '/' + this.widthRatio();\n  });\n\n  unit = input('px');\n\n  title = computed(() => {\n    return this.computedWidth() + ' X ' + this.computedHeight();\n  });\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -199,7 +199,7 @@
         },
         {
             "name": "FlexCol",
-            "id": "component-FlexCol-2744afd3db038fa320bb753d89b660a17aba04c9d2dd9df46afd42fcfa2f6037a1e2efe197f8c1aa900a3e6fcb015dd2bf62654f0725ca025ca0cdc7b60287a6",
+            "id": "component-FlexCol-5e98b009fce666c3f328cbc74ebaf29aca694d57de68da455cd55b73b4d93654f10d1a960602e068c8b3bb1572c28a3306455a5dfdb7605af28dfe150ec5ca2a",
             "file": "libs/material/src/lib/flex-col/flex-col.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -224,10 +224,10 @@
             "hostListeners": [],
             "standalone": false,
             "imports": [],
-            "description": "<p>Flex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)</p>\n",
-            "rawdescription": "\n\nFlex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)\n",
+            "description": "<p>Flexbox column container</p>\n",
+            "rawdescription": "\n\nFlexbox column container\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n/**\n * Flex column container (flex flex-col justify-between grow h-full w-full overflow-hidden overflow-y-auto)\n */\n@Component({\n  selector: 'vn-flex-col',\n  template: `<ng-content></ng-content>`,\n  host: {\n    class:\n      'flex flex-col justify-start grow h-full w-full overflow-hidden overflow-y-auto',\n    '[class]': '\"\"',\n  },\n})\nexport class FlexCol {}\n",
+            "sourceCode": "import { Component } from '@angular/core';\n\n/**\n * Flexbox column container\n */\n@Component({\n  selector: 'vn-flex-col',\n  template: `<ng-content></ng-content>`,\n  host: {\n    class:\n      'flex flex-col grow h-full w-full overflow-hidden overflow-y-auto',\n  },\n})\nexport class FlexCol { }\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -235,7 +235,7 @@
         },
         {
             "name": "FlexRow",
-            "id": "component-FlexRow-95126eec0a709b5219b5ec23ed0a1a8647c9839be46e498b7dd5d623d179b520921e2a2687ecc0b6d826ae0d3c00c437d9a1f5daf6967410e511763a1ad7a930",
+            "id": "component-FlexRow-5f3b24627ce91538a6646aa145de96f10974b70976548afc20670cebadf7ab2e597c5b5f772692b31a23423f24f7ece04793996cad79bfdd253d9021544e92b0",
             "file": "libs/material/src/lib/flex-row/flex-row.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -246,13 +246,59 @@
             "selector": "vn-flex-row",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-content></ng-content>",
+            "template": "<ng-content ></ng-content>",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "flexGap",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 15,
+                    "required": false
+                },
+                {
+                    "name": "justifyEnd",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "required": false
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "baseClasses",
+                    "defaultValue": "signal('flex flex-row grow w-full overflow-hidden h-full items-center')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "hostClasses",
+                    "defaultValue": "computed(() => {\n    return `${this.baseClasses()} ${this.justifyEnd() ? \"justify-end\" : \"\"} ${this.flexGap() ? \"gap-2\" : \"\"}`\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -260,10 +306,10 @@
             "hostListeners": [],
             "standalone": false,
             "imports": [],
-            "description": "<p>Flex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)</p>\n",
-            "rawdescription": "\n\nFlex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)\n",
+            "description": "<p>Flexbox row container</p>\n",
+            "rawdescription": "\n\nFlexbox row container\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n/**\n * Flex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)\n */\n@Component({\n  selector: 'vn-flex-row',\n  template: `<ng-content></ng-content>`,\n  host: {\n    class:\n      'flex flex-row justify-start grow w-full overflow-hidden h-full items-center',\n    '[class]': '\"\"',\n  },\n})\nexport class FlexRow {}\n",
+            "sourceCode": "import { Component, computed, input, signal } from '@angular/core';\n\n/**\n * Flexbox row container\n */\n@Component({\n  selector: 'vn-flex-row',\n  template: `<ng-content ></ng-content>`,\n  host: {\n    \"[class]\": \"hostClasses()\"\n  },\n})\nexport class FlexRow {\n  justifyEnd = input(false)\n  flexGap = input(false)\n  baseClasses = signal('flex flex-row grow w-full overflow-hidden h-full items-center');\n  hostClasses = computed(() => {\n    return `${this.baseClasses()} ${this.justifyEnd() ? \"justify-end\" : \"\"} ${this.flexGap() ? \"gap-2\" : \"\"}`\n  })\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -271,7 +317,7 @@
         },
         {
             "name": "Image",
-            "id": "component-Image-3c955c5133d1df9632ddc6033a7cbba02efe78f6743f4a7ad26101a32bf94fb611901822cbfec5e14ee8f791b0b04dc6cd74b70e6eeb260849f80cd04d273552",
+            "id": "component-Image-4b6d1ee321132225d566990a2621cb605478817e9d6834406c29e80ea3fe620e560001218a953fb8ed773ebcebba1bbb1a2d2f21f70475bd65d05b448c42b996",
             "file": "libs/material/src/lib/image/image.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -311,7 +357,7 @@
                 },
                 {
                     "name": "src",
-                    "defaultValue": "'favicon.png'",
+                    "defaultValue": "'favicon.ico'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "indexKey": "",
@@ -344,7 +390,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-image',\n  template: `<img\n    [src]=\"src()\"\n    [alt]=\"alt()\"\n    class=\"h-auto max-h-full w-auto max-w-full \"\n    [style.width]=\"width() + 'px'\"\n    [style.height]=\"height() + 'px'\"\n  />`,\n  standalone: true,\n  host: {\n    class: 'h-full',\n  },\n})\nexport class Image {\n  width = input<number>();\n  height = input<number>();\n  src = input('favicon.png');\n  alt = input('');\n}\n",
+            "sourceCode": "import { Component, input } from '@angular/core';\n\n@Component({\n  selector: 'vn-image',\n  template: `<img\n    [src]=\"src()\"\n    [alt]=\"alt()\"\n    class=\"h-auto max-h-full w-auto max-w-full \"\n    [style.width]=\"width() + 'px'\"\n    [style.height]=\"height() + 'px'\"\n  />`,\n  standalone: true,\n  host: {\n    class: 'h-full',\n  },\n})\nexport class Image {\n  width = input<number>();\n  height = input<number>();\n  src = input('favicon.ico');\n  alt = input('');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -352,18 +398,17 @@
         },
         {
             "name": "InputText",
-            "id": "component-InputText-ab9bb72c69415fe261926ae11152000948ede3f9865115e9c84b87672f663a0932648482048b62a701550f4647b71d0bc124df05ccfba62458f35c2c19956fe3",
+            "id": "component-InputText-4364e697a91d43394ce7b31133eff526e08e880a374e655229c3619fe8dc25ef35d5744c11685937a14b34503f301a77a072ec6a64aa67ea76adfe9e93d398d0",
             "file": "libs/material/src/lib/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
+            "host": {},
             "inputs": [],
             "outputs": [],
             "providers": [],
             "selector": "vn-input-text",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "template": "<mat-form-field>\n  <mat-label>{{label()}}</mat-label>\n  <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n</mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
@@ -378,7 +423,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 26,
+                    "line": 28,
                     "required": false
                 },
                 {
@@ -390,7 +435,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 25,
+                    "line": 27,
                     "required": false
                 }
             ],
@@ -405,7 +450,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 32
                 },
                 {
                     "name": "value",
@@ -416,7 +461,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 28
+                    "line": 30
                 }
             ],
             "methodsClass": [
@@ -426,7 +471,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -453,10 +498,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputText implements OnInit {\n  label = input<string>(\"Not set\")\n  isRequired = input<boolean>(false)\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
+            "sourceCode": "import { Component, input, OnInit, signal } from '@angular/core';\nimport { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';\nimport { FormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged } from 'rxjs';\n\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [\n    FormsModule,\n    MatInputModule,\n    MatFormFieldModule,\n  ],\n  template: `\n    <mat-form-field>  \n      <mat-label>{{label()}}</mat-label>\n      <input type=\"text\" matInput [required]=\"isRequired()\" [(ngModel)]=\"value\">\n    </mat-form-field>\n  `,\n  host: {\n    class: \"w-full\"\n  }\n})\nexport class InputText implements OnInit {\n  label = input<string>(\"Not set\")\n  isRequired = input<boolean>(false)\n\n  value = signal('')\n\n  onValueChange = outputFromObservable(toObservable(this.value).pipe(\n    debounceTime(300),\n    distinctUntilChanged()\n  ))\n\n\n  ngOnInit(): void {\n    this.onValueChange.subscribe(v => {\n      console.log(\"Change: \", v)\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "extends": [],
             "implements": [
                 "OnInit"
@@ -464,7 +509,7 @@
         },
         {
             "name": "Layout",
-            "id": "component-Layout-eb03ecf1ee08f0060ca25d8f584d3d2db6faf41c0f7f7b7c678980e3e533cf7da28e8de6c895abbf58a2061ebc7bf174d7f0099f9a67fccc6df5f6465b927c29",
+            "id": "component-Layout-54078878fbac77fdd0f42e47eb641341852f82e081559b17167291127247dab29ac799bb4077ecf1b3a439b8e278eda7b04dfe60d2fa9f5fcd2145e98b8fe2e1",
             "file": "libs/material/src/lib/layout/layout.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -538,12 +583,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { RouterModule } from '@angular/router';\nimport { ProjectionModule, Viewport } from '@vnodes/cdk';\nimport { AppLogo } from '../app-logo/app-logo';\nimport { FlexCol } from '../flex-col/flex-col';\nimport { FlexRow } from '../flex-row/flex-row';\n\n@Component({\n  selector: 'vn-layout',\n  imports: [\n    CommonModule,\n    RouterModule,\n    MatSidenavModule,\n    MatButtonModule,\n    MatIconModule,\n    MatToolbarModule,\n    ProjectionModule,\n    MatDividerModule,\n    AppLogo,\n    Viewport,\n    FlexCol,\n    FlexRow,\n  ],\n  templateUrl: \"./layout.html\",\n  host: {\n    class: \"w-full h-full flex flex-col border-4 border-green-400\"\n  }\n})\nexport class Layout {\n}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatSidenavModule } from '@angular/material/sidenav';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { RouterModule } from '@angular/router';\nimport { ProjectionModule, Viewport } from '@vnodes/cdk';\nimport { AppLogo } from '../app-logo/app-logo';\nimport { FlexCol } from '../flex-col/flex-col';\nimport { FlexRow } from '../flex-row/flex-row';\n\n@Component({\n  selector: 'vn-layout',\n  imports: [\n    CommonModule,\n    RouterModule,\n    MatSidenavModule,\n    MatButtonModule,\n    MatIconModule,\n    MatToolbarModule,\n    ProjectionModule,\n    MatDividerModule,\n    AppLogo,\n    Viewport,\n    FlexCol,\n    FlexRow,\n  ],\n  templateUrl: \"./layout.html\",\n  host: {\n    class: \"w-full h-full flex flex-grow flex-col\"\n  }\n})\nexport class Layout {\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "@let fullStyle =\"!flex !flex-col grow !w-auto !max-w-full !h-full !overflow-hidden\";\n@let sidenavStyle = \"!flex !flex-col !grow h-full !w-fit !rounded-none\";\n\n<mat-sidenav-container #vp=\"viewport\" vnViewport [class]=\"fullStyle\">\n\n\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n    <!-- Sidenav  -->\n    <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class]=\"sidenavStyle\" [class.!w-full]=\"isXSmall\"\n        [class.!w-96]=\"!isXSmall\">\n        <vn-flex-col>\n            <!-- Logo/toolbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <ng-content select=\"[vnSidenavLogo]\">\n                        <vn-app-logo></vn-app-logo>\n                    </ng-content>\n\n                    <!-- if is handset then show menu.close button -->\n                    @if(isHandset){\n                    <vn-flex-col></vn-flex-col>\n                    <!-- Mobile drawer close button -->\n                    <button matIconButton (click)=\"drawer.close()\">\n                        <mat-icon> close </mat-icon>\n                    </button>\n                    }\n                </vn-flex-row>\n            </mat-toolbar>\n\n            <!-- Menu items -->\n            <vn-flex-col>\n                <!-- Sidenav content  -->\n                <vn-flex-col>\n                    <!-- Sidenav top -->\n                    <ng-content select=\"[vnSidenavTop]\"></ng-content>\n                    <!-- Sidenav bottom -->\n                    <ng-content select=\"[vnSidenavBottom]\"></ng-content>\n\n                    <!--  -->\n                </vn-flex-col>\n            </vn-flex-col>\n        </vn-flex-col>\n    </mat-sidenav>\n\n    <!--  -->\n    <mat-sidenav-content [class]=\"fullStyle\">\n        <!--  -->\n        <vn-flex-col>\n            <!-- Toolbar  -->\n            <mat-toolbar>\n                <mat-toolbar-row>\n                    <!-- Menu toggle button -->\n                    @if(isHandset){\n\n                    <button matIconButton (click)=\"drawer.toggle()\">\n                        <mat-icon>\n                            {{ drawer.opened ? 'menu_open' : 'menu' }}\n                        </mat-icon>\n                    </button>\n\n                    }\n\n\n\n                    <!--  -->\n                    <vn-flex-row>\n                        <!-- Toolbar left -->\n                        <ng-content select=\"[vnToolbarLeft]\"></ng-content>\n                        <vn-flex-row></vn-flex-row>\n                        <!-- Toolbar right -->\n                        <ng-content select=\"[vnToolbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar-row>\n            </mat-toolbar>\n\n            <!-- Content  -->\n            <vn-flex-col>\n                <!-- Content top -->\n                <ng-content select=\"[vnContentTop]\"></ng-content>\n                <!-- Bottom Content  -->\n                <ng-content select=\"[vnContentBottom]\"></ng-content>\n            </vn-flex-col>\n\n            <!-- Statusbar -->\n            <mat-toolbar>\n                <vn-flex-row>\n                    <!-- Statusbar left -->\n                    <ng-content select=\"[vnStatusbarLeft]\"></ng-content>\n                    <!-- Statusbar right -->\n                    <ng-content select=\"[vnStatusbarRight]\"></ng-content>\n                </vn-flex-row>\n            </mat-toolbar>\n            <!--  -->\n        </vn-flex-col>\n        <!--  -->\n    </mat-sidenav-content>\n    <!--  -->\n</mat-sidenav-container>"
+            "templateData": "<!-- @let hiddenStyle = \"position:fixed !important; left: 10000px !important;\";\n<span #sidenavContainerStore class=\"flex! flex-col! grow w-auto! max-w-full! h-full! overflow-hidden!\"\n    [style]=\"hiddenStyle\"></span>\n\n<span #sidenavStore class=\"flex! flex!-col grow! h-full! w-fit! rounded-none!\" [style]=\"hiddenStyle\">\n</span> -->\n\n\n<vn-flex-col #vp=\"viewport\" vnViewport>\n\n\n    <!-- is movile viewport? -->\n    @let isHandset = (vp.isHandset | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isNotMobile = (vp.isNotMobile | async);\n\n    <!-- is not mobile viewport?  -->\n    @let isXSmall = (vp.isXSmall | async);\n\n    <!-- Sidenav mode -->\n    @let mode = (isHandset ? \"over\": \"side\");\n\n\n    <!-- App toolbar  -->\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <!-- Menu toggle button -->\n            <vn-flex-row [flexGap]=\"true\">\n                <button matIconButton (click)=\"drawer.toggle()\">\n                    @let menuIcon = drawer.opened ? 'menu_open' : 'menu';\n                    <mat-icon>\n                        {{ menuIcon }}\n                    </mat-icon>\n                </button>\n                <!--  -->\n                <!-- Toolbar left -->\n                <ng-content select=\"[vnToolbarLeft]\"></ng-content>\n\n                <vn-flex-row></vn-flex-row>\n                <!-- Toolbar right -->\n                <ng-content select=\"[vnToolbarRight]\"></ng-content>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n    <!-- Sidenav container  -->\n    <mat-sidenav-container class=\"w-full flex grow\">\n\n        <!-- Sidenav  -->\n        <mat-sidenav #drawer [opened]=\"isNotMobile\" [mode]=\"mode\" [class.!w-full]=\"isXSmall\" [class.!w-96]=\"!isXSmall\">\n            <vn-flex-col>\n                <!-- Logo/toolbar -->\n                <mat-toolbar>\n                    <vn-flex-row>\n                        <ng-content select=\"[vnSidenavLogo]\">\n                            <vn-app-logo></vn-app-logo>\n                        </ng-content>\n\n                        <!-- if is handset then show menu.close button -->\n                        @if(isHandset){\n                        <vn-flex-col></vn-flex-col>\n                        <!-- Mobile drawer close button -->\n                        <button matIconButton (click)=\"drawer.close()\">\n                            <mat-icon> close </mat-icon>\n                        </button>\n                        }\n                    </vn-flex-row>\n                </mat-toolbar>\n\n                <!-- Menu items -->\n                <vn-flex-col>\n                    <!-- Sidenav content  -->\n                    <vn-flex-col (click)=\"isHandset && drawer.close()\">\n                        <!-- Sidenav top -->\n                        <ng-content select=\"[vnSidenavTop]\"></ng-content>\n                        <!-- Sidenav bottom -->\n                        <ng-content select=\"[vnSidenavBottom]\"></ng-content>\n                        <!--  -->\n                    </vn-flex-col>\n                </vn-flex-col>\n            </vn-flex-col>\n        </mat-sidenav>\n\n\n        <!--  -->\n        <mat-sidenav-content>\n\n            <!-- Main content  -->\n            <vn-flex-col>\n                <!-- Content  -->\n                <vn-flex-col>\n                    <!-- Content top -->\n                    <ng-content select=\"[vnContentTop]\"></ng-content>\n                    <!-- Bottom Content  -->\n                    <ng-content select=\"[vnContentBottom]\"></ng-content>\n                </vn-flex-col>\n\n                <!-- Statusbar -->\n                <mat-toolbar>\n                    <vn-flex-row>\n                        <!-- Statusbar left -->\n                        <ng-content select=\"[vnStatusbarLeft]\"></ng-content>\n                        <!-- Statusbar right -->\n                        <ng-content select=\"[vnStatusbarRight]\"></ng-content>\n                    </vn-flex-row>\n                </mat-toolbar>\n                <!--  -->\n            </vn-flex-col>\n            <!--  -->\n        </mat-sidenav-content>\n        <!--  -->\n    </mat-sidenav-container>\n\n\n\n    <vn-flex-row></vn-flex-row>\n    <mat-toolbar>\n\n        <mat-toolbar-row>\n\n            <vn-flex-row>\n                LEft\n            </vn-flex-row>\n            <vn-flex-row></vn-flex-row>\n            <vn-flex-row [justifyEnd]=\"true\" [flexGap]=\"true\">\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n                <button matIconButton>\n                    <mat-icon>notifications</mat-icon>\n                </button>\n            </vn-flex-row>\n        </mat-toolbar-row>\n    </mat-toolbar>\n\n\n</vn-flex-col>"
         }
     ],
     "modules": [],
@@ -554,7 +599,7 @@
         "children": []
     },
     "coverage": {
-        "count": 38,
+        "count": 26,
         "status": "medium",
         "files": [
             {
@@ -589,9 +634,9 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "FlexRow",
-                "coveragePercent": 100,
-                "coverageCount": "1/1",
-                "status": "very-good"
+                "coveragePercent": 20,
+                "coverageCount": "1/5",
+                "status": "low"
             },
             {
                 "filePath": "libs/material/src/lib/image/image.ts",

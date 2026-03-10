@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "client | storybook",
+  "short_name": "client | storybook",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

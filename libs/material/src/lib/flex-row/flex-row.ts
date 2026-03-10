@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 
 /**
- * Flex row container (flex flex-row justify-between grow w-full overflow-hidden h-full items-center)
+ * Flexbox row container
  */
 @Component({
   selector: 'vn-flex-row',
-  template: `<ng-content></ng-content>`,
+  template: `<ng-content ></ng-content>`,
   host: {
-    class:
-      'flex flex-row justify-start grow w-full overflow-hidden h-full items-center',
-    '[class]': '""',
+    "[class]": "hostClasses()"
   },
 })
-export class FlexRow {}
+export class FlexRow {
+  justifyEnd = input(false)
+  flexGap = input(false)
+  baseClasses = signal('flex flex-row grow w-full overflow-hidden h-full items-center');
+  hostClasses = computed(() => {
+    return `${this.baseClasses()} ${this.justifyEnd() ? "justify-end" : ""} ${this.flexGap() ? "gap-2" : ""}`
+  })
+
+}

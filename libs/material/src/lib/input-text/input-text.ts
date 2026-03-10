@@ -19,7 +19,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
       <input type="text" matInput [required]="isRequired()" [(ngModel)]="value">
     </mat-form-field>
   `,
-  styles: ``,
+  host: {
+    class: "w-full"
+  }
 })
 export class InputText implements OnInit {
   label = input<string>("Not set")

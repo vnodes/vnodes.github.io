@@ -2,7 +2,6 @@ import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'vn-box',
-  imports: [],
   standalone: true,
   template: `
     <div
@@ -13,7 +12,7 @@ import { Component, computed, input } from '@angular/core';
       [style.aspectRatio]="computedRatio()"
     >
       <ng-content>
-        <p>No Content</p>
+        <p> No Content</p>
       </ng-content>
     </div>
   `,

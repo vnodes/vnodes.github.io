@@ -13,7 +13,7 @@ import { Image } from '../image/image';
 })
 export class AppLogo {
   /** Image source url */
-  src = input('favicon.png');
+  src = input('favicon.ico');
 
   /** Image description */
   alt = input('App Logo');

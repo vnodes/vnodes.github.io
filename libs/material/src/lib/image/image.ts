@@ -17,6 +17,6 @@ import { Component, input } from '@angular/core';
 export class Image {
   width = input<number>();
   height = input<number>();
-  src = input('favicon.png');
+  src = input('favicon.ico');
   alt = input('');
 }

@@ -1,8 +1,4 @@
-@let fullStyle ="!flex !flex-col grow !w-auto !max-w-full !h-full !overflow-hidden";
-@let sidenavStyle = "!flex !flex-col !grow h-full !w-fit !rounded-none";
-
-<mat-sidenav-container #vp="viewport" vnViewport [class]="fullStyle">
-
+<vn-flex-col #vp="viewport" vnViewport>
 
     <!-- is movile viewport? -->
     @let isHandset = (vp.isHandset | async);
@@ -16,94 +12,103 @@
     <!-- Sidenav mode -->
     @let mode = (isHandset ? "over": "side");
 
-    <!-- Sidenav  -->
-    <mat-sidenav #drawer [opened]="isNotMobile" [mode]="mode" [class]="sidenavStyle" [class.!w-full]="isXSmall"
-        [class.!w-96]="!isXSmall">
-        <vn-flex-col>
-            <!-- Logo/toolbar -->
-            <mat-toolbar>
-                <vn-flex-row>
-                    <ng-content select="[vnSidenavLogo]">
-                        <vn-app-logo></vn-app-logo>
-                    </ng-content>
 
-                    <!-- if is handset then show menu.close button -->
-                    @if(isHandset){
-                    <vn-flex-col></vn-flex-col>
-                    <!-- Mobile drawer close button -->
-                    <button matIconButton (click)="drawer.close()">
-                        <mat-icon> close </mat-icon>
-                    </button>
-                    }
-                </vn-flex-row>
-            </mat-toolbar>
+    <!-- App toolbar  -->
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <!-- Menu toggle button -->
+            <vn-flex-row>
+                <button matIconButton (click)="drawer.toggle()">
+                    @let menuIcon = drawer.opened ? 'menu_open' : 'menu';
+                    <mat-icon>
+                        {{ menuIcon }}
+                    </mat-icon>
+                </button>
 
-            <!-- Menu items -->
+                <!--  -->
+                <!-- Toolbar left -->
+                <ng-content select="[vnToolbarLeft]"></ng-content>
+
+                <vn-flex-row></vn-flex-row>
+                <!-- Toolbar right -->
+                <ng-content select="[vnToolbarRight]"></ng-content>
+            </vn-flex-row>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <!-- Sidenav container  -->
+    <mat-sidenav-container class="w-full flex grow">
+
+        <!-- Sidenav  -->
+        <mat-sidenav #drawer [opened]="isNotMobile" [mode]="mode" [class.!w-full]="isXSmall" [class.!w-96]="!isXSmall">
             <vn-flex-col>
-                <!-- Sidenav content  -->
-                <vn-flex-col>
-                    <!-- Sidenav top -->
-                    <ng-content select="[vnSidenavTop]"></ng-content>
-                    <!-- Sidenav bottom -->
-                    <ng-content select="[vnSidenavBottom]"></ng-content>
+                <!-- Logo/toolbar -->
+                <mat-toolbar>
+                    <vn-flex-row>
+                        <ng-content select="[vnSidenavLogo]">
+                            <vn-app-logo></vn-app-logo>
+                        </ng-content>
 
-                    <!--  -->
+                        <!-- if is handset then show menu.close button -->
+                        @if(isHandset){
+                        <vn-flex-col></vn-flex-col>
+                        <!-- Mobile drawer close button -->
+                        <button matIconButton (click)="drawer.close()">
+                            <mat-icon> close </mat-icon>
+                        </button>
+                        }
+                    </vn-flex-row>
+                </mat-toolbar>
+
+                <!-- Menu items -->
+                <vn-flex-col>
+                    <!-- Sidenav content  -->
+                    <vn-flex-col (click)="isHandset && drawer.close()">
+                        <!-- Sidenav top -->
+                        <ng-content select="[vnSidenavTop]"></ng-content>
+                        <!-- Sidenav bottom -->
+                        <ng-content select="[vnSidenavBottom]"></ng-content>
+                        <!--  -->
+                    </vn-flex-col>
                 </vn-flex-col>
             </vn-flex-col>
-        </vn-flex-col>
-    </mat-sidenav>
+        </mat-sidenav>
 
-    <!--  -->
-    <mat-sidenav-content [class]="fullStyle">
+
         <!--  -->
-        <vn-flex-col>
-            <!-- Toolbar  -->
-            <mat-toolbar>
-                <mat-toolbar-row>
-                    <!-- Menu toggle button -->
-                    @if(isHandset){
+        <mat-sidenav-content>
 
-                    <button matIconButton (click)="drawer.toggle()">
-                        <mat-icon>
-                            {{ drawer.opened ? 'menu_open' : 'menu' }}
-                        </mat-icon>
-                    </button>
-
-                    }
-
-
-
-                    <!--  -->
-                    <vn-flex-row >
-                        <!-- Toolbar left -->
-                        <ng-content select="[vnToolbarLeft]"></ng-content>
-                        <vn-flex-row></vn-flex-row>
-                        <!-- Toolbar right -->
-                        <ng-content select="[vnToolbarRight]"></ng-content>
-                    </vn-flex-row>
-                </mat-toolbar-row>
-            </mat-toolbar>
-
-            <!-- Content  -->
+            <!-- Main content  -->
             <vn-flex-col>
-                <!-- Content top -->
-                <ng-content select="[vnContentTop]"></ng-content>
-                <!-- Bottom Content  -->
-                <ng-content select="[vnContentBottom]"></ng-content>
-            </vn-flex-col>
+                <!-- Content  -->
+                <vn-flex-col>
+                    <!-- Content top -->
+                    <ng-content select="[vnContentTop]"></ng-content>
+                    <!-- Bottom Content  -->
+                    <ng-content select="[vnContentBottom]"></ng-content>
+                </vn-flex-col>
 
-            <!-- Statusbar -->
-            <mat-toolbar>
-                <vn-flex-row>
-                    <!-- Statusbar left -->
-                    <ng-content select="[vnStatusbarLeft]"></ng-content>
-                    <!-- Statusbar right -->
-                    <ng-content select="[vnStatusbarRight]"></ng-content>
-                </vn-flex-row>
-            </mat-toolbar>
+
+                <!--  -->
+            </vn-flex-col>
             <!--  -->
-        </vn-flex-col>
+        </mat-sidenav-content>
         <!--  -->
-    </mat-sidenav-content>
-    <!--  -->
-</mat-sidenav-container>
+    </mat-sidenav-container>
+
+    <!-- Statusbar -->
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <vn-flex-row>
+                <!-- Statusbar left -->
+                <ng-content select="[vnStatusbarLeft]"></ng-content>
+                <vn-flex-row></vn-flex-row>
+                <!-- Statusbar right -->
+                <ng-content select="[vnStatusbarRight]"></ng-content>
+            </vn-flex-row>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+</vn-flex-col>

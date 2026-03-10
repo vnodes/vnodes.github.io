@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { expect } from 'storybook/test';
 import { FlexCol } from './flex-col';
 
 const meta: Meta<FlexCol> = {
@@ -11,12 +10,14 @@ export default meta;
 type Story = StoryObj<FlexCol>;
 
 export const Primary: Story = {
-  args: {},
-};
-
-export const Heading: Story = {
-  args: {},
-  play: async ({ canvas }) => {
-    await expect(canvas.getByText(/flex-col/gi)).toBeTruthy();
-  },
+  render() {
+    return {
+      template: `
+      <vn-flex-col class="border-2 border-orange-400">
+        <div>Col 1</div>
+        <div>Col 2</div>
+        <div>Col 3</div>
+      </vn-flex-col>`
+    }
+  }
 };

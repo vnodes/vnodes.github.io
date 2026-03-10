@@ -29,7 +29,7 @@ import { FlexRow } from '../flex-row/flex-row';
   ],
   templateUrl: "./layout.html",
   host: {
-    class: "w-full h-full flex flex-col border-4 border-green-400"
+    class: "w-full h-full flex flex-grow flex-col"
   }
 })
 export class Layout {

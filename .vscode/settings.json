@@ -10,5 +10,22 @@
     "eslint.validate": [
         "json",
         "typescript"
+    ],
+    "tailwindCSS.includeLanguages": {
+        "typescript": "javascriptreact"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        [
+            "template:\\s*`([^\\`]*)`",
+            "(?:class|className)\\s*=\\s*\"([^\"]*)\""
+        ],
+        [
+            "template:\\s*`([^\\`]*)`",
+            "(?:class|className)\\s*=\\s*'([^']*)'"
+        ],
+        [
+            "template:\\s*`([^\\`]*)`",
+            "class\\s*=\\s*\\{([^\\}]*)\\}"
+        ]
     ]
 }

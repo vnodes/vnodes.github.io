@@ -15,7 +15,6 @@
         "browser": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "outputHashing": "all",
         "assets": [
           {
             "glob": "**/*",

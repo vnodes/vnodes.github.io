@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { expect } from 'storybook/test';
 import { FlexRow } from './flex-row';
 
 const meta: Meta<FlexRow> = {
@@ -11,12 +10,15 @@ export default meta;
 type Story = StoryObj<FlexRow>;
 
 export const Primary: Story = {
-  args: {},
+  render() {
+    return {
+      template: `
+      <vn-flex-row class="border-2 border-orange-400">
+        <div>row 1</div>
+        <div>row 2</div>
+        <div>row 3</div>
+      </vn-flex-row>`
+    }
+  }
 };
 
-export const Heading: Story = {
-  args: {},
-  play: async ({ canvas }) => {
-    await expect(canvas.getByText(/flex-row/gi)).toBeTruthy();
-  },
-};
