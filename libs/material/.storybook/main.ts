@@ -17,7 +17,7 @@ const config: StorybookConfig = {
 
     }
   },
-  staticDirs: ['../../../static'],
+  staticDirs: ['../../../dist/apps/web/browser'],
 };
 
 export default config;

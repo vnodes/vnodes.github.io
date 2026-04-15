@@ -1,2 +1,3 @@
-export * from './lib/button/button'
-export * from './lib/material/material'
+export * from './button/button'
+export * from './material/material'
+

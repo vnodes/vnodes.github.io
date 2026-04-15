@@ -18,9 +18,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "@vnodes/material": [
-        "libs/material/src/index.ts"
-      ]
+      "@vnodes/material/button": [
+        "libs/material/src/lib/button/public-api.ts"
+      ],
+      "@vnodes/material/material": [
+        "libs/material/src/lib/material/public-api.ts"
+      ],
     }
   },
   "exclude": [

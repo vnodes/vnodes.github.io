@@ -13,17 +13,27 @@
       "types": "./types/button.d.ts",
       "default": "./fesm2022/button.mjs"
     },
-    "./roboto-flex/style.css": {
-      "style": "./media/roboto-flex/style.css"
+    "./material": {
+      "types": "./types/material.d.ts",
+      "default": "./fesm2022/material.mjs"
     },
-    "./icon-outlined/style.css": {
+    "./media": {
+      "scss": "./media/style.scss"
+    },
+    "./media/icon-outlined": {
       "style": "./media/icon/outlined/style.css"
     },
-    "./icon-rounded/style.css": {
+    "./media/icon-rounded": {
       "style": "./media/icon/rounded/style.css"
     },
-    "./icon-sharp/style.css": {
-      "style": "./media/icon/sharp/style.css}"
+    "./media/icon-sharp": {
+      "style": "./media/icon/sharp/style.css"
+    },
+    "./roboto-flex": {
+      "style": "./media/roboto-flex/style.css"
     }
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.3.5"
   }
 }

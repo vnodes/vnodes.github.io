@@ -1,8 +1,8 @@
 autoInstallPeers: true
 
 onlyBuiltDependencies:
-  - '@compodoc/compodoc'
-  - '@swc/core'
+  - "@compodoc/compodoc"
+  - "@swc/core"
   - esbuild
   - lmdb
   - msgpackr-extract

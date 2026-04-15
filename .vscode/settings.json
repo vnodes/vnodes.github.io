@@ -1,10 +1,11 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.addMissingImports.ts": "always",
-        "source.fixAll.eslint": "always",
-        "source.fixAll.ts": "always",
-        "source.organizeImports": "always",
-        "source.organizeLinkDefinitions": "always",
-        "source.removeUnusedImports": "always"
-    }
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports.ts": "always",
+    "source.fixAll.eslint": "always",
+    "source.fixAll.ts": "always",
+    "source.organizeImports": "always",
+    "source.organizeLinkDefinitions": "always",
+    "source.removeUnusedImports": "always"
+  },
+  "eslint.validate": ["json"]
 }

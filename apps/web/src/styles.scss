@@ -15,7 +15,7 @@ body {
   overflow: hidden;
 }
 
-.theme-azure {
+html {
   @include mat.theme((color: ( // 
         primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
