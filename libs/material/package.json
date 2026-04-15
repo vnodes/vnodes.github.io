@@ -1,0 +1,29 @@
+{
+  "name": "@vnodes/material",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^21.2.0"
+  },
+  "files": [
+    "media"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./button": {
+      "types": "./types/button.d.ts",
+      "default": "./fesm2022/button.mjs"
+    },
+    "./roboto-flex/style.css": {
+      "style": "./media/roboto-flex/style.css"
+    },
+    "./icon-outlined/style.css": {
+      "style": "./media/icon/outlined/style.css"
+    },
+    "./icon-rounded/style.css": {
+      "style": "./media/icon/rounded/style.css"
+    },
+    "./icon-sharp/style.css": {
+      "style": "./media/icon/sharp/style.css}"
+    }
+  }
+}
