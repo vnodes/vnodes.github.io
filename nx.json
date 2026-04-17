@@ -112,6 +112,10 @@
       "inlineStyle": true,
       "standalone": true
     },
+    "@nx/angular:directive": {
+      "prefix": "vn",
+      "standalone": true
+    },
     "@vnodes/plugin:component": {
       "prefix": "vn"
     }
