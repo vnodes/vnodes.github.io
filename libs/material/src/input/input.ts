@@ -2,7 +2,7 @@ import { Directive, input, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 @Directive()
-export abstract class InputComponent<T = any> implements ControlValueAccessor {
+export abstract class BaseInput<T = any> implements ControlValueAccessor {
 
   label = input<string>('');
   placeholder = input<string>('');

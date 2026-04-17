@@ -7,13 +7,13 @@
     "classes": [],
     "directives": [
         {
-            "name": "InputComponent",
-            "id": "directive-InputComponent-b49784e274f6365250cec51695ab6a3c37135866792336b6c5828784988a897814899bc62274257b38d1512390d99c38108e6c2f6b65891174b5eb384b14a6e6",
+            "name": "BaseInput",
+            "id": "directive-BaseInput-fdf2d958dc3317f4fcfd4baf3152b180b6fdcc7f5da5827d758620730b9a8654abf6d31c24544deaa9e54aaa4539a89d0341a29115d070a49b1861b6d8245b15",
             "file": "libs/material/src/input/input.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, input, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\n@Directive()\nexport abstract class InputComponent<T = any> implements ControlValueAccessor {\n\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n\n\n  value = signal<T | null>(null);\n  disabled = signal<boolean>(false);\n\n\n  protected onChange: (value: T | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    const val = this.convertToValue(target.value);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): T | null;\n\n\n  writeValue(value: T): void {\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}",
+            "sourceCode": "import { Directive, input, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\n@Directive()\nexport abstract class BaseInput<T = any> implements ControlValueAccessor {\n\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n\n\n  value = signal<T | null>(null);\n  disabled = signal<boolean>(false);\n\n\n  protected onChange: (value: T | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    const val = this.convertToValue(target.value);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): T | null;\n\n\n  writeValue(value: T): void {\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}",
             "providers": [],
             "hostDirectives": [],
             "standalone": false,
@@ -336,50 +336,293 @@
             "implements": [
                 "ControlValueAccessor"
             ]
+        },
+        {
+            "name": "FilterNumberDirective",
+            "id": "directive-FilterNumberDirective-8c3c7c37fc977c2db9e17e853670c15766ebe308aee6a8d99e8e51e57aa0d8dc611c66185363abe71533dd74731bc006537d50c4672a690da432e7f5f21f9307",
+            "file": "libs/material/src/filter-number/filter-number.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';\n\nexport const numberFilterExp = /^\\-?\\d*\\.{1}?\\d*$/;\nexport const integerFilterExp = /^\\-?\\d*$/;\n\n@Directive({\n  selector: '[vnFilterNumber]',\n  standalone: true\n})\nexport class FilterNumberDirective {\n  private el = inject(ElementRef);\n  isInteger = input<boolean>(false);\n\n  @HostListener('keydown', ['$event'])\n  onKeyDown(event: KeyboardEvent) {\n    const allowedKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter', 'Control'];\n\n    const inputEl = this.el.nativeElement as HTMLInputElement;\n    const currentVal = inputEl.value + event.key;\n\n    console.log(\"Current Value: \", currentVal)\n    const regex = this.isInteger() ? integerFilterExp : numberFilterExp;\n\n    if (!regex.test(currentVal)) {\n      event.preventDefault()\n\n    }\n\n    if (!allowedKeys.includes(event.key)) {\n      event.preventDefault();\n\n    }\n\n\n  }\n}",
+            "selector": "[vnFilterNumber]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [
+                {
+                    "name": "isInteger",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "keydown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "el",
+                    "defaultValue": "inject(ElementRef)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onKeyDown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'keydown', ['$event']"
+                        }
+                    ],
+                    "modifierKind": [
+                        171
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "extends": []
+        },
+        {
+            "name": "IntFilterDirective",
+            "id": "directive-IntFilterDirective-6cc86cd798e98b614e3985e5ce5c8f26f02beaf111fa7e6214cbc98a87ed19c3efd9a48be358fdaa5de09cef6de12a0425fa6f3f088dae881f34d2a3b03263cb",
+            "file": "libs/material/src/int-filter/int-filter.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostListener } from '@angular/core';\n\n@Directive({\n  selector: '[vnIntFilter]',\n  standalone: true,\n})\nexport class IntFilterDirective {\n\n  @HostListener('keydown', ['$event'])\n  onKeyDown(event: KeyboardEvent) {\n    const allowedKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter'];\n    if (!/^[0-9]$/.test(event.key) && !allowedKeys.includes(event.key)) {\n      event.preventDefault();\n    }\n  }\n}\n",
+            "selector": "[vnIntFilter]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "keydown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onKeyDown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 10,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'keydown', ['$event']"
+                        }
+                    ],
+                    "modifierKind": [
+                        171
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "extends": []
+        },
+        {
+            "name": "NumFilterDirective",
+            "id": "directive-NumFilterDirective-f34c8f19688f2a29edc014dfcd87274a4d6adb563852c74f455e9452e12d6109df05f53c98372d7b6c60d369bdadb1dd726b74f892706a6ca5ad9b95c22abbdb",
+            "file": "libs/material/src/number-filter/num-filter.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostListener } from '@angular/core';\n\n@Directive({\n  selector: '[vnIntFilter]',\n  standalone: true,\n})\nexport class NumFilterDirective {\n\n  @HostListener('keydown', ['$event'])\n  onKeyDown(event: KeyboardEvent) {\n    const allowedKeys = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter'];\n\n    if (!/^[0-9]$/.test(event.key.replace('.', '0')) && !allowedKeys.includes(event.key)) {\n      event.preventDefault();\n    }\n  }\n}\n",
+            "selector": "[vnIntFilter]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "keydown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onKeyDown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 10,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'keydown', ['$event']"
+                        }
+                    ],
+                    "modifierKind": [
+                        171
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "extends": []
         }
     ],
     "components": [
         {
-            "name": "ButtonComponent",
-            "id": "component-ButtonComponent-f8e2cec58b78928a50754c5b459335cc1fccb71643f66160aa996eea5a3b9405e1b9c0ab780de009a4a4523abbc2c4966a894402700d8c78e1bd68584adb7283",
-            "file": "libs/material/src/button/button.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "vn-button",
-            "styleUrls": [],
-            "styles": [
-                ""
-            ],
-            "template": "<p>button works!</p>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'vn-button',\n  imports: [],\n  template: `<p>button works!</p>`,\n  standalone: true,\n  styles: ``,\n})\nexport class ButtonComponent { }\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "\n",
-            "extends": []
-        },
-        {
-            "name": "InputIntComponent",
-            "id": "component-InputIntComponent-937cdb910eb585b67c2e16ead6b7efd8581b51934992f7e93d3e9943bafb7850fb8cf9e9c3200d6774c854881fcfc8a15697915b226a696f41b1085dd301e1d6",
-            "file": "libs/material/src/input-int/input-int.ts",
+            "name": "InputNumberComponent",
+            "id": "component-InputNumberComponent-2f04674b43403668e5e3c7a0ee7d98a1526102f99305cf034805054557cc4db466c42c49fd038face790cfd24fb0d16f85407f6228ad095db132dad2098e26cd",
+            "file": "libs/material/src/input-number/input-number.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -389,16 +632,51 @@
                     "name": ")"
                 }
             ],
-            "selector": "vn-input-int",
+            "selector": "vn-input-number",
             "styleUrls": [],
             "styles": [
                 ""
             ],
-            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n      matInput\n      type=\"number\"\n      pattern=\"/^[0-9]{1,}$/\"\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n  </mat-form-field>\n",
+            "template": "\n<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"number\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    [isInteger]=\"isInteger()\"\n    vnFilterNumber\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
+                {
+                    "name": "isInteger",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 44,
+                    "required": false
+                },
+                {
+                    "name": "max",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 47,
+                    "required": false
+                },
+                {
+                    "name": "min",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 46,
+                    "required": false
+                },
                 {
                     "name": "hint",
                     "defaultValue": "''",
@@ -411,7 +689,7 @@
                     "line": 9,
                     "required": false,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -426,7 +704,7 @@
                     "line": 7,
                     "required": false,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -441,7 +719,7 @@
                     "line": 8,
                     "required": false,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -456,7 +734,7 @@
                     "line": 10,
                     "required": false,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 }
             ],
@@ -473,7 +751,7 @@
                     "description": "",
                     "line": 14,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -490,7 +768,7 @@
                         124
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -507,7 +785,7 @@
                         124
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -521,7 +799,7 @@
                     "description": "",
                     "line": 13,
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 }
             ],
@@ -541,7 +819,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 52,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -562,7 +840,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -575,7 +853,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -610,7 +888,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -645,7 +923,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -680,7 +958,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -715,7 +993,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 },
                 {
@@ -750,7 +1028,7 @@
                         }
                     ],
                     "inheritance": {
-                        "file": "InputComponent"
+                        "file": "BaseInput"
                     }
                 }
             ],
@@ -771,55 +1049,22 @@
                 {
                     "name": "ReactiveFormsModule",
                     "type": "module"
+                },
+                {
+                    "name": "FilterNumberDirective",
+                    "type": "directive"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, forwardRef } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { InputComponent } from '../input/input';\n\n@Component({\n  selector: 'vn-input-int',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputIntComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n        matInput\n        type=\"number\"\n        pattern=\"/^[0-9]{1,}$/\"\n        [placeholder]=\"placeholder()\"\n        [value]=\"value()\"\n        [disabled]=\"disabled()\"\n        (input)=\"handleInput($event)\"\n        (blur)=\"handleBlur()\"\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputIntComponent extends InputComponent {\n  protected override convertToValue(value: string) {\n    const actualValue = parseInt(value);\n    return isNaN(actualValue) ? null : actualValue\n  }\n\n}\n",
+            "sourceCode": "import { Component, forwardRef, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { FilterNumberDirective } from '../filter-number/filter-number';\nimport { BaseInput } from '../input/input';\n\n@Component({\n  selector: 'vn-input-number',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, FilterNumberDirective],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  \n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"number\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      [isInteger]=\"isInteger()\"\n      vnFilterNumber\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputNumberComponent extends BaseInput {\n\n  isInteger = input(false);\n\n  min = input<number | null>(null)\n  max = input<number | null>(null)\n\n\n\n\n  protected override convertToValue(value: string) {\n    const parsedValue = this.isInteger() ? parseInt(value) : parseFloat(value);\n    const actualValue = isNaN(parsedValue) ? null : parsedValue;\n    return actualValue\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n",
             "extends": [
-                "InputComponent"
+                "BaseInput"
             ]
-        },
-        {
-            "name": "InputNumberComponent",
-            "id": "component-InputNumberComponent-87b8d9f7c57031a82ebef09148a979ca5b4250f7dc40d90a41032e9140d3b7f871d01826dc624d3992e0b1735c03b953d05dbe2fb2bdacd568b1bf84e5ca8329",
-            "file": "libs/material/src/input-number/input-number.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "vn-input-number",
-            "styleUrls": [],
-            "styles": [
-                ""
-            ],
-            "template": "<p>input-number works!</p>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'vn-input-number',\n  imports: [],\n  template: `<p>input-number works!</p>`,\n  standalone: true,\n  styles: ``,\n})\nexport class InputNumberComponent {}\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "\n",
-            "extends": []
         },
         {
             "name": "InputTextComponent",
@@ -857,48 +1102,63 @@
             "styleUrlsData": "",
             "stylesData": "\n",
             "extends": []
-        },
-        {
-            "name": "Material",
-            "id": "component-Material-d4e376ffba139da415a06529c4e344acdeae12dc53b6829e7165e96515971306d8941deb2ec58e299b27b8700d0a4eba712ba87c7397a45a8d0a621e079b8a88",
-            "file": "libs/material/src/material/material.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "vn-material",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "./material.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'vn-material',\n  imports: [],\n  templateUrl: './material.html',\n  styleUrl: './material.css',\n  standalone: true,\n})\nexport class Material { }\n",
-            "styleUrl": "./material.css",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<p>Material works!</p>\n"
         }
     ],
     "modules": [],
-    "miscellaneous": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "integerFilterExp",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/filter-number/filter-number.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "/^\\-?\\d*$/"
+            },
+            {
+                "name": "numberFilterExp",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/filter-number/filter-number.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "/^\\-?\\d*\\.{1}?\\d*$/"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "libs/material/src/filter-number/filter-number.ts": [
+                {
+                    "name": "integerFilterExp",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/filter-number/filter-number.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "/^\\-?\\d*$/"
+                },
+                {
+                    "name": "numberFilterExp",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/filter-number/filter-number.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "/^\\-?\\d*\\.{1}?\\d*$/"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
     "routes": {
         "name": "<root>",
         "kind": "module",
@@ -909,21 +1169,32 @@
         "status": "low",
         "files": [
             {
-                "filePath": "libs/material/src/button/button.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ButtonComponent",
+                "filePath": "libs/material/src/filter-number/filter-number.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "FilterNumberDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/filter-number/filter-number.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "integerFilterExp",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/input-int/input-int.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "InputIntComponent",
+                "filePath": "libs/material/src/filter-number/filter-number.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "numberFilterExp",
                 "coveragePercent": 0,
-                "coverageCount": "0/16",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -932,7 +1203,7 @@
                 "linktype": "component",
                 "name": "InputNumberComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/19",
                 "status": "low"
             },
             {
@@ -948,18 +1219,27 @@
                 "filePath": "libs/material/src/input/input.ts",
                 "type": "directive",
                 "linktype": "directive",
-                "name": "InputComponent",
+                "name": "BaseInput",
                 "coveragePercent": 0,
                 "coverageCount": "0/16",
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/material/material.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "Material",
+                "filePath": "libs/material/src/int-filter/int-filter.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "IntFilterDirective",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/number-filter/num-filter.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "NumFilterDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             }
         ]

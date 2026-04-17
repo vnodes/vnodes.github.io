@@ -7,4 +7,4 @@ import { Component } from '@angular/core';
   standalone: true,
   styles: ``,
 })
-export class InputTextComponent {}
+export class InputTextComponent { }

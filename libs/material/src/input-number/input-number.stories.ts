@@ -10,13 +10,31 @@ export default meta;
 
 type Story = StoryObj<InputNumberComponent>;
 
-export const Primary: Story = {
-  args: {},
+export const Number: Story = {
+  args: {
+    isInteger: false,
+    label: "Number label"
+  },
+};
+
+export const Integer: Story = {
+  args: {
+    isInteger: true,
+    label: "Integer label"
+  },
+};
+export const Range10: Story = {
+  args: {
+    isInteger: true,
+    label: "Integer label",
+    min: 0,
+    max: 10
+  },
 };
 
 export const Heading: Story = {
-  args: {},
+  ...Number,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/input-number/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Number Label/gi)).toBeTruthy();
   },
 };
