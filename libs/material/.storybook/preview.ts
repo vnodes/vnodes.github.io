@@ -8,7 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 setCompodocJson(docJson);
 
 const preview: Preview = {
-
+    tags: ["autodocs"],
     decorators: [
         moduleMetadata({
             imports: [

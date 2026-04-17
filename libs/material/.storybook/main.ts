@@ -13,11 +13,16 @@ const config: StorybookConfig = {
       compodoc: {
         compodocJson: '../documentation.json',
       },
+
       theme,
 
     }
   },
   staticDirs: ['../../../dist/apps/web/browser'],
+  docs: {
+    defaultName: "Doc"
+  }
+
 };
 
 export default config;

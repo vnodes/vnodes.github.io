@@ -111,6 +111,9 @@
       "inlineTemplate": true,
       "inlineStyle": true,
       "standalone": true
+    },
+    "@vnodes/plugin:component": {
+      "prefix": "vn"
     }
   },
   "release": {

@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { ButtonComponent } from './button';
 import { expect } from 'storybook/test';
-import { Material } from './material';
 
-const meta: Meta<Material> = {
-  component: Material,
-  title: 'Material',
+const meta: Meta<ButtonComponent> = {
+  component: ButtonComponent,
+  title: 'ButtonComponent',
 };
-
 export default meta;
 
-type Story = StoryObj<Material>;
+type Story = StoryObj<ButtonComponent>;
 
 export const Primary: Story = {
   args: {},
@@ -18,6 +17,6 @@ export const Primary: Story = {
 export const Heading: Story = {
   args: {},
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/material/gi)).toBeTruthy();
+    await expect(canvas.getByText(/button/gi)).toBeTruthy();
   },
 };
