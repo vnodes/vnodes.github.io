@@ -34,6 +34,7 @@ export abstract class BaseInput<T = any> implements ControlValueAccessor {
 
 
   writeValue(value: T): void {
+
     this.value.set(value);
   }
 

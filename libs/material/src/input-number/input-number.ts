@@ -3,11 +3,13 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '../input/input';
+import { NumberFilterDirective } from '../number-filter/number-filter';
+
 
 @Component({
   selector: 'vn-input-number',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,7 +22,7 @@ import { BaseInput } from '../input/input';
   <mat-form-field>
       <mat-label>{{ label() }}</mat-label>
       <input
-      type="number"
+      type="text"
       matInput
       [placeholder]="placeholder()"
       [value]="value()"
@@ -29,6 +31,10 @@ import { BaseInput } from '../input/input';
       (blur)="handleBlur()"
       [min]="min()"
       [max]="max()"
+      (keydown)="handleKeyDown($event)"
+      [isInteger]="isInteger()"
+      vnNumberFilter
+
       />
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
       <mat-error>Invalid Input</mat-error>
@@ -43,17 +49,32 @@ export class InputNumberComponent extends BaseInput {
   min = input<number | null>(null)
   max = input<number | null>(null)
 
+  protected override convertToValue(value: string): number | null {
 
 
-
-  protected override convertToValue(value: string) {
-
-    try {
-      const parsedValue = this.isInteger() ? parseInt(value) : parseFloat(value);
-      const actualValue = isNaN(parsedValue) ? null : parsedValue;
-      return actualValue
-    } catch {
-      return null;
+    if (value === '') {
+      return 0;
     }
+
+    if (value === '-') {
+      return -0
+    }
+
+
+
+    if (value.endsWith('.')) {
+      value = value + "0"
+    }
+
+    const parsedValue = this.isInteger() ? parseInt(value) : parseFloat(value);
+    const actualValue = isNaN(parsedValue) ? null : parsedValue;
+    return actualValue
+
   }
+
+
+  handleKeyDown(event: KeyboardEvent) {
+
+  }
+
 }
