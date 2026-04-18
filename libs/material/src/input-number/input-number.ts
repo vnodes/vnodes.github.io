@@ -10,7 +10,7 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
 
 
 @Component({
-  selector: 'vn-input[type="number"], vn-input[type="integer"]',
+  selector: 'vn-input[type=number], vn-input[type=integer]',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],
   providers: [
@@ -33,10 +33,7 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
       (blur)="handleBlur()"
       [min]="min()"
       [max]="max()"
-      (keydown)="handleKeyDown($event)"
-      [vnNumberType]="type()"
-      vnNumberFilter
-
+      [vnNumberFilter]="type()"
       />
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
       <mat-error>Invalid Input</mat-error>
@@ -45,32 +42,24 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
   styleUrls: ['../input/input.scss']
 })
 export class InputNumberComponent extends BaseInput<number, NumberInputType> {
+  min = input<number>(Number.MIN_SAFE_INTEGER)
+  max = input<number>(Number.MAX_SAFE_INTEGER)
 
 
-  min = input<number | null>(null)
-  max = input<number | null>(null)
-
-  protected override convertToValue(value: string): number | null {
-
-
-    if (value === '') {
-      return 0;
+  protected override convertToValue(value: string): any {
+    // 1. Handle empty input immediately
+    if (value === null || value === undefined || value === '') {
+      return this.defaultValue();
     }
 
+    // 2. Parse based on the type input signal
+    const parsedValue = this.type() === 'integer'
+      ? parseInt(value, 10)
+      : parseFloat(value);
 
-    if (value.endsWith('.')) {
-      value = value + "0"
-    }
-
-    const parsedValue = this.type() === 'integer' ? parseInt(value) : parseFloat(value);
-    const actualValue = isNaN(parsedValue) ? null : parsedValue;
-    return actualValue
-
-  }
-
-
-  handleKeyDown(event: KeyboardEvent) {
+    // 3. Safety check for NaN (Not a Number)
+    // This happens if the user clears the input or types invalid chars
+    return isNaN(parsedValue) ? this.defaultValue() : parsedValue;
 
   }
-
 }

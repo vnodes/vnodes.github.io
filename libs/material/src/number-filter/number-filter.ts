@@ -14,7 +14,7 @@ export const navigationKeys = [
     standalone: true
 })
 export class NumberFilterDirective {
-    type = input<'number' | 'integer'>('number', { alias: "vnNumberType" });
+    type = input<'number' | 'integer'>('number', { alias: "vnNumberFilter" });
 
     constructor(protected readonly el: ElementRef<HTMLInputElement>) { }
 
@@ -23,8 +23,8 @@ export class NumberFilterDirective {
 
         const nativeElm = this.el.nativeElement
         const previousValue = nativeElm.value
-        const hasMinus = previousValue.includes('-');
-        const hasDot = previousValue.includes('.')
+        const hasMinus = !!previousValue?.includes('-');
+        const hasDot = !!previousValue?.includes('.')
 
         if (
             navigationKeys.indexOf(event.key) > -1 ||
@@ -39,35 +39,26 @@ export class NumberFilterDirective {
         // If is the key is DOT 
         if (event.key === '.') {
             // And the input is INTEGER
-            if (this.type() === 'integer') {
+            if (this.type() === 'integer' || hasDot) {
                 // Then prevent event 
                 event.preventDefault();
 
                 // Else (none integer) the previous value already has the DOT
-            } else if (hasDot) {
-
-                // Then prevent event
-                event.preventDefault()
-                return;
-
             }
+
             // If the key is minus
         } else if (event.key === '-') {
 
-            // If the previous value has minus already
-
-
-            if (nativeElm.value === '') {
-                event.preventDefault();
-            } else if (nativeElm.value === '0') {
-                event.preventDefault()
-            } else if (hasMinus) {
+            if (hasMinus) {
                 // Then toggle the sign
-                nativeElm.value = nativeElm.value.slice(1);
+                nativeElm.value = previousValue.slice(1);
             } else {
                 // Else add the sign
-                nativeElm.value = `-${nativeElm.value}`
+                nativeElm.value = `-${previousValue}`
             }
+
+
+
         } else if (event.key === '0') {
             if (previousValue === '0') {
                 event.preventDefault()
@@ -75,6 +66,8 @@ export class NumberFilterDirective {
         } else if (!digitExp.test(event.key)) {
             event.preventDefault();
         }
+
+
     }
 
     @HostListener('paste', ['$event'])

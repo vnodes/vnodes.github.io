@@ -8,12 +8,12 @@
     "directives": [
         {
             "name": "BaseInput",
-            "id": "directive-BaseInput-a5008860b462d0ba299fdadc3286a799345d7ed20b16e2c69f80b099f7ce799f6bc075a6f16f1897fb04600c8718606c6a308cef1cf79f9232a9fead4ccf074f",
+            "id": "directive-BaseInput-402ebb67b27a6faadfe8cb6b31025ba30984c1fc5468ec2ce24ecedf5ba2128d9cc0d1e252cadea1c7b99e2073a898a8c6a770926c16dcefd570fd63b9a878bd",
             "file": "libs/material/src/input/input.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, input, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\nexport type NumberInputType = 'number' | 'integer';\nexport type StringInputType = 'text';\nexport type InputType = NumberInputType | StringInputType\n\n@Directive()\nexport abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {\n  type = input.required<IInputType>()\n  label = input<string>('No label');\n  placeholder = input<string>('No placeholder');\n  hint = input<string>('');\n  required = input<boolean>(false);\n  value = signal<ValueType | null>(null);\n  disabled = signal<boolean>(false);\n\n  protected onChange: (value: ValueType | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    const val = this.convertToValue(target.value);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): ValueType | null;\n\n\n  writeValue(value: ValueType): void {\n\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}\n\n\n\n",
+            "sourceCode": "import { Directive, input, model, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\nexport type NumberInputType = 'number' | 'integer';\nexport type StringInputType = 'text';\nexport type InputType = NumberInputType | StringInputType\n\n@Directive()\nexport abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {\n\n  type = input.required<IInputType>()\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n  value = model<ValueType | undefined | null>(undefined);\n  disabled = signal<boolean>(false);\n\n  protected onChange: (value: ValueType | undefined | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    console.log(\"native value: \", target.value);\n    const val = this.convertToValue(target.value);\n    console.log(\"converted value: \", val);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): ValueType | undefined | null;\n\n\n  writeValue(value: ValueType): void {\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}\n\n\n\n\n",
             "providers": [],
             "hostDirectives": [],
             "standalone": false,
@@ -27,24 +27,12 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 14,
                     "required": false
                 },
                 {
                     "name": "label",
-                    "defaultValue": "'No label'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 11,
-                    "required": false
-                },
-                {
-                    "name": "placeholder",
-                    "defaultValue": "'No placeholder'",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -52,6 +40,18 @@
                     "optional": false,
                     "description": "",
                     "line": 12,
+                    "required": false
+                },
+                {
+                    "name": "placeholder",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
                     "required": false
                 },
                 {
@@ -63,7 +63,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 15,
                     "required": false
                 },
                 {
@@ -74,11 +74,36 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 11,
                     "required": true
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -93,24 +118,10 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 18,
-                    "modifierKind": [
-                        124
-                    ]
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -124,15 +135,18 @@
                     ]
                 },
                 {
-                    "name": "value",
-                    "defaultValue": "signal<ValueType | null>(null)",
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "unknown",
+                    "type": "function",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 20,
+                    "modifierKind": [
+                        124
+                    ]
                 }
             ],
             "methodsClass": [
@@ -149,9 +163,9 @@
                         }
                     ],
                     "optional": false,
-                    "returnType": "ValueType | null",
+                    "returnType": "ValueType | undefined | null",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -178,7 +192,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -197,7 +211,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -229,7 +243,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -261,7 +275,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -293,7 +307,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -325,7 +339,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -350,12 +364,12 @@
         },
         {
             "name": "Flex",
-            "id": "directive-Flex-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-Flex-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlex]",
             "providers": [],
             "hostDirectives": [],
@@ -397,12 +411,12 @@
         },
         {
             "name": "FlexColGap",
-            "id": "directive-FlexColGap-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexColGap-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexColGap]",
             "providers": [],
             "hostDirectives": [],
@@ -444,12 +458,12 @@
         },
         {
             "name": "FlexFull",
-            "id": "directive-FlexFull-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexFull-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexFull]",
             "providers": [],
             "hostDirectives": [],
@@ -497,12 +511,12 @@
         },
         {
             "name": "FlexGap",
-            "id": "directive-FlexGap-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexGap-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexGap]",
             "providers": [],
             "hostDirectives": [],
@@ -544,12 +558,12 @@
         },
         {
             "name": "FlexGrow",
-            "id": "directive-FlexGrow-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexGrow-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexGrow]",
             "providers": [],
             "hostDirectives": [],
@@ -591,12 +605,12 @@
         },
         {
             "name": "FlexRowGap",
-            "id": "directive-FlexRowGap-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexRowGap-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexRowGap]",
             "providers": [],
             "hostDirectives": [],
@@ -638,12 +652,12 @@
         },
         {
             "name": "FlexWrap",
-            "id": "directive-FlexWrap-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "directive-FlexWrap-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "file": "libs/material/src/flex/flex.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "selector": "[vnFlexWrap]",
             "providers": [],
             "hostDirectives": [],
@@ -685,12 +699,12 @@
         },
         {
             "name": "NumberFilterDirective",
-            "id": "directive-NumberFilterDirective-e5056798ca75ec2c16b2a393260e6b6db3ce74771787d4459cc2bbb9a370819f44a8a2a445014dec69fa9108dc6c060b1b2e374e333ecd2307799392c9ea16b7",
+            "id": "directive-NumberFilterDirective-e3fe6c1159d5d7392cbcfc3717cea6d7c1699e8a8914b01a789aa2a616da98063674810783cb62e0f0a6232664f634efaaaf0f06b416a938732be155fd64d593",
             "file": "libs/material/src/number-filter/number-filter.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\n\n\n\nexport const digitExp = /^[0-9]{1}$/;\nexport const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/\nexport const navigationKeys = [\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n];\n\n\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    type = input<'number' | 'integer'>('number', { alias: \"vnNumberType\" });\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n\n        const nativeElm = this.el.nativeElement\n        const previousValue = nativeElm.value\n        const hasMinus = previousValue.includes('-');\n        const hasDot = previousValue.includes('.')\n\n        if (\n            navigationKeys.indexOf(event.key) > -1 ||\n            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'x' && (event.ctrlKey || event.metaKey))\n        ) {\n            return;\n        }\n\n        // If is the key is DOT \n        if (event.key === '.') {\n            // And the input is INTEGER\n            if (this.type() === 'integer') {\n                // Then prevent event \n                event.preventDefault();\n\n                // Else (none integer) the previous value already has the DOT\n            } else if (hasDot) {\n\n                // Then prevent event\n                event.preventDefault()\n                return;\n\n            }\n            // If the key is minus\n        } else if (event.key === '-') {\n\n            // If the previous value has minus already\n            if (hasMinus) {\n                // Then toggle the sign\n                nativeElm.value = nativeElm.value.slice(1);\n            } else {\n                // Else add the sign\n                nativeElm.value = `-${nativeElm.value}`\n            }\n        } else if (event.key === '0') {\n            if (previousValue === '0') {\n                event.preventDefault()\n            }\n        } else if (!digitExp.test(event.key)) {\n            event.preventDefault();\n        }\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !numberExp.test(pastedText)) {\n            event.preventDefault();\n        }\n    }\n}",
+            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\n\n\n\nexport const digitExp = /^[0-9]{1}$/;\nexport const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/\nexport const navigationKeys = [\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n];\n\n\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    type = input<'number' | 'integer'>('number', { alias: \"vnNumberFilter\" });\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n\n        const nativeElm = this.el.nativeElement\n        const previousValue = nativeElm.value\n        const hasMinus = !!previousValue?.includes('-');\n        const hasDot = !!previousValue?.includes('.')\n\n        if (\n            navigationKeys.indexOf(event.key) > -1 ||\n            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'x' && (event.ctrlKey || event.metaKey))\n        ) {\n            return;\n        }\n\n        // If is the key is DOT \n        if (event.key === '.') {\n            // And the input is INTEGER\n            if (this.type() === 'integer' || hasDot) {\n                // Then prevent event \n                event.preventDefault();\n\n                // Else (none integer) the previous value already has the DOT\n            }\n\n            // If the key is minus\n        } else if (event.key === '-') {\n\n            if (hasMinus) {\n                // Then toggle the sign\n                nativeElm.value = previousValue.slice(1);\n            } else {\n                // Else add the sign\n                nativeElm.value = `-${previousValue}`\n            }\n\n\n\n        } else if (event.key === '0') {\n            if (previousValue === '0') {\n                event.preventDefault()\n            }\n        } else if (!digitExp.test(event.key)) {\n            event.preventDefault();\n        }\n\n\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !numberExp.test(pastedText)) {\n            event.preventDefault();\n        }\n    }\n}",
             "selector": "[vnNumberFilter]",
             "providers": [],
             "hostDirectives": [],
@@ -698,7 +712,7 @@
             "inputsClass": [
                 {
                     "name": "type",
-                    "defaultValue": "'number', { alias: \"vnNumberType\" }",
+                    "defaultValue": "'number', { alias: \"vnNumberFilter\" }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "\"number\" | \"integer\"",
@@ -750,7 +764,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 75
+                    "line": 74
                 }
             ],
             "propertiesClass": [],
@@ -811,7 +825,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 75,
+                    "line": 74,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -909,7 +923,7 @@
         },
         {
             "name": "FormSampleComponent",
-            "id": "component-FormSampleComponent-85122ce8490ec4ab7eee1533a0e5ebc8c41d4d784f68ea469a0032581fe6fcca9093070099e338e5d2b004ff75ce2055524be84d63a220d998173d350c1ecc22",
+            "id": "component-FormSampleComponent-cc5f54fa160d9f92eff5afd5e817fdb5d1d540d953c8a6ed78d0903e53c3ae6887a920a48263797aec8e7fbbea826d8f6f605283e405f3db2944cff4b0636976",
             "file": "libs/material/src/form-sample/form-sample.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -919,7 +933,7 @@
             "selector": "vn-form-sample",
             "styleUrls": [],
             "styles": [],
-            "template": "<form vnForm [formGroup]=\"formGroup\" vnFlex vnFlexWrap vnFlexGap>\n  <vn-input vnFlexFull formControlName=\"name\" type=\"text\"label=\"text input\"></vn-input>\n  <vn-input vnFlexFull formControlName=\"age\" type=\"number\" label=\"number input\"></vn-input>\n  <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n  <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n  <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n</form>\n",
+            "template": "<form vnForm [formGroup]=\"formGroup\" vnFlex vnFlexWrap vnFlexGap>\n  <vn-input formControlName=\"name\" [minLength]=\"3\" [maxLength]=\"30\" type=\"text\"label=\"Name\"></vn-input>\n  <vn-input formControlName=\"price\" type=\"number\" label=\"Price\"></vn-input>\n  <vn-input formControlName=\"age\" type=\"integer\" label=\"Age\"></vn-input>\n</form>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -928,14 +942,14 @@
             "propertiesClass": [
                 {
                     "name": "formGroup",
-                    "defaultValue": "new FormGroup({\n    name: new FormControl(\"\"),\n    age: new FormControl(1)\n  })",
+                    "defaultValue": "new FormGroup({\n    name: new FormControl(null, [], []),\n    age: new FormControl(null, [], []),\n    price: new FormControl(null, [], []),\n  })",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 22
                 }
             ],
             "methodsClass": [
@@ -945,7 +959,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 30,
+                    "line": 27,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -959,6 +973,10 @@
                 {
                     "name": "FormComponent",
                     "type": "component"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
                 },
                 {
                     "name": "ReactiveFormsModule",
@@ -980,7 +998,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';\nimport { FlexModule } from '../flex/flex';\nimport { FormComponent } from '../form/form';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { InputTextComponent } from '../input-text/input-text';\n\n\n@Component({\n  selector: 'vn-form-sample',\n  imports: [FormComponent, ReactiveFormsModule, InputNumberComponent, InputTextComponent, FlexModule],\n  template: `\n  <form vnForm [formGroup]=\"formGroup\" vnFlex vnFlexWrap vnFlexGap>\n    <vn-input vnFlexFull formControlName=\"name\" type=\"text\"label=\"text input\"></vn-input>\n    <vn-input vnFlexFull formControlName=\"age\" type=\"number\" label=\"number input\"></vn-input>\n    <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n    <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n    <vn-input vnFlexGrow=\"1\" type=\"integer\" label=\"integer input\"></vn-input>\n  </form>\n  `,\n  standalone: true,\n\n})\nexport class FormSampleComponent implements OnInit {\n  formGroup = new FormGroup({\n    name: new FormControl(\"\"),\n    age: new FormControl(1)\n  })\n\n  ngOnInit(): void {\n    this.formGroup.valueChanges.subscribe(value => {\n\n      console.log(\"Value: \", value);\n    })\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';\nimport { FlexModule } from '../flex/flex';\nimport { FormComponent } from '../form/form';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { InputTextComponent } from '../input-text/input-text';\n\n\n@Component({\n  selector: 'vn-form-sample',\n  imports: [FormComponent, FormsModule, ReactiveFormsModule, InputNumberComponent, InputTextComponent, FlexModule],\n  template: `\n  <form vnForm [formGroup]=\"formGroup\" vnFlex vnFlexWrap vnFlexGap>\n    <vn-input formControlName=\"name\" [minLength]=\"3\" [maxLength]=\"30\" type=\"text\"label=\"Name\"></vn-input>\n    <vn-input formControlName=\"price\" type=\"number\" label=\"Price\"></vn-input>\n    <vn-input formControlName=\"age\" type=\"integer\" label=\"Age\"></vn-input>\n  </form>\n  `,\n  standalone: true,\n})\nexport class FormSampleComponent implements OnInit {\n  formGroup = new FormGroup({\n    name: new FormControl(null, [], []),\n    age: new FormControl(null, [], []),\n    price: new FormControl(null, [], []),\n  })\n  ngOnInit(): void {\n    this.formGroup.valueChanges.subscribe(value => {\n      console.log(\"Value: \", value);\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -991,7 +1009,7 @@
         },
         {
             "name": "InputNumberComponent",
-            "id": "component-InputNumberComponent-83c8134fc02948ad299a155934e34c21c8ef63a1f139f055986128e8485a6b6caac428d94c67e62ecb0bf1c97c142910aca35476aee2ad7d5b653b315dc67116",
+            "id": "component-InputNumberComponent-3f82179b74caaf03f5524ef2f0c1f2222bdb72fba2852a1e8e1e65b018d0e47dcbed6fab38e9cc9cd8c7ae0e9ad39b581e70203113104d563d4aa3643768df56",
             "file": "libs/material/src/input-number/input-number.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -999,46 +1017,75 @@
             "outputs": [],
             "providers": [
                 {
-                    "name": "InputNumberComponent",
-                    "type": "component"
+                    "name": ")"
                 }
             ],
-            "selector": "vn-input[type=\"number\"], vn-input[type=\"integer\"]",
+            "selector": "vn-input[type=number], vn-input[type=integer]",
             "styleUrls": [
                 "../input/input.scss"
             ],
             "styles": [],
-            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    (keydown)=\"handleKeyDown($event)\"\n    [vnNumberType]=\"type()\"\n    vnNumberFilter\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
+            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    [vnNumberFilter]=\"type()\"\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
                 {
                     "name": "max",
-                    "defaultValue": "null",
+                    "defaultValue": "Number.MAX_SAFE_INTEGER",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "number | null",
+                    "type": "number",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 51,
+                    "line": 46,
                     "required": false
                 },
                 {
                     "name": "min",
-                    "defaultValue": "null",
+                    "defaultValue": "Number.MIN_SAFE_INTEGER",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "number | null",
+                    "type": "number",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 50,
+                    "line": 45,
                     "required": false
                 },
                 {
                     "name": "hint",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "placeholder",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1053,36 +1100,6 @@
                     }
                 },
                 {
-                    "name": "label",
-                    "defaultValue": "'No label'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 11,
-                    "required": false,
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "placeholder",
-                    "defaultValue": "'No placeholder'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 12,
-                    "required": false,
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
                     "name": "required",
                     "defaultValue": "false",
                     "deprecated": false,
@@ -1091,7 +1108,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 15,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -1105,14 +1122,45 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 11,
                     "required": true,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                }
+            ],
             "propertiesClass": [
                 {
                     "name": "disabled",
@@ -1123,30 +1171,13 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 17,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 18,
-                    "modifierKind": [
-                        124
-                    ],
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1163,15 +1194,18 @@
                     }
                 },
                 {
-                    "name": "value",
-                    "defaultValue": "signal<ValueType | null>(null)",
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "unknown",
+                    "type": "function",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15,
+                    "line": 20,
+                    "modifierKind": [
+                        124
+                    ],
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -1191,9 +1225,9 @@
                         }
                     ],
                     "optional": false,
-                    "returnType": "number | null",
+                    "returnType": "any",
                     "typeParameters": [],
-                    "line": 53,
+                    "line": 48,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1218,44 +1252,12 @@
                     }
                 },
                 {
-                    "name": "handleKeyDown",
-                    "args": [
-                        {
-                            "name": "event",
-                            "type": "KeyboardEvent",
-                            "optional": false,
-                            "dotDotDotToken": false,
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 77,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "event",
-                            "type": "KeyboardEvent",
-                            "optional": false,
-                            "dotDotDotToken": false,
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
                     "name": "handleBlur",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1277,7 +1279,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1312,7 +1314,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1347,7 +1349,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1382,7 +1384,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1417,7 +1419,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1464,7 +1466,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, NumberInputType } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n\n\n\n\n@Component({\n  selector: 'vn-input[type=\"number\"], vn-input[type=\"integer\"]',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: InputNumberComponent, //forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      (keydown)=\"handleKeyDown($event)\"\n      [vnNumberType]=\"type()\"\n      vnNumberFilter\n\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputNumberComponent extends BaseInput<number, NumberInputType> {\n\n\n  min = input<number | null>(null)\n  max = input<number | null>(null)\n\n  protected override convertToValue(value: string): number | null {\n\n\n    if (value === '') {\n      return 0;\n    }\n\n    if (value === '-') {\n      return -0\n    }\n\n\n\n    if (value.endsWith('.')) {\n      value = value + \"0\"\n    }\n\n    const parsedValue = this.type() === 'integer' ? parseInt(value) : parseFloat(value);\n    const actualValue = isNaN(parsedValue) ? null : parsedValue;\n    return actualValue\n\n  }\n\n\n  handleKeyDown(event: KeyboardEvent) {\n\n  }\n\n}\n",
+            "sourceCode": "import { Component, forwardRef, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, NumberInputType } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n\n\n\n\n@Component({\n  selector: 'vn-input[type=number], vn-input[type=integer]',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      [vnNumberFilter]=\"type()\"\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputNumberComponent extends BaseInput<number, NumberInputType> {\n  min = input<number>(Number.MIN_SAFE_INTEGER)\n  max = input<number>(Number.MAX_SAFE_INTEGER)\n\n  protected override convertToValue(value: string): any {\n    // 1. Handle empty input immediately\n    if (value === null || value === undefined || value === '') {\n      return null;\n    }\n\n    // 2. Parse based on the type input signal\n    const parsedValue = this.type() === 'integer'\n      ? parseInt(value, 10)\n      : parseFloat(value);\n\n    // 3. Safety check for NaN (Not a Number)\n    // This happens if the user clears the input or types invalid chars\n    return isNaN(parsedValue) ? undefined : parsedValue;\n\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1479,7 +1481,7 @@
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-1f8eb73e5bd587e11848820c07f2471a45eb1dfd311c557b7c4fa8e100c41b33586bd62eea86cd3ac9c6f78cea006958c1c7fcf5d085bb190e6bc0c53bc14344",
+            "id": "component-InputTextComponent-9e01cfe381db016ff614e2ef986686b52b8eacb8e60c7da3a4bfdcd4182cf41bd49865d012d5d12dddc3ebb64b9c3b855bbf24013c020283b676846e6b5f8757",
             "file": "libs/material/src/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1487,8 +1489,7 @@
             "outputs": [],
             "providers": [
                 {
-                    "name": "InputNumberComponent",
-                    "type": "component"
+                    "name": ")"
                 }
             ],
             "selector": "vn-input[type=\"text\"]",
@@ -1496,13 +1497,67 @@
                 "../input/input.scss"
             ],
             "styles": [],
-            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
+            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [minLength]=\"minLength()\"\n    [maxLength]=\"maxLength()\"\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "name": "maxLength",
+                    "defaultValue": "1000",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "required": false
+                },
+                {
+                    "name": "minLength",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "required": false
+                },
+                {
                     "name": "hint",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "placeholder",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1517,36 +1572,6 @@
                     }
                 },
                 {
-                    "name": "label",
-                    "defaultValue": "'No label'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 11,
-                    "required": false,
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "placeholder",
-                    "defaultValue": "'No placeholder'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 12,
-                    "required": false,
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
                     "name": "required",
                     "defaultValue": "false",
                     "deprecated": false,
@@ -1555,7 +1580,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 15,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -1569,14 +1594,45 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 11,
                     "required": true,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "value",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ValueType | undefined | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                }
+            ],
             "propertiesClass": [
                 {
                     "name": "disabled",
@@ -1587,30 +1643,13 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 17,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 18,
-                    "modifierKind": [
-                        124
-                    ],
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1627,15 +1666,18 @@
                     }
                 },
                 {
-                    "name": "value",
-                    "defaultValue": "signal<ValueType | null>(null)",
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "unknown",
+                    "type": "function",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15,
+                    "line": 20,
+                    "modifierKind": [
+                        124
+                    ],
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -1657,7 +1699,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1687,7 +1729,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1709,7 +1751,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1744,7 +1786,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1779,7 +1821,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1814,7 +1856,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1849,7 +1891,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1892,7 +1934,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { BaseInput, StringInputType } from '../input/input';\n\n@Component({\n  selector: 'vn-input[type=\"text\"]',\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: InputNumberComponent, //forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n    `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputTextComponent extends BaseInput<string, StringInputType> {\n\n  protected override convertToValue(value: string) {\n\n    value = value.trim();\n\n    if (value === '') {\n      return null;\n    }\n    return value;\n  }\n}\n",
+            "sourceCode": "import { Component, forwardRef, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, StringInputType } from '../input/input';\n\n@Component({\n  selector: 'vn-input[type=\"text\"]',\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputTextComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [minLength]=\"minLength()\"\n      [maxLength]=\"maxLength()\"\n\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n    `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputTextComponent extends BaseInput<string, StringInputType> {\n\n  minLength = input<number>(0)\n  maxLength = input<number>(1000)\n\n  protected override convertToValue(value: string) {\n    return value;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1909,13 +1951,13 @@
     "modules": [
         {
             "name": "FlexModule",
-            "id": "module-FlexModule-d658d40a8af5b5652d8cfb99f2dde9303657a26e988d8bb1bfd02f130e38dafe33c0e62ef26fc3b86e9c0b39ac6a459b66f3662a1feb869711e271ffe19932e0",
+            "id": "module-FlexModule-2a6ff685b5a18e86215689c360833b79e79a9f39d77863c8e8e30a0cd62cef47efd6c91784771c20a45931f15eed8e5ded151726e399b3059feb7958f6d9c3f9",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "libs/material/src/flex/flex.ts",
             "methods": [],
-            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
+            "sourceCode": "import { computed, Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\nexport type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'\nexport type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": 'computedValue()',\n    }\n})\nexport class Flex {\n    value = input<FlexDirValue>(\"row\", { alias: \"vnFlex\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : 'row'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexWrap]\",\n    standalone: true,\n    host: {\n        \"[style.flex-wrap]\": \"computedValue()\",\n\n    }\n})\nexport class FlexWrap {\n    value = input<FlexWrapValue>(\"wrap\", { alias: \"vnFlexWrap\" });\n    computedValue = computed<FlexWrapValue>(() => {\n        return this.value() ? this.value() : 'wrap'\n    })\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'computedValue()'\n    }\n})\nexport class FlexGrow {\n    value = input<string>(\"\", { alias: \"vnFlexGrow\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true,\n    host: {\n        \"[style.gap]\": 'computedValue()'\n    }\n})\nexport class FlexGap {\n    value = input<string>(\"\", { alias: \"vnFlexGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '0.5em'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexRowGap]\",\n    standalone: true,\n    host: {\n        \"[style.row-gap]\": 'computedValue()'\n    }\n})\nexport class FlexRowGap {\n    value = input<string>(\"\", { alias: \"vnFlexRowGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n@Directive({\n    selector: \"[vnFlexColGap]\",\n    standalone: true,\n    host: {\n        \"[style.column-gap]\": 'computedValue()'\n    }\n})\nexport class FlexColGap {\n    value = input<string>(\"\", { alias: \"vnFlexColGap\" });\n    computedValue = computed(() => {\n        return this.value() ? this.value() : '1'\n    })\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],\n    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]\n})\nexport class FlexModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -2027,7 +2069,7 @@
                 "name": "FlexDirValue",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "\"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
+                "rawtype": "string | \"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
                 "file": "libs/material/src/flex/flex.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2038,7 +2080,7 @@
                 "name": "FlexWrapValue",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "\"wrap\" | \"nowrap\" | \"wrap-reverse\"",
+                "rawtype": "string | \"wrap\" | \"nowrap\" | \"wrap-reverse\"",
                 "file": "libs/material/src/flex/flex.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2122,7 +2164,7 @@
                     "name": "FlexDirValue",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "\"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
+                    "rawtype": "string | \"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
                     "file": "libs/material/src/flex/flex.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -2133,7 +2175,7 @@
                     "name": "FlexWrapValue",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "\"wrap\" | \"nowrap\" | \"wrap-reverse\"",
+                    "rawtype": "string | \"wrap\" | \"nowrap\" | \"wrap-reverse\"",
                     "file": "libs/material/src/flex/flex.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -2303,7 +2345,7 @@
                 "linktype": "component",
                 "name": "InputTextComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/17",
+                "coverageCount": "0/20",
                 "status": "low"
             },
             {
@@ -2312,7 +2354,7 @@
                 "linktype": "directive",
                 "name": "BaseInput",
                 "coveragePercent": 0,
-                "coverageCount": "0/17",
+                "coverageCount": "0/18",
                 "status": "low"
             },
             {

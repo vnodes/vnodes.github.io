@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +25,8 @@ import { BaseInput, StringInputType } from '../input/input';
       [disabled]="disabled()"
       (input)="handleInput($event)"
       (blur)="handleBlur()"
+      [minLength]="minLength()"
+      [maxLength]="maxLength()"
 
       />
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
@@ -35,12 +37,12 @@ import { BaseInput, StringInputType } from '../input/input';
 })
 export class InputTextComponent extends BaseInput<string, StringInputType> {
 
+  minLength = input<number>(0)
+  maxLength = input<number>(1000)
+
   protected override convertToValue(value: string) {
-
-    value = value.trim();
-
-    if (value === '') {
-      return null;
+    if (value === null || value === '') {
+      return this.defaultValue();
     }
     return value;
   }
