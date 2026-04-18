@@ -1,20 +1,21 @@
 import { Directive, input, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
-@Directive()
-export abstract class BaseInput<T = any> implements ControlValueAccessor {
+export type NumberInputType = 'number' | 'integer';
+export type StringInputType = 'text';
+export type InputType = NumberInputType | StringInputType
 
-  label = input<string>('');
-  placeholder = input<string>('');
+@Directive()
+export abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {
+  type = input.required<IInputType>()
+  label = input<string>('No label');
+  placeholder = input<string>('No placeholder');
   hint = input<string>('');
   required = input<boolean>(false);
-
-
-  value = signal<T | null>(null);
+  value = signal<ValueType | null>(null);
   disabled = signal<boolean>(false);
 
-
-  protected onChange: (value: T | null) => void = () => { };
+  protected onChange: (value: ValueType | null) => void = () => { };
   protected onTouched: () => void = () => { };
 
 
@@ -30,10 +31,10 @@ export abstract class BaseInput<T = any> implements ControlValueAccessor {
   }
 
 
-  protected abstract convertToValue(value: string): T | null;
+  protected abstract convertToValue(value: string): ValueType | null;
 
 
-  writeValue(value: T): void {
+  writeValue(value: ValueType): void {
 
     this.value.set(value);
   }

@@ -14,7 +14,7 @@ export const navigationKeys = [
     standalone: true
 })
 export class NumberFilterDirective {
-    isInteger = input<boolean>(false);
+    type = input<'number' | 'integer'>('number', { alias: "vnNumberType" });
 
     constructor(protected readonly el: ElementRef<HTMLInputElement>) { }
 
@@ -39,7 +39,7 @@ export class NumberFilterDirective {
         // If is the key is DOT 
         if (event.key === '.') {
             // And the input is INTEGER
-            if (this.isInteger()) {
+            if (this.type() === 'integer') {
                 // Then prevent event 
                 event.preventDefault();
 

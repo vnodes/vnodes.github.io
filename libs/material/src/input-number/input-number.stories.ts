@@ -4,7 +4,7 @@ import { InputNumberComponent } from './input-number';
 
 const meta: Meta<InputNumberComponent> = {
   component: InputNumberComponent,
-  title: 'Input/Number',
+  title: 'Form/Number',
 };
 export default meta;
 
@@ -12,20 +12,19 @@ type Story = StoryObj<InputNumberComponent>;
 
 export const Number: Story = {
   args: {
-    isInteger: false,
     label: "Number label"
   },
 };
 
 export const Integer: Story = {
   args: {
-    isInteger: true,
+    type: "integer",
     label: "Integer label"
   },
 };
 export const Range10: Story = {
   args: {
-    isInteger: true,
+    type: "number",
     label: "Integer label",
     min: 0,
     max: 10

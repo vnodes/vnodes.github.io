@@ -2,12 +2,12 @@ import { Component, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput } from '../input/input';
+import { BaseInput, NumberInputType } from '../input/input';
 import { NumberFilterDirective } from '../number-filter/number-filter';
 
 
 @Component({
-  selector: 'vn-input-number',
+  selector: 'vn-input[type="number"], vn-input[type="integer"]',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],
   providers: [
@@ -18,7 +18,6 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
     },
   ],
   template: `
-  
   <mat-form-field>
       <mat-label>{{ label() }}</mat-label>
       <input
@@ -32,7 +31,7 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
       [min]="min()"
       [max]="max()"
       (keydown)="handleKeyDown($event)"
-      [isInteger]="isInteger()"
+      [vnNumberType]="type()"
       vnNumberFilter
 
       />
@@ -40,11 +39,10 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
       <mat-error>Invalid Input</mat-error>
     </mat-form-field>
   `,
-  styles: ``,
+  styleUrls: ['../input/input.scss']
 })
-export class InputNumberComponent extends BaseInput {
+export class InputNumberComponent extends BaseInput<number, NumberInputType> {
 
-  isInteger = input(false);
 
   min = input<number | null>(null)
   max = input<number | null>(null)
@@ -66,7 +64,7 @@ export class InputNumberComponent extends BaseInput {
       value = value + "0"
     }
 
-    const parsedValue = this.isInteger() ? parseInt(value) : parseFloat(value);
+    const parsedValue = this.type() === 'integer' ? parseInt(value) : parseFloat(value);
     const actualValue = isNaN(parsedValue) ? null : parsedValue;
     return actualValue
 

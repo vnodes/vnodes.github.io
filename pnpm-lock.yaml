@@ -187,6 +187,9 @@ importers:
         specifier: ^21.2.0
         version: 21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)
     devDependencies:
+      '@angular/cdk':
+        specifier: ^21.2.6
+        version: 21.2.6(@angular/common@21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2))(@angular/platform-browser@21.2.8(@angular/common@21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@angular/material':
         specifier: ^21.2.6
         version: 21.2.6(3b3d7a6acdb3f9cf1eaf1221376ca43e)

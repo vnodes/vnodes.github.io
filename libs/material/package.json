@@ -2,6 +2,7 @@
   "name": "@vnodes/material",
   "version": "0.0.1",
   "peerDependencies": {
+    "@angular/cdk": "^21.2.6",
     "@angular/core": "^21.2.0"
   },
   "files": [
@@ -34,6 +35,7 @@
     }
   },
   "devDependencies": {
+    "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5"
   }

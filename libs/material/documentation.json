@@ -8,12 +8,12 @@
     "directives": [
         {
             "name": "BaseInput",
-            "id": "directive-BaseInput-a8c8ecad28ef2a3334b2d1fc9f702d7fc3ee09ab54f0de2ea8ab12d2f7685ca8c13510724716d8cc748308e1e686cb4203aa9e7aa256d68ddacbe2eb13a2218e",
+            "id": "directive-BaseInput-b02a96b61e77ecaee4aa94cd303619b08a2ff8f468863cf11fdb7cad00b5c0c1ad4001c7326c1a63b6fe925a311f7433c98e4491024258405469aa30b975b07b",
             "file": "libs/material/src/input/input.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, input, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\n@Directive()\nexport abstract class BaseInput<T = any> implements ControlValueAccessor {\n\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n\n\n  value = signal<T | null>(null);\n  disabled = signal<boolean>(false);\n\n\n  protected onChange: (value: T | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    const val = this.convertToValue(target.value);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): T | null;\n\n\n  writeValue(value: T): void {\n\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}",
+            "sourceCode": "import { Directive, input, signal } from '@angular/core';\nimport { ControlValueAccessor } from '@angular/forms';\n\nexport type NumberInputType = 'number' | 'integer';\nexport type StringInputType = 'text';\nexport type InputType = NumberInputType | StringInputType\n\n@Directive()\nexport abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {\n  type = input.required<IInputType>()\n  label = input<string>('No label');\n  placeholder = input<string>('No placeholder');\n  hint = input<string>('');\n  required = input<boolean>(false);\n  value = signal<ValueType | null>(null);\n  disabled = signal<boolean>(false);\n\n  protected onChange: (value: ValueType | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n\n\n  handleInput(event: Event): void {\n    const target = event.target as HTMLInputElement;\n    const val = this.convertToValue(target.value);\n    this.value.set(val);\n    this.onChange(val);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n\n  protected abstract convertToValue(value: string): ValueType | null;\n\n\n  writeValue(value: ValueType): void {\n\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n}",
             "providers": [],
             "hostDirectives": [],
             "standalone": false,
@@ -27,31 +27,31 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 9,
+                    "line": 13,
                     "required": false
                 },
                 {
                     "name": "label",
-                    "defaultValue": "''",
+                    "defaultValue": "'No label'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 7,
+                    "line": 11,
                     "required": false
                 },
                 {
                     "name": "placeholder",
-                    "defaultValue": "''",
+                    "defaultValue": "'No placeholder'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 8,
+                    "line": 12,
                     "required": false
                 },
                 {
@@ -63,8 +63,19 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 14,
                     "required": false
+                },
+                {
+                    "name": "type",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IInputType",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "required": true
                 }
             ],
             "outputsClass": [],
@@ -82,24 +93,10 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 16
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 17,
-                    "modifierKind": [
-                        124
-                    ]
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -113,15 +110,29 @@
                     ]
                 },
                 {
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "modifierKind": [
+                        124
+                    ]
+                },
+                {
                     "name": "value",
-                    "defaultValue": "signal<T | null>(null)",
+                    "defaultValue": "signal<ValueType | null>(null)",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 15
                 }
             ],
             "methodsClass": [
@@ -138,9 +149,9 @@
                         }
                     ],
                     "optional": false,
-                    "returnType": "T | null",
+                    "returnType": "ValueType | null",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -167,7 +178,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 29,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -186,7 +197,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 21,
+                    "line": 22,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -218,7 +229,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -250,7 +261,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 46,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -282,7 +293,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -304,7 +315,7 @@
                     "args": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -314,13 +325,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -338,28 +349,264 @@
             ]
         },
         {
+            "name": "Flex",
+            "id": "directive-Flex-bd31d0e431edb634d3269efaacfedcc73ca59a6da33a4e57b7fe1b083dbff163aecc6bed17077715ba7a81fe50f5b22b6eb76b951be264eb6d9ce4a26b261909",
+            "file": "libs/material/src/flex/flex.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": \"vnFlex()\",\n        \"[style.flex-wrap]\": \"flexWrap()\",\n        \"[style.gap]\": \"flexGap()\",\n        \"[style.row-gap]\": \"flexRowGap()\",\n        \"[style.column-gap]\": \"flexColGap()\",\n    }\n})\nexport class Flex {\n    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');\n    flexWrap = input<\"wrap\" | \"wrap-reverse\">('wrap');\n    flexGap = input<string>(\"unset\");\n    flexRowGap = input<string>(\"unset\")\n    flexColGap = input<string>(\"unset\")\n\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'vnFlexGrow()'\n    }\n})\nexport class FlexGrow {\n    vnFlexGrow = input<string>(\"1\");\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true\n})\nexport class FlexGap {\n    vnFlexGap = input(\"1em\")\n    @HostBinding(\"style.gap\") flexFull = this.vnFlexGap();\n}\n\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexFull],\n    exports: [Flex, FlexGrow, FlexFull]\n})\nexport class FlexModule { }",
+            "selector": "[vnFlex]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [
+                {
+                    "name": "flexColGap",
+                    "defaultValue": "\"unset\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "required": false
+                },
+                {
+                    "name": "flexGap",
+                    "defaultValue": "\"unset\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "required": false
+                },
+                {
+                    "name": "flexRowGap",
+                    "defaultValue": "\"unset\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "required": false
+                },
+                {
+                    "name": "flexWrap",
+                    "defaultValue": "'wrap'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"wrap\" | \"wrap-reverse\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "required": false
+                },
+                {
+                    "name": "vnFlex",
+                    "defaultValue": "'row'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"column\" | \"row\" | \"column-reverse\" | \"row-reverse\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "extends": []
+        },
+        {
+            "name": "FlexFull",
+            "id": "directive-FlexFull-bd31d0e431edb634d3269efaacfedcc73ca59a6da33a4e57b7fe1b083dbff163aecc6bed17077715ba7a81fe50f5b22b6eb76b951be264eb6d9ce4a26b261909",
+            "file": "libs/material/src/flex/flex.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": \"vnFlex()\",\n        \"[style.flex-wrap]\": \"flexWrap()\",\n        \"[style.gap]\": \"flexGap()\",\n        \"[style.row-gap]\": \"flexRowGap()\",\n        \"[style.column-gap]\": \"flexColGap()\",\n    }\n})\nexport class Flex {\n    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');\n    flexWrap = input<\"wrap\" | \"wrap-reverse\">('wrap');\n    flexGap = input<string>(\"unset\");\n    flexRowGap = input<string>(\"unset\")\n    flexColGap = input<string>(\"unset\")\n\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'vnFlexGrow()'\n    }\n})\nexport class FlexGrow {\n    vnFlexGrow = input<string>(\"1\");\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true\n})\nexport class FlexGap {\n    vnFlexGap = input(\"1em\")\n    @HostBinding(\"style.gap\") flexFull = this.vnFlexGap();\n}\n\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexFull],\n    exports: [Flex, FlexGrow, FlexFull]\n})\nexport class FlexModule { }",
+            "selector": "[vnFlexFull]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "name": "style.width",
+                    "defaultValue": "\"100%\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 41,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "propertiesClass": [
+                {
+                    "name": "flexFull",
+                    "defaultValue": "\"100%\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "decorators": [
+                        {
+                            "name": "HostBinding",
+                            "stringifiedArguments": "'style.width'"
+                        }
+                    ],
+                    "modifierKind": [
+                        171
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "extends": []
+        },
+        {
+            "name": "FlexGap",
+            "id": "directive-FlexGap-bd31d0e431edb634d3269efaacfedcc73ca59a6da33a4e57b7fe1b083dbff163aecc6bed17077715ba7a81fe50f5b22b6eb76b951be264eb6d9ce4a26b261909",
+            "file": "libs/material/src/flex/flex.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": \"vnFlex()\",\n        \"[style.flex-wrap]\": \"flexWrap()\",\n        \"[style.gap]\": \"flexGap()\",\n        \"[style.row-gap]\": \"flexRowGap()\",\n        \"[style.column-gap]\": \"flexColGap()\",\n    }\n})\nexport class Flex {\n    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');\n    flexWrap = input<\"wrap\" | \"wrap-reverse\">('wrap');\n    flexGap = input<string>(\"unset\");\n    flexRowGap = input<string>(\"unset\")\n    flexColGap = input<string>(\"unset\")\n\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'vnFlexGrow()'\n    }\n})\nexport class FlexGrow {\n    vnFlexGrow = input<string>(\"1\");\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true\n})\nexport class FlexGap {\n    vnFlexGap = input(\"1em\")\n    @HostBinding(\"style.gap\") flexFull = this.vnFlexGap();\n}\n\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexFull],\n    exports: [Flex, FlexGrow, FlexFull]\n})\nexport class FlexModule { }",
+            "selector": "[vnFlexGap]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [
+                {
+                    "name": "vnFlexGap",
+                    "defaultValue": "\"1em\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 49,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "name": "style.gap",
+                    "defaultValue": "this.vnFlexGap()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 50,
+                    "type": "any",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "propertiesClass": [
+                {
+                    "name": "flexFull",
+                    "defaultValue": "this.vnFlexGap()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 50,
+                    "decorators": [
+                        {
+                            "name": "HostBinding",
+                            "stringifiedArguments": "'style.gap'"
+                        }
+                    ],
+                    "modifierKind": [
+                        171
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "extends": []
+        },
+        {
+            "name": "FlexGrow",
+            "id": "directive-FlexGrow-bd31d0e431edb634d3269efaacfedcc73ca59a6da33a4e57b7fe1b083dbff163aecc6bed17077715ba7a81fe50f5b22b6eb76b951be264eb6d9ce4a26b261909",
+            "file": "libs/material/src/flex/flex.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": \"vnFlex()\",\n        \"[style.flex-wrap]\": \"flexWrap()\",\n        \"[style.gap]\": \"flexGap()\",\n        \"[style.row-gap]\": \"flexRowGap()\",\n        \"[style.column-gap]\": \"flexColGap()\",\n    }\n})\nexport class Flex {\n    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');\n    flexWrap = input<\"wrap\" | \"wrap-reverse\">('wrap');\n    flexGap = input<string>(\"unset\");\n    flexRowGap = input<string>(\"unset\")\n    flexColGap = input<string>(\"unset\")\n\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'vnFlexGrow()'\n    }\n})\nexport class FlexGrow {\n    vnFlexGrow = input<string>(\"1\");\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true\n})\nexport class FlexGap {\n    vnFlexGap = input(\"1em\")\n    @HostBinding(\"style.gap\") flexFull = this.vnFlexGap();\n}\n\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexFull],\n    exports: [Flex, FlexGrow, FlexFull]\n})\nexport class FlexModule { }",
+            "selector": "[vnFlexGrow]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [
+                {
+                    "name": "vnFlexGrow",
+                    "defaultValue": "\"1\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 33,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "extends": []
+        },
+        {
             "name": "NumberFilterDirective",
-            "id": "directive-NumberFilterDirective-e16566048739dab9edeb40b0fda761c68c42b38dbce50855292159207c47c617ab0a9c6016d15db30f977b981bf06fd3c2bb3df182cdc5a6e5cef02e76579374",
+            "id": "directive-NumberFilterDirective-e5056798ca75ec2c16b2a393260e6b6db3ce74771787d4459cc2bbb9a370819f44a8a2a445014dec69fa9108dc6c060b1b2e374e333ecd2307799392c9ea16b7",
             "file": "libs/material/src/number-filter/number-filter.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\n\n\n\nconst navigationKeys = [\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n];\n\n\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    isInteger = input<boolean>(false);\n    private digitExp = /^[0-9]*$/;\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n\n        const nativeElm = this.el.nativeElement\n        const previousValue = nativeElm.value\n        const hasMinus = previousValue.includes('-');\n        const hasDot = previousValue.includes('.')\n\n        if (\n            navigationKeys.indexOf(event.key) > -1 ||\n            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'x' && (event.ctrlKey || event.metaKey))\n        ) {\n            return;\n        }\n\n        // If is the key is DOT \n        if (event.key === '.') {\n            // And the input is INTEGER\n            if (this.isInteger()) {\n                // Then prevent event \n                event.preventDefault();\n                return;\n                // Else (none integer) the previous value already has the DOT\n            } else if (hasDot) {\n\n                // Then prevent event\n                event.preventDefault()\n                return;\n\n            }\n            // If the key is minus\n        } else if (event.key === '-') {\n\n            // If the previous value has minus already\n            if (hasMinus) {\n                // Then toggle the sign\n                nativeElm.value = nativeElm.value.slice(1);\n            } else {\n                // Else add the sign\n                nativeElm.value = `-${nativeElm.value}`\n            }\n            event.preventDefault();\n        } else if (!this.digitExp.test(event.key)) {\n            event.preventDefault();\n        }\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !this.digitExp.test(pastedText)) {\n            event.preventDefault();\n        }\n    }\n}",
+            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\n\n\n\nexport const digitExp = /^[0-9]{1}$/;\nexport const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/\nexport const navigationKeys = [\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n];\n\n\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    type = input<'number' | 'integer'>('number', { alias: \"vnNumberType\" });\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n\n        const nativeElm = this.el.nativeElement\n        const previousValue = nativeElm.value\n        const hasMinus = previousValue.includes('-');\n        const hasDot = previousValue.includes('.')\n\n        if (\n            navigationKeys.indexOf(event.key) > -1 ||\n            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'x' && (event.ctrlKey || event.metaKey))\n        ) {\n            return;\n        }\n\n        // If is the key is DOT \n        if (event.key === '.') {\n            // And the input is INTEGER\n            if (this.type() === 'integer') {\n                // Then prevent event \n                event.preventDefault();\n\n                // Else (none integer) the previous value already has the DOT\n            } else if (hasDot) {\n\n                // Then prevent event\n                event.preventDefault()\n                return;\n\n            }\n            // If the key is minus\n        } else if (event.key === '-') {\n\n            // If the previous value has minus already\n            if (hasMinus) {\n                // Then toggle the sign\n                nativeElm.value = nativeElm.value.slice(1);\n            } else {\n                // Else add the sign\n                nativeElm.value = `-${nativeElm.value}`\n            }\n        } else if (event.key === '0') {\n            if (previousValue === '0') {\n                event.preventDefault()\n            }\n        } else if (!digitExp.test(event.key)) {\n            event.preventDefault();\n        }\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !numberExp.test(pastedText)) {\n            event.preventDefault();\n        }\n    }\n}",
             "selector": "[vnNumberFilter]",
             "providers": [],
             "hostDirectives": [],
             "standalone": true,
             "inputsClass": [
                 {
-                    "name": "isInteger",
-                    "defaultValue": "false",
+                    "name": "type",
+                    "defaultValue": "'number', { alias: \"vnNumberType\" }",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "boolean",
+                    "type": "\"number\" | \"integer\"",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15,
+                    "line": 17,
                     "required": false
                 }
             ],
@@ -385,7 +632,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 21
+                    "line": 22
                 },
                 {
                     "name": "paste",
@@ -404,25 +651,10 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 71
+                    "line": 75
                 }
             ],
-            "propertiesClass": [
-                {
-                    "name": "digitExp",
-                    "defaultValue": "/^[0-9]*$/",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "unknown",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 16,
-                    "modifierKind": [
-                        123
-                    ]
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [
                 {
                     "name": "onKeyDown",
@@ -439,7 +671,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 21,
+                    "line": 22,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -480,7 +712,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 71,
+                    "line": 75,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -523,7 +755,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 16,
+                "line": 17,
                 "jsdoctags": [
                     {
                         "name": "el",
@@ -542,8 +774,97 @@
     ],
     "components": [
         {
+            "name": "FormComponent",
+            "id": "component-FormComponent-de230b0ddcf0e473e02c4789f4cc4949cdee8080b03920bd1a8e7a6919e8fdfb1f2263f779fea93d062da6ce18a49d119384590102806e86e21143f482e5731e",
+            "file": "libs/material/src/form/form.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-form, [vnForm]",
+            "styleUrls": [],
+            "styles": [
+                "\n  \n  "
+            ],
+            "template": "<ng-content select=\"vn-input\"></ng-content>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n\n\n\n@Component({\n  selector: 'vn-form, [vnForm]',\n  standalone: true,\n  template: `\n      <ng-content select=\"vn-input\"></ng-content>\n  `,\n  styles: `\n  \n  `\n})\nexport class FormComponent {\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n  \n  \n",
+            "extends": []
+        },
+        {
+            "name": "FormSampleComponent",
+            "id": "component-FormSampleComponent-5596f58a2f1969311faa2c7a1a249ef2cfed34b03b8b40ff263b69067fde5bef65145e282f1a54cf540dbcdeb078b432594b67e1d1177c2eb6b451f438f92ab3",
+            "file": "libs/material/src/form-sample/form-sample.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vn-form-sample",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<form vnForm vnFlex flexGap=\"0.3em\" >\n  <vn-input vnFlexFull type=\"text\" label=\"text input\"></vn-input>\n  <vn-input vnFlexGrow=\"1\" type=\"number\" label=\"number input\"></vn-input>\n  <vn-input vnFlexGrow=\"5\" type=\"integer\" label=\"integer input\"></vn-input>\n</form>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "FormComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "InputNumberComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "InputTextComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "FlexModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FlexModule } from '../flex/flex';\nimport { FormComponent } from '../form/form';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { InputTextComponent } from '../input-text/input-text';\n\n\n@Component({\n  selector: 'vn-form-sample',\n  imports: [FormComponent, InputNumberComponent, InputTextComponent, FlexModule],\n  template: `\n  <form vnForm vnFlex flexGap=\"0.3em\" >\n    <vn-input vnFlexFull type=\"text\" label=\"text input\"></vn-input>\n    <vn-input vnFlexGrow=\"1\" type=\"number\" label=\"number input\"></vn-input>\n    <vn-input vnFlexGrow=\"5\" type=\"integer\" label=\"integer input\"></vn-input>\n  </form>\n  `,\n  standalone: true,\n\n})\nexport class FormSampleComponent { }\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
             "name": "InputNumberComponent",
-            "id": "component-InputNumberComponent-bb379fd003e8a0863cfecc00dad703bb48ba6f728f6748a8062fd1d9283b7c15c902a3de297e5c8e5952fcf33a20e47b3581d13cd17866c78fffc66911b319c8",
+            "id": "component-InputNumberComponent-64d8e651e36f1275eb90f6969c6d5e56797ad7050c3d67a6274e873965985f58ea9be10977fd8528fd2823e6c702eae5220719525cbc0719d18b365f26837b9a",
             "file": "libs/material/src/input-number/input-number.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -554,27 +875,16 @@
                     "name": ")"
                 }
             ],
-            "selector": "vn-input-number",
-            "styleUrls": [],
-            "styles": [
-                ""
+            "selector": "vn-input[type=\"number\"], vn-input[type=\"integer\"]",
+            "styleUrls": [
+                "../input/input.scss"
             ],
-            "template": "\n<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    [isInteger]=\"isInteger()\",\n    vnNumberFilter\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
+            "styles": [],
+            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    (keydown)=\"handleKeyDown($event)\"\n    [vnNumberType]=\"type()\"\n    vnNumberFilter\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
             "inputsClass": [
-                {
-                    "name": "isInteger",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 45,
-                    "required": false
-                },
                 {
                     "name": "max",
                     "defaultValue": "null",
@@ -608,7 +918,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 9,
+                    "line": 13,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -616,14 +926,14 @@
                 },
                 {
                     "name": "label",
-                    "defaultValue": "''",
+                    "defaultValue": "'No label'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 7,
+                    "line": 11,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -631,14 +941,14 @@
                 },
                 {
                     "name": "placeholder",
-                    "defaultValue": "''",
+                    "defaultValue": "'No placeholder'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 8,
+                    "line": 12,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -653,8 +963,22 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 14,
                     "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "type",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IInputType",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "required": true,
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -671,30 +995,13 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 16,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 17,
-                    "modifierKind": [
-                        124
-                    ],
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -711,15 +1018,32 @@
                     }
                 },
                 {
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "modifierKind": [
+                        124
+                    ],
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "value",
-                    "defaultValue": "signal<T | null>(null)",
+                    "defaultValue": "signal<ValueType | null>(null)",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 15,
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -766,12 +1090,44 @@
                     }
                 },
                 {
+                    "name": "handleKeyDown",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 74,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "handleBlur",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 29,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -793,7 +1149,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 21,
+                    "line": 22,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -828,7 +1184,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -863,7 +1219,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 46,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -898,7 +1254,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -923,7 +1279,7 @@
                     "args": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -933,13 +1289,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -980,29 +1336,38 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, forwardRef, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n\n@Component({\n  selector: 'vn-input-number',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  \n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      [isInteger]=\"isInteger()\",\n      vnNumberFilter\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styles: ``,\n})\nexport class InputNumberComponent extends BaseInput {\n\n  isInteger = input(false);\n\n  min = input<number | null>(null)\n  max = input<number | null>(null)\n\n  protected override convertToValue(value: string): number | null {\n\n\n    if (value === '') {\n      return 0;\n    }\n\n    if (value === '-') {\n      return -0\n    }\n\n    if (value.endsWith('.')) {\n      value = value + \"0\"\n    }\n\n    const parsedValue = this.isInteger() ? parseInt(value) : parseFloat(value);\n    const actualValue = isNaN(parsedValue) ? null : parsedValue;\n    return actualValue\n\n  }\n\n}\n",
+            "sourceCode": "import { Component, forwardRef, input } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, NumberInputType } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n\n@Component({\n  selector: 'vn-input[type=\"number\"], vn-input[type=\"integer\"]',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      (keydown)=\"handleKeyDown($event)\"\n      [vnNumberType]=\"type()\"\n      vnNumberFilter\n\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputNumberComponent extends BaseInput<number, NumberInputType> {\n\n\n  min = input<number | null>(null)\n  max = input<number | null>(null)\n\n  protected override convertToValue(value: string): number | null {\n\n\n    if (value === '') {\n      return 0;\n    }\n\n    if (value === '-') {\n      return -0\n    }\n\n\n\n    if (value.endsWith('.')) {\n      value = value + \"0\"\n    }\n\n    const parsedValue = this.type() === 'integer' ? parseInt(value) : parseFloat(value);\n    const actualValue = isNaN(parsedValue) ? null : parsedValue;\n    return actualValue\n\n  }\n\n\n  handleKeyDown(event: KeyboardEvent) {\n\n  }\n\n}\n",
             "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "\n",
+            "styleUrlsData": [
+                {
+                    "data": "mat-form-field {\n    width: 100%;\n}",
+                    "styleUrl": "../input/input.scss"
+                }
+            ],
+            "stylesData": "",
             "extends": [
                 "BaseInput"
             ]
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-99d72e52ddb7be7f343d6a6d3087442d8065b2f80c3ecf3b65d414b03272f71aa99ebd86908ec79ef0fd09f3613ea5074ff0a41cfc5cfded6cdac568ca26e659",
+            "id": "component-InputTextComponent-acdacfd1b6633cddbff4446ed85ad9274fcb62ce53b9c7f687832dc60557999341b8b8fd96a368cfa86c3029ef5b51e5cec9adf086ddaa4fcc85c3d86c9f31dd",
             "file": "libs/material/src/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
-            "providers": [],
-            "selector": "vn-input-text",
-            "styleUrls": [],
-            "styles": [
-                ""
+            "providers": [
+                {
+                    "name": ")"
+                }
             ],
-            "template": "<p>input-text works!</p>",
+            "selector": "vn-input[type=\"text\"]",
+            "styleUrls": [
+                "../input/input.scss"
+            ],
+            "styles": [],
+            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1016,7 +1381,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 9,
+                    "line": 13,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -1024,14 +1389,14 @@
                 },
                 {
                     "name": "label",
-                    "defaultValue": "''",
+                    "defaultValue": "'No label'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 7,
+                    "line": 11,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -1039,14 +1404,14 @@
                 },
                 {
                     "name": "placeholder",
-                    "defaultValue": "''",
+                    "defaultValue": "'No placeholder'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 8,
+                    "line": 12,
                     "required": false,
                     "inheritance": {
                         "file": "BaseInput"
@@ -1061,8 +1426,22 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10,
+                    "line": 14,
                     "required": false,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
+                    "name": "type",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IInputType",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "required": true,
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -1079,30 +1458,13 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 16,
                     "inheritance": {
                         "file": "BaseInput"
                     }
                 },
                 {
                     "name": "onChange",
-                    "defaultValue": "() => {...}",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "function",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 17,
-                    "modifierKind": [
-                        124
-                    ],
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
-                    "name": "onTouched",
                     "defaultValue": "() => {...}",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1119,15 +1481,32 @@
                     }
                 },
                 {
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "modifierKind": [
+                        124
+                    ],
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "value",
-                    "defaultValue": "signal<T | null>(null)",
+                    "defaultValue": "signal<ValueType | null>(null)",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 15,
                     "inheritance": {
                         "file": "BaseInput"
                     }
@@ -1149,7 +1528,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 13,
+                    "line": 39,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1179,7 +1558,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 29,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1201,7 +1580,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 21,
+                    "line": 22,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1236,7 +1615,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1271,7 +1650,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 46,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1306,7 +1685,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1331,7 +1710,7 @@
                     "args": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -1341,13 +1720,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "value",
-                            "type": "T",
+                            "type": "ValueType",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -1366,23 +1745,108 @@
             "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
-            "standalone": true,
-            "imports": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { BaseInput } from '../input/input';\n\n@Component({\n  selector: 'vn-input-text',\n  imports: [],\n  template: `<p>input-text works!</p>`,\n  standalone: true,\n  styles: ``,\n})\nexport class InputTextComponent extends BaseInput {\n\n  protected override convertToValue(value: string) {\n    return value\n  }\n}\n",
+            "sourceCode": "import { Component, forwardRef } from '@angular/core';\nimport { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { BaseInput, StringInputType } from '../input/input';\n\n@Component({\n  selector: 'vn-input[type=\"text\"]',\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => InputNumberComponent),\n      multi: true,\n    },\n  ],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n    `,\n  styleUrls: ['../input/input.scss']\n})\nexport class InputTextComponent extends BaseInput<string, StringInputType> {\n\n  protected override convertToValue(value: string) {\n\n    value = value.trim();\n\n    if (value === '') {\n      return null;\n    }\n    return value;\n  }\n}\n",
             "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "\n",
+            "styleUrlsData": [
+                {
+                    "data": "mat-form-field {\n    width: 100%;\n}",
+                    "styleUrl": "../input/input.scss"
+                }
+            ],
+            "stylesData": "",
             "extends": [
                 "BaseInput"
             ]
         }
     ],
-    "modules": [],
+    "modules": [
+        {
+            "name": "FlexModule",
+            "id": "module-FlexModule-bd31d0e431edb634d3269efaacfedcc73ca59a6da33a4e57b7fe1b083dbff163aecc6bed17077715ba7a81fe50f5b22b6eb76b951be264eb6d9ce4a26b261909",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "libs/material/src/flex/flex.ts",
+            "methods": [],
+            "sourceCode": "import { Directive, HostBinding, input, NgModule } from \"@angular/core\";\n\n@Directive({\n    selector: \"[vnFlex]\",\n    standalone: true,\n    host: {\n        \"[style.display]\": \"'flex'\",\n        \"[style.flex-direction]\": \"vnFlex()\",\n        \"[style.flex-wrap]\": \"flexWrap()\",\n        \"[style.gap]\": \"flexGap()\",\n        \"[style.row-gap]\": \"flexRowGap()\",\n        \"[style.column-gap]\": \"flexColGap()\",\n    }\n})\nexport class Flex {\n    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');\n    flexWrap = input<\"wrap\" | \"wrap-reverse\">('wrap');\n    flexGap = input<string>(\"unset\");\n    flexRowGap = input<string>(\"unset\")\n    flexColGap = input<string>(\"unset\")\n\n}\n\n\n@Directive({\n    selector: \"[vnFlexGrow]\",\n    standalone: true,\n    host: {\n        \"[style.flex-grow]\": 'vnFlexGrow()'\n    }\n})\nexport class FlexGrow {\n    vnFlexGrow = input<string>(\"1\");\n}\n\n@Directive({\n    selector: \"[vnFlexFull]\",\n    standalone: true\n})\nexport class FlexFull {\n    @HostBinding(\"style.width\") flexFull = \"100%\"\n}\n\n@Directive({\n    selector: \"[vnFlexGap]\",\n    standalone: true\n})\nexport class FlexGap {\n    vnFlexGap = input(\"1em\")\n    @HostBinding(\"style.gap\") flexFull = this.vnFlexGap();\n}\n\n\n@NgModule({\n    imports: [Flex, FlexGrow, FlexFull],\n    exports: [Flex, FlexGrow, FlexFull]\n})\nexport class FlexModule { }",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "Flex"
+                        },
+                        {
+                            "name": "FlexFull"
+                        },
+                        {
+                            "name": "FlexGrow"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "Flex"
+                        },
+                        {
+                            "name": "FlexFull"
+                        },
+                        {
+                            "name": "FlexGrow"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
     "miscellaneous": {
         "variables": [
+            {
+                "name": "digitExp",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/number-filter/number-filter.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "/^[0-9]{1}$/"
+            },
             {
                 "name": "navigationKeys",
                 "ctype": "miscellaneous",
@@ -1392,13 +1856,67 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n]"
+            },
+            {
+                "name": "numberExp",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/number-filter/number-filter.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "/(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/"
             }
         ],
         "functions": [],
-        "typealiases": [],
+        "typealiases": [
+            {
+                "name": "InputType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "NumberInputType | StringInputType",
+                "file": "libs/material/src/input/input.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "NumberInputType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"number\" | \"integer\"",
+                "file": "libs/material/src/input/input.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "StringInputType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "unknown",
+                "file": "libs/material/src/input/input.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 202
+            }
+        ],
         "enumerations": [],
         "groupedVariables": {
             "libs/material/src/number-filter/number-filter.ts": [
+                {
+                    "name": "digitExp",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/number-filter/number-filter.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "/^[0-9]{1}$/"
+                },
                 {
                     "name": "navigationKeys",
                     "ctype": "miscellaneous",
@@ -1408,12 +1926,58 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n]"
+                },
+                {
+                    "name": "numberExp",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/number-filter/number-filter.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "/(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/"
                 }
             ]
         },
         "groupedFunctions": {},
         "groupedEnumerations": {},
-        "groupedTypeAliases": {}
+        "groupedTypeAliases": {
+            "libs/material/src/input/input.ts": [
+                {
+                    "name": "InputType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "NumberInputType | StringInputType",
+                    "file": "libs/material/src/input/input.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "NumberInputType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"number\" | \"integer\"",
+                    "file": "libs/material/src/input/input.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "StringInputType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "unknown",
+                    "file": "libs/material/src/input/input.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 202
+                }
+            ]
+        }
     },
     "routes": {
         "name": "<root>",
@@ -1425,12 +1989,66 @@
         "status": "low",
         "files": [
             {
+                "filePath": "libs/material/src/flex/flex.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "Flex",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/flex/flex.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "FlexFull",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/flex/flex.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "FlexGap",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/flex/flex.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "FlexGrow",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/form-sample/form-sample.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FormSampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/form/form.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FormComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "libs/material/src/input-number/input-number.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "InputNumberComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/19",
+                "coverageCount": "0/20",
                 "status": "low"
             },
             {
@@ -1439,7 +2057,7 @@
                 "linktype": "component",
                 "name": "InputTextComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/16",
+                "coverageCount": "0/17",
                 "status": "low"
             },
             {
@@ -1448,7 +2066,37 @@
                 "linktype": "directive",
                 "name": "BaseInput",
                 "coveragePercent": 0,
-                "coverageCount": "0/16",
+                "coverageCount": "0/17",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/input/input.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "InputType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/input/input.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "NumberInputType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/input/input.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "StringInputType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1457,7 +2105,17 @@
                 "linktype": "directive",
                 "name": "NumberFilterDirective",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/number-filter/number-filter.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "digitExp",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1466,6 +2124,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "navigationKeys",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/number-filter/number-filter.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "numberExp",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

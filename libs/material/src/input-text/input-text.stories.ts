@@ -4,7 +4,7 @@ import { InputTextComponent } from './input-text';
 
 const meta: Meta<InputTextComponent> = {
   component: InputTextComponent,
-  title: 'Input/Text',
+  title: 'Form/Text',
 };
 export default meta;
 
@@ -15,8 +15,10 @@ export const Primary: Story = {
 };
 
 export const Heading: Story = {
-  args: {},
+  args: {
+    label:"Text label"
+  },
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/input-text/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Text label/gi)).toBeTruthy();
   },
 };
