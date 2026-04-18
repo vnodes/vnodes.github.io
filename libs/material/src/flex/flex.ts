@@ -1,24 +1,36 @@
-import { Directive, HostBinding, input, NgModule } from "@angular/core";
+import { computed, Directive, HostBinding, input, NgModule } from "@angular/core";
+
+export type FlexDirValue = 'column' | 'row' | 'column-reverse' | 'row-reverse'
+export type FlexWrapValue = 'wrap' | 'nowrap' | 'wrap-reverse';
 
 @Directive({
     selector: "[vnFlex]",
     standalone: true,
     host: {
         "[style.display]": "'flex'",
-        "[style.flex-direction]": "vnFlex()",
-        "[style.flex-wrap]": "flexWrap()",
-        "[style.gap]": "flexGap()",
-        "[style.row-gap]": "flexRowGap()",
-        "[style.column-gap]": "flexColGap()",
+        "[style.flex-direction]": 'computedValue()',
     }
 })
 export class Flex {
-    vnFlex = input<'column' | 'row' | 'column-reverse' | 'row-reverse'>('row');
-    flexWrap = input<"wrap" | "wrap-reverse">('wrap');
-    flexGap = input<string>("unset");
-    flexRowGap = input<string>("unset")
-    flexColGap = input<string>("unset")
+    value = input<FlexDirValue>("row", { alias: "vnFlex" });
+    computedValue = computed(() => {
+        return this.value() ? this.value() : 'row'
+    })
+}
 
+@Directive({
+    selector: "[vnFlexWrap]",
+    standalone: true,
+    host: {
+        "[style.flex-wrap]": "computedValue()",
+
+    }
+})
+export class FlexWrap {
+    value = input<FlexWrapValue>("wrap", { alias: "vnFlexWrap" });
+    computedValue = computed<FlexWrapValue>(() => {
+        return this.value() ? this.value() : 'wrap'
+    })
 }
 
 
@@ -26,11 +38,55 @@ export class Flex {
     selector: "[vnFlexGrow]",
     standalone: true,
     host: {
-        "[style.flex-grow]": 'vnFlexGrow()'
+        "[style.flex-grow]": 'computedValue()'
     }
 })
 export class FlexGrow {
-    vnFlexGrow = input<string>("1");
+    value = input<string>("", { alias: "vnFlexGrow" });
+    computedValue = computed(() => {
+        return this.value() ? this.value() : '1'
+    })
+}
+
+@Directive({
+    selector: "[vnFlexGap]",
+    standalone: true,
+    host: {
+        "[style.gap]": 'computedValue()'
+    }
+})
+export class FlexGap {
+    value = input<string>("", { alias: "vnFlexGap" });
+    computedValue = computed(() => {
+        return this.value() ? this.value() : '0.5em'
+    })
+}
+
+@Directive({
+    selector: "[vnFlexRowGap]",
+    standalone: true,
+    host: {
+        "[style.row-gap]": 'computedValue()'
+    }
+})
+export class FlexRowGap {
+    value = input<string>("", { alias: "vnFlexRowGap" });
+    computedValue = computed(() => {
+        return this.value() ? this.value() : '1'
+    })
+}
+@Directive({
+    selector: "[vnFlexColGap]",
+    standalone: true,
+    host: {
+        "[style.column-gap]": 'computedValue()'
+    }
+})
+export class FlexColGap {
+    value = input<string>("", { alias: "vnFlexColGap" });
+    computedValue = computed(() => {
+        return this.value() ? this.value() : '1'
+    })
 }
 
 @Directive({
@@ -41,18 +97,8 @@ export class FlexFull {
     @HostBinding("style.width") flexFull = "100%"
 }
 
-@Directive({
-    selector: "[vnFlexGap]",
-    standalone: true
-})
-export class FlexGap {
-    vnFlexGap = input("1em")
-    @HostBinding("style.gap") flexFull = this.vnFlexGap();
-}
-
-
 @NgModule({
-    imports: [Flex, FlexGrow, FlexFull],
-    exports: [Flex, FlexGrow, FlexFull]
+    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],
+    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]
 })
 export class FlexModule { }

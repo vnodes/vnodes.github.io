@@ -6,6 +6,9 @@ import { BaseInput, NumberInputType } from '../input/input';
 import { NumberFilterDirective } from '../number-filter/number-filter';
 
 
+
+
+
 @Component({
   selector: 'vn-input[type="number"], vn-input[type="integer"]',
   standalone: true,
@@ -53,11 +56,6 @@ export class InputNumberComponent extends BaseInput<number, NumberInputType> {
     if (value === '') {
       return 0;
     }
-
-    if (value === '-') {
-      return -0
-    }
-
 
 
     if (value.endsWith('.')) {

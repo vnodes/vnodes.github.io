@@ -55,7 +55,13 @@ export class NumberFilterDirective {
         } else if (event.key === '-') {
 
             // If the previous value has minus already
-            if (hasMinus) {
+
+
+            if (nativeElm.value === '') {
+                event.preventDefault();
+            } else if (nativeElm.value === '0') {
+                event.preventDefault()
+            } else if (hasMinus) {
                 // Then toggle the sign
                 nativeElm.value = nativeElm.value.slice(1);
             } else {

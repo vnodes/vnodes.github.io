@@ -2,7 +2,6 @@ import { Component, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { InputNumberComponent } from '../input-number/input-number';
 import { BaseInput, StringInputType } from '../input/input';
 
 @Component({
@@ -11,7 +10,7 @@ import { BaseInput, StringInputType } from '../input/input';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputNumberComponent),
+      useExisting: forwardRef(() => InputTextComponent),
       multi: true,
     },
   ],
