@@ -15,7 +15,7 @@ export const navigationKeys = [
 })
 export class NumberFilterDirective {
     type = input<'number' | 'integer'>('number', { alias: "vnNumberFilter" });
-
+    
     constructor(protected readonly el: ElementRef<HTMLInputElement>) { }
 
     @HostListener('keydown', ['$event'])
@@ -49,16 +49,15 @@ export class NumberFilterDirective {
             // If the key is minus
         } else if (event.key === '-') {
 
-            if (hasMinus) {
+            if (previousValue === '0') {
+                event.preventDefault();
+            } else if (hasMinus) {
                 // Then toggle the sign
                 nativeElm.value = previousValue.slice(1);
             } else {
                 // Else add the sign
                 nativeElm.value = `-${previousValue}`
             }
-
-
-
         } else if (event.key === '0') {
             if (previousValue === '0') {
                 event.preventDefault()
