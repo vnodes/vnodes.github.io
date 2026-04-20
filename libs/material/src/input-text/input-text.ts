@@ -6,31 +6,32 @@ import { BaseInput, StringInputType } from '../input/input';
 
 @Component({
   selector: 'vn-input[type="text"]',
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   template: `
-   
 
-     
+  @let control =  formControl(); 
+
+   @if(control){ 
      <mat-form-field >
        <mat-label>{{ label() }}</mat-label>
        <input
        type="text"
        matInput
+       [formControl]="formControl()"
        [placeholder]="placeholder()"
-       [value]="value()"
        [disabled]="disabled()"
        (input)="handleInput($event)"
        (blur)="handleBlur()"
        [minLength]="minLength()"
        [maxLength]="maxLength()"
        [required]="required()"
-       [formControl]="formControl()"
        />
        @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
        
        <mat-error>Invalid Input</mat-error>
       </mat-form-field>
-
+      
+    }    
     `,
   styleUrls: ['../input/input.scss'],
 })

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, input, model, Optional, Self, signal } from '@angular/core';
+import { ChangeDetectorRef, Directive, input, model, OnInit, Optional, Self, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 export type NumberInputType = 'number' | 'integer';
@@ -6,7 +6,7 @@ export type StringInputType = 'text';
 export type InputType = NumberInputType | StringInputType
 
 @Directive()
-export abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {
+export abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor, OnInit {
   type = input.required<IInputType>()
   label = input<string>('');
   placeholder = input<string>('');
@@ -15,6 +15,9 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
   value = model<ValueType | null>(null);
   disabled = signal<boolean>(false);
   formControl = signal<FormControl>(new FormControl())
+  formControlName = signal<string | null>(null)
+
+
 
   protected onChange: (value: ValueType | null) => void = () => { };
   protected onTouched: () => void = () => { };
@@ -27,18 +30,19 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
   ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
-      this.formControl.update(() => this.ngControl?.control as FormControl);
+
     }
 
   }
 
-  ngOnInit(): void {
-  }
-
-
   handleInput(event: Event): void {
+
+    console.log(this.handleInput.name, '....')
     const target = event.target as HTMLInputElement;
     const cValue = this.convertToValue(target.value);
+
+    // if (cValue && cValue.toString() !== target.value.toString()) {
+    // }
     this.value.set(cValue);
     this.onChange(cValue);
   }
@@ -65,9 +69,10 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
     this.disabled.set(isDisabled);
   }
 
-
-  detect() {
-    this.changeDetection?.detectChanges();
+  ngOnInit(): void {
+    if (this.ngControl) {
+      this.formControl.update(() => this.ngControl?.control as FormControl);
+    }
   }
 
 }

@@ -1,12 +1,10 @@
 import { Directive, ElementRef, HostListener, input } from '@angular/core';
+import { isCommandEvent } from '../keyboard/keyboard';
 
 
 
 export const digitExp = /^[0-9]{1}$/;
 export const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\.?[0-9]+$)/
-export const navigationKeys = [
-    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'
-];
 
 
 @Directive({
@@ -15,29 +13,28 @@ export const navigationKeys = [
 })
 export class NumberFilterDirective {
     type = input<'number' | 'integer'>('number', { alias: "vnNumberFilter" });
-    
+    decimals = input<number>(6);
+
+
     constructor(protected readonly el: ElementRef<HTMLInputElement>) { }
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
 
+
+
+        const key = event.key;
         const nativeElm = this.el.nativeElement
         const previousValue = nativeElm.value
         const hasMinus = !!previousValue?.includes('-');
         const hasDot = !!previousValue?.includes('.')
+        // const selectionStart = nativeElm.selectionStart ?? previousValue.length - 1
+        // const selectionEnd = nativeElm.selectionEnd ?? previousValue.length - 1
 
-        if (
-            navigationKeys.indexOf(event.key) > -1 ||
-            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||
-            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||
-            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||
-            (event.key === 'x' && (event.ctrlKey || event.metaKey))
-        ) {
+        if (isCommandEvent(event)) {
             return;
-        }
-
-        // If is the key is DOT 
-        if (event.key === '.') {
+            // If is the key is DOT 
+        } else if (key === '.') {
             // And the input is INTEGER
             if (this.type() === 'integer' || hasDot) {
                 // Then prevent event 
@@ -47,24 +44,31 @@ export class NumberFilterDirective {
             }
 
             // If the key is minus
-        } else if (event.key === '-') {
-
+        } else if (key === '-') {
+            // If the current input is "0"
             if (previousValue === '0') {
                 event.preventDefault();
+                // If the current input is negative 
             } else if (hasMinus) {
                 // Then toggle the sign
+                event.preventDefault();
                 nativeElm.value = previousValue.slice(1);
+                this.dispachInputEvent(nativeElm);
             } else {
                 // Else add the sign
+                event.preventDefault()
                 nativeElm.value = `-${previousValue}`
+                this.dispachInputEvent(nativeElm);
+
             }
-        } else if (event.key === '0') {
+        } else if (key === '0') {
             if (previousValue === '0') {
                 event.preventDefault()
             }
-        } else if (!digitExp.test(event.key)) {
+        } else if (!digitExp.test(key)) {
             event.preventDefault();
         }
+
 
 
     }
@@ -79,4 +83,13 @@ export class NumberFilterDirective {
             event.preventDefault();
         }
     }
+
+
+    dispachInputEvent(element: HTMLInputElement) {
+        element.dispatchEvent(new Event('input', {
+            bubbles: true,
+            cancelable: true
+        }));
+    }
+
 }

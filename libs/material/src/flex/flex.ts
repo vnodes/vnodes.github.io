@@ -3,6 +3,8 @@ import { computed, Directive, HostBinding, input, NgModule } from "@angular/core
 export type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'
 export type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';
 
+
+
 @Directive({
     selector: "[vnFlex]",
     standalone: true,
@@ -17,6 +19,30 @@ export class Flex {
         return this.value() ? this.value() : 'row'
     })
 }
+
+@Directive({
+    selector: "[vnFlexRow]",
+    standalone: true,
+    host: {
+        '[style.display]': '"flex"',
+        '[style.flex-direction]': '"row"',
+
+
+
+    }
+})
+export class FlexRow { }
+
+@Directive({
+    selector: "[vnFlexCol]",
+    standalone: true,
+    host: {
+        '[style.display]': '"flex"',
+        '[style.flex-direction]': '"column"'
+
+    }
+})
+export class FlexCol { }
 
 @Directive({
     selector: "[vnFlexWrap]",
@@ -98,7 +124,15 @@ export class FlexFull {
 }
 
 @NgModule({
-    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull],
-    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull]
+    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull
+        , FlexRow,
+        FlexCol,
+
+    ],
+    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull
+        , FlexRow,
+        FlexCol,
+
+    ]
 })
 export class FlexModule { }

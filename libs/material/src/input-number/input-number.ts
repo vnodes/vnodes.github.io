@@ -8,33 +8,41 @@ import { NumberFilterDirective } from '../number-filter/number-filter';
 @Component({
   selector: 'vn-input[type=number], vn-input[type=integer]',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NumberFilterDirective],
   template: `
-  <mat-form-field>
+
+
+  @let control =  formControl(); 
+
+  @if(control) { 
+    <mat-form-field  >
       <mat-label>{{ label() }}</mat-label>
       <input
       type="text"
       matInput
+      [formControl]="formControl()"
       [placeholder]="placeholder()"
-      [value]="value()"
       [disabled]="disabled()"
       (input)="handleInput($event)"
       (blur)="handleBlur()"
       [min]="min()"
       [max]="max()"
+      [maxlength]="maxLength()"
       [required]="required()"
       [vnNumberFilter]="type()"     
-      [formControl]="formControl()"
+     
       />
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
       <mat-error>Invalid Input</mat-error>
     </mat-form-field>
-  `,
+  }
+    `,
   styleUrls: ['../input/input.scss'],
 })
 export class InputNumberComponent extends BaseInput<number, NumberInputType> {
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
+  maxLength = input<number>(16);
 
   protected override convertToValue(value: string): any {
 
