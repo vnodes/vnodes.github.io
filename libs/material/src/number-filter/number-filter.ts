@@ -1,11 +1,8 @@
 import { Directive, ElementRef, HostListener, input } from '@angular/core';
-import { isCommandEvent } from '../keyboard/keyboard';
-
-
-
-export const digitExp = /^[0-9]{1}$/;
-export const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\.?[0-9]+$)/
-
+import { clipboardText } from '../utils/clipboard';
+import { dispatchEmptyInputEvent } from '../utils/event';
+import { isDigitString, isIntegerString, isNumberString } from '../utils/expressions';
+import { isCommandEvent } from '../utils/keyboard';
 
 @Directive({
     selector: '[vnNumberFilter]',
@@ -20,31 +17,29 @@ export class NumberFilterDirective {
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
-
-
-
-        const key = event.key;
-        const nativeElm = this.el.nativeElement
-        const previousValue = nativeElm.value
+        const currentKey = event.key;
+        const isIntegerComponent = this.type() === 'integer'
+        const element = this.el.nativeElement
+        const previousValue = element.value
         const hasMinus = !!previousValue?.includes('-');
         const hasDot = !!previousValue?.includes('.')
         // const selectionStart = nativeElm.selectionStart ?? previousValue.length - 1
         // const selectionEnd = nativeElm.selectionEnd ?? previousValue.length - 1
 
+
+
         if (isCommandEvent(event)) {
             return;
             // If is the key is DOT 
-        } else if (key === '.') {
+        } else if (currentKey === '.') {
             // And the input is INTEGER
-            if (this.type() === 'integer' || hasDot) {
+            if (isIntegerComponent || hasDot) {
                 // Then prevent event 
                 event.preventDefault();
-
-                // Else (none integer) the previous value already has the DOT
             }
 
             // If the key is minus
-        } else if (key === '-') {
+        } else if (currentKey === '-') {
             // If the current input is "0"
             if (previousValue === '0') {
                 event.preventDefault();
@@ -52,20 +47,20 @@ export class NumberFilterDirective {
             } else if (hasMinus) {
                 // Then toggle the sign
                 event.preventDefault();
-                nativeElm.value = previousValue.slice(1);
-                this.dispachInputEvent(nativeElm);
+                element.value = previousValue.slice(1);
+                dispatchEmptyInputEvent(element)
             } else {
                 // Else add the sign
                 event.preventDefault()
-                nativeElm.value = `-${previousValue}`
-                this.dispachInputEvent(nativeElm);
+                element.value = `-${previousValue}`
+                dispatchEmptyInputEvent(element)
 
             }
-        } else if (key === '0') {
+        } else if (currentKey === '0') {
             if (previousValue === '0') {
                 event.preventDefault()
             }
-        } else if (!digitExp.test(key)) {
+        } else if (!isDigitString(currentKey)) {
             event.preventDefault();
         }
 
@@ -75,21 +70,21 @@ export class NumberFilterDirective {
 
     @HostListener('paste', ['$event'])
     onPaste(event: ClipboardEvent) {
-        const clipboardData = event.clipboardData;
-        const pastedText = clipboardData?.getData('text');
+        const isIntegerComponent = this.type() === 'integer'
+        const pastedText = clipboardText(event);
+        if (!pastedText) return;
 
-        // Prevent paste if the content contains non-numeric characters
-        if (pastedText && !numberExp.test(pastedText)) {
+
+        const isValidNumberString = isIntegerComponent ?
+            isIntegerString :
+            isNumberString
+
+        if (!isValidNumberString(pastedText)) {
             event.preventDefault();
         }
     }
 
 
-    dispachInputEvent(element: HTMLInputElement) {
-        element.dispatchEvent(new Event('input', {
-            bubbles: true,
-            cancelable: true
-        }));
-    }
+
 
 }

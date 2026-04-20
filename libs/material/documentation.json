@@ -8,12 +8,12 @@
     "directives": [
         {
             "name": "BaseInput",
-            "id": "directive-BaseInput-4580a0e8b2eba376783444ab3953232546d9ee88734f84202e6cbae59ac52ff72af500fde0ff370188f2032978e26e1e8a42c72737861f5e7aaaa2eaca07eaa5",
+            "id": "directive-BaseInput-8db28a2564455b0e897b96732a2c9fd4ae64f0790c8e561619c0fcc8c7f9f72e3ea40059b3e8f5eb4f4b2c9365d0c50b0bc6f6f1e64065d87f4b45c9c73d8291",
             "file": "libs/material/src/input/input.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { ChangeDetectorRef, Directive, input, model, Optional, Self, signal } from '@angular/core';\nimport { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';\n\nexport type NumberInputType = 'number' | 'integer';\nexport type StringInputType = 'text';\nexport type InputType = NumberInputType | StringInputType\n\n@Directive()\nexport abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor {\n  type = input.required<IInputType>()\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n  value = model<ValueType | null>(null);\n  disabled = signal<boolean>(false);\n  formControl = signal<FormControl>(new FormControl())\n\n\n\n  protected onChange: (value: ValueType | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n  protected errors: () => {} = () => ({})\n\n\n  constructor(\n    @Self() @Optional() public readonly ngControl?: NgControl,\n    public readonly changeDetection?: ChangeDetectorRef,\n  ) {\n    if (this.ngControl) {\n      this.ngControl.valueAccessor = this;\n      this.formControl.update(() => this.ngControl?.control as FormControl);\n    }\n\n  }\n\n  handleInput(event: Event): void {\n\n    console.log(this.handleInput.name, '....')\n    const target = event.target as HTMLInputElement;\n    const cValue = this.convertToValue(target.value);\n\n    // if (cValue && cValue.toString() !== target.value.toString()) {\n    // }\n    this.value.set(cValue);\n    this.onChange(cValue);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n  protected abstract convertToValue(value: string): ValueType | null;\n\n  writeValue(value: ValueType): void {\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n\n\n  detect() {\n    this.changeDetection?.detectChanges();\n  }\n\n}\n\n\n\n\n",
+            "sourceCode": "import { ChangeDetectorRef, Directive, input, model, OnInit, Optional, Self, signal } from '@angular/core';\nimport { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';\n\nexport type NumberInputType = 'number' | 'integer';\nexport type StringInputType = 'text';\nexport type InputType = NumberInputType | StringInputType\n\n@Directive()\nexport abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor, OnInit {\n  type = input.required<IInputType>()\n  label = input<string>('');\n  placeholder = input<string>('');\n  hint = input<string>('');\n  required = input<boolean>(false);\n  value = model<ValueType | null>(null);\n  disabled = signal<boolean>(false);\n  formControl = signal<FormControl>(new FormControl())\n  formControlName = signal<string | null>(null)\n\n\n\n  protected onChange: (value: ValueType | null) => void = () => { };\n  protected onTouched: () => void = () => { };\n  protected errors: () => {} = () => ({})\n\n\n  constructor(\n    @Self() @Optional() public readonly ngControl?: NgControl,\n    public readonly changeDetection?: ChangeDetectorRef,\n  ) {\n    if (this.ngControl) {\n      this.ngControl.valueAccessor = this;\n\n    }\n\n  }\n\n  handleInput(event: Event): void {\n\n    console.log(this.handleInput.name, '....')\n    const target = event.target as HTMLInputElement;\n    const cValue = this.convertToValue(target.value);\n\n    // if (cValue && cValue.toString() !== target.value.toString()) {\n    // }\n    this.value.set(cValue);\n    this.onChange(cValue);\n  }\n\n  handleBlur(): void {\n    this.onTouched();\n  }\n\n  protected abstract convertToValue(value: string): ValueType | null;\n\n  writeValue(value: ValueType): void {\n    this.value.set(value);\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled.set(isDisabled);\n  }\n\n  ngOnInit(): void {\n    if (this.ngControl) {\n      this.formControl.update(() => this.ngControl?.control as FormControl);\n    }\n  }\n\n}\n\n\n\n\n",
             "providers": [],
             "hostDirectives": [],
             "standalone": false,
@@ -117,7 +117,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 28,
+                    "line": 29,
                     "modifierKind": [
                         125,
                         148
@@ -143,7 +143,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 24,
                     "modifierKind": [
                         124
                     ]
@@ -160,6 +160,17 @@
                     "line": 17
                 },
                 {
+                    "name": "formControlName",
+                    "defaultValue": "signal<string | null>(null)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
                     "name": "ngControl",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -167,7 +178,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 27,
+                    "line": 28,
                     "decorators": [
                         {
                             "name": "Self",
@@ -194,7 +205,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 22,
                     "modifierKind": [
                         124
                     ]
@@ -208,7 +219,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 23,
                     "modifierKind": [
                         124
                     ]
@@ -230,7 +241,7 @@
                     "optional": false,
                     "returnType": "ValueType | null",
                     "typeParameters": [],
-                    "line": 53,
+                    "line": 54,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -252,22 +263,12 @@
                     ]
                 },
                 {
-                    "name": "detect",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 72,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
                     "name": "handleBlur",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -286,7 +287,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -304,6 +305,16 @@
                     ]
                 },
                 {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "registerOnChange",
                     "args": [
                         {
@@ -318,7 +329,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 59,
+                    "line": 60,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -350,7 +361,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -382,7 +393,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -414,7 +425,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55,
+                    "line": 56,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -434,7 +445,8 @@
             ],
             "extends": [],
             "implements": [
-                "ControlValueAccessor"
+                "ControlValueAccessor",
+                "OnInit"
             ],
             "constructorObj": {
                 "name": "constructor",
@@ -459,7 +471,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 23,
+                "line": 24,
                 "jsdoctags": [
                     {
                         "name": "ngControl",
@@ -867,17 +879,29 @@
         },
         {
             "name": "NumberFilterDirective",
-            "id": "directive-NumberFilterDirective-6b15f5e684ea51d01180227c13952ed09237affbe117fb7b6ddd8e18b2d2e8af968819c978f37ad5ff58d4bf570cb8861eafd332e323b4cebe8754995dcdde85",
+            "id": "directive-NumberFilterDirective-a568ab51d933e0bc8c6481a0f6a89d4a4e25ff6c5777fe5113e7d015e87efb6cba0eea424036c2c82eaf354d9a6f1d1025174dd38dded723d700af48b8f064ee",
             "file": "libs/material/src/number-filter/number-filter.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\n\n\n\nexport const digitExp = /^[0-9]{1}$/;\nexport const numberExp = /(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/\nexport const navigationKeys = [\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n];\n\n\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    type = input<'number' | 'integer'>('number', { alias: \"vnNumberFilter\" });\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n\n        const nativeElm = this.el.nativeElement\n        const previousValue = nativeElm.value\n        const hasMinus = !!previousValue?.includes('-');\n        const hasDot = !!previousValue?.includes('.')\n\n        // 1. Capture current cursor position\n        const selectionStart = nativeElm.selectionStart;\n        const selectionEnd = nativeElm.selectionEnd;\n\n        if (\n            navigationKeys.indexOf(event.key) > -1 ||\n            (event.key === 'a' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'c' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'v' && (event.ctrlKey || event.metaKey)) ||\n            (event.key === 'x' && (event.ctrlKey || event.metaKey))\n        ) {\n            return;\n        }\n\n        // If is the key is DOT \n        if (event.key === '.') {\n            // And the input is INTEGER\n            if (this.type() === 'integer' || hasDot) {\n                // Then prevent event \n                event.preventDefault();\n\n                // Else (none integer) the previous value already has the DOT\n            }\n\n            // If the key is minus\n        } else if (event.key === '-') {\n\n            if (previousValue === '0') {\n                event.preventDefault();\n            } else if (hasMinus) {\n                // Then toggle the sign\n                nativeElm.value = previousValue.slice(1);\n\n            } else {\n                // Else add the sign\n                nativeElm.value = `-${previousValue}`\n\n\n            }\n        } else if (event.key === '0') {\n            if (previousValue === '0') {\n                event.preventDefault()\n            }\n        } else if (!digitExp.test(event.key)) {\n            event.preventDefault();\n        }\n\n\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !numberExp.test(pastedText)) {\n            event.preventDefault();\n        }\n    }\n\n\n}",
+            "sourceCode": "import { Directive, ElementRef, HostListener, input } from '@angular/core';\nimport { isDigitString, isNumberString } from '../utils/expressions';\nimport { isCommandEvent } from '../utils/keyboard';\n@Directive({\n    selector: '[vnNumberFilter]',\n    standalone: true\n})\nexport class NumberFilterDirective {\n    type = input<'number' | 'integer'>('number', { alias: \"vnNumberFilter\" });\n    decimals = input<number>(6);\n\n\n    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }\n\n    @HostListener('keydown', ['$event'])\n    onKeyDown(event: KeyboardEvent) {\n        const currentKey = event.key;\n        const element = this.el.nativeElement\n        const previousValue = element.value\n        const hasMinus = !!previousValue?.includes('-');\n        const hasDot = !!previousValue?.includes('.')\n        // const selectionStart = nativeElm.selectionStart ?? previousValue.length - 1\n        // const selectionEnd = nativeElm.selectionEnd ?? previousValue.length - 1\n\n\n\n        if (isCommandEvent(event)) {\n            return;\n            // If is the key is DOT \n        } else if (currentKey === '.') {\n            // And the input is INTEGER\n            if (this.type() === 'integer' || hasDot) {\n                // Then prevent event \n                event.preventDefault();\n\n                // Else (none integer) the previous value already has the DOT\n            }\n\n            // If the key is minus\n        } else if (currentKey === '-') {\n            // If the current input is \"0\"\n            if (previousValue === '0') {\n                event.preventDefault();\n                // If the current input is negative \n            } else if (hasMinus) {\n                // Then toggle the sign\n                event.preventDefault();\n                element.value = previousValue.slice(1);\n                this.dispachInputEvent(element);\n            } else {\n                // Else add the sign\n                event.preventDefault()\n                element.value = `-${previousValue}`\n                this.dispachInputEvent(element);\n\n            }\n        } else if (currentKey === '0') {\n            if (previousValue === '0') {\n                event.preventDefault()\n            }\n        } else if (!isDigitString(currentKey)) {\n            event.preventDefault();\n        }\n\n\n\n    }\n\n    @HostListener('paste', ['$event'])\n    onPaste(event: ClipboardEvent) {\n        const clipboardData = event.clipboardData;\n        const pastedText = clipboardData?.getData('text');\n\n        // Prevent paste if the content contains non-numeric characters\n        if (pastedText && !isNumberString(pastedText)) {\n            event.preventDefault();\n        }\n    }\n\n\n    dispachInputEvent(element: HTMLInputElement) {\n        element.dispatchEvent(new Event('input', {\n            bubbles: true,\n            cancelable: true\n        }));\n    }\n\n}",
             "selector": "[vnNumberFilter]",
             "providers": [],
             "hostDirectives": [],
             "standalone": true,
             "inputsClass": [
+                {
+                    "name": "decimals",
+                    "defaultValue": "6",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "required": false
+                },
                 {
                     "name": "type",
                     "defaultValue": "'number', { alias: \"vnNumberFilter\" }",
@@ -887,7 +911,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 9,
                     "required": false
                 }
             ],
@@ -913,7 +937,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22
+                    "line": 16
                 },
                 {
                     "name": "paste",
@@ -932,11 +956,43 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 80
+                    "line": 70
                 }
             ],
             "propertiesClass": [],
             "methodsClass": [
+                {
+                    "name": "dispachInputEvent",
+                    "args": [
+                        {
+                            "name": "element",
+                            "type": "HTMLInputElement",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 81,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "element",
+                            "type": "HTMLInputElement",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "onKeyDown",
                     "args": [
@@ -952,7 +1008,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 16,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -993,7 +1049,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 70,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -1036,7 +1092,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 17,
+                "line": 10,
                 "jsdoctags": [
                     {
                         "name": "el",
@@ -1104,7 +1160,7 @@
         },
         {
             "name": "FormSampleComponent",
-            "id": "component-FormSampleComponent-5ddfc7a616a9d03c5bb255a0f644fa572520314b301612e5f57ecbdd1292f9a045304a746d9af15fb8bf43b001b50b98bfa0dc23f8fa9e51465c04b81854480f",
+            "id": "component-FormSampleComponent-53e73732a8cfeeac2b99cc12780f63f2e6fc17217a82ea665342bdb7a97541dfcf2b604faa61520417de5871c7f676a3509ff52c94e3d180f11a03af688dbcf6",
             "file": "libs/material/src/form-sample/form-sample.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1114,7 +1170,7 @@
             "selector": "vn-form-sample",
             "styleUrls": [],
             "styles": [],
-            "template": "<form vnForm [formGroup]=\"formGroup\" vnFlexRow>\n  <vn-input  formControlName=\"name\" type=\"text\" [required]=\"true\"  [minLength]=\"3\" [maxLength]=\"30\" label=\"Name\" ></vn-input>\n  <vn-input  formControlName=\"price\" type=\"number\" [required]=\"true\"  label=\"Price\"> </vn-input>\n  <vn-input vnFlexGrow formControlName=\"age\" type=\"integer\" [required]=\"true\"  label=\"Age\" ></vn-input>\n\n    <div vnInput vnFlexCol vnFlexGrow=\"1\" >\n    </div>\n    <div vnInput vnFlexCol vnFlexGrow=\"1\" >\n    </div>\n\n</form>\n",
+            "template": "<form vnForm vnFlexCol [formGroup]=\"formGroup\" >\n  <vn-input  formControlName=\"name\"     type=\"text\" [required]=\"true\"  [minLength]=\"3\" [maxLength]=\"30\" label=\"Name\" ></vn-input>\n  <vn-input  formControlName=\"price\"    type=\"number\" [required]=\"true\"  label=\"Price\"> </vn-input>\n  <vn-input  formControlName=\"age\"      type=\"integer\" [required]=\"true\"  label=\"Age\" ></vn-input>\n\n</form>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1130,7 +1186,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 25
                 }
             ],
             "methodsClass": [
@@ -1149,7 +1205,7 @@
                     "optional": false,
                     "returnType": "FormControl",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1172,7 +1228,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 31,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1215,7 +1271,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { FlexModule } from '../flex/flex';\nimport { FormComponent } from '../form/form';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { InputTextComponent } from '../input-text/input-text';\n\n\n@Component({\n  selector: 'vn-form-sample',\n  imports: [FormComponent, ReactiveFormsModule, MatInputModule, MatFormFieldModule, InputNumberComponent, InputTextComponent, FlexModule],\n  template: `\n  <form vnForm [formGroup]=\"formGroup\" vnFlexRow>  \n    <vn-input  formControlName=\"name\" type=\"text\" [required]=\"true\"  [minLength]=\"3\" [maxLength]=\"30\" label=\"Name\" ></vn-input>\n    <vn-input  formControlName=\"price\" type=\"number\" [required]=\"true\"  label=\"Price\"> </vn-input>\n    <vn-input vnFlexGrow formControlName=\"age\" type=\"integer\" [required]=\"true\"  label=\"Age\" ></vn-input>\n    \n      <div vnInput vnFlexCol vnFlexGrow=\"1\" >\n      </div>\n      <div vnInput vnFlexCol vnFlexGrow=\"1\" >\n      </div>\n  \n  </form>\n  `,\n  standalone: true,\n})\nexport class FormSampleComponent implements OnInit {\n  formGroup = new FormGroup({\n    name: new FormControl(null, Validators.required),\n    price: new FormControl(null, Validators.min(0)),\n    age: new FormControl(null, Validators.min(18)),\n  });\n\n  ngOnInit(): void {\n    this.formGroup.valueChanges.subscribe(value => {\n      console.log(\"FormGroup: \", value);\n    })\n\n  }\n\n\n\n  ctrl(name: string) {\n    return this.formGroup.get(name) as FormControl;\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { FlexModule } from '../flex/flex';\nimport { FormComponent } from '../form/form';\nimport { InputNumberComponent } from '../input-number/input-number';\nimport { InputTextComponent } from '../input-text/input-text';\n\n\n@Component({\n  selector: 'vn-form-sample',\n  imports: [FormComponent, ReactiveFormsModule, MatInputModule, MatFormFieldModule, InputNumberComponent, InputTextComponent, FlexModule],\n  template: `\n  <form vnForm vnFlexCol [formGroup]=\"formGroup\" >  \n    <vn-input  formControlName=\"name\"     type=\"text\" [required]=\"true\"  [minLength]=\"3\" [maxLength]=\"30\" label=\"Name\" ></vn-input>\n    <vn-input  formControlName=\"price\"    type=\"number\" [required]=\"true\"  label=\"Price\"> </vn-input>\n    <vn-input  formControlName=\"age\"      type=\"integer\" [required]=\"true\"  label=\"Age\" ></vn-input>\n    \n  </form>\n  `,\n  standalone: true,\n})\nexport class FormSampleComponent implements OnInit {\n  formGroup = new FormGroup({\n    name: new FormControl(null, Validators.required),\n    price: new FormControl(null, Validators.min(0)),\n    age: new FormControl(null, Validators.min(18)),\n  });\n\n  ngOnInit(): void {\n    this.formGroup.valueChanges.subscribe(value => {\n      console.log(\"FormGroup: \", value);\n    })\n\n  }\n\n\n\n  ctrl(name: string) {\n    return this.formGroup.get(name) as FormControl;\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1226,7 +1282,7 @@
         },
         {
             "name": "InputNumberComponent",
-            "id": "component-InputNumberComponent-039ee49a76db4fd5f42699e535dd7c4397f21594372dbacfc621e029624a7e1881705ec451f78e9963396b5295ef1bc358c34d447e9a64bde33a6c742369d0f7",
+            "id": "component-InputNumberComponent-9fb9ef59abdc94789ece98cd072cab364656550d9c1427c515d1dcf0008ab93e89c2f448168d2cabd6ca38e3841f78c2e728d4e02053f6d9db7ba0d5bc4530b5",
             "file": "libs/material/src/input-number/input-number.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1238,7 +1294,7 @@
                 "../input/input.scss"
             ],
             "styles": [],
-            "template": "<mat-form-field>\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [formControl]=\"formControl()\"\n    [placeholder]=\"placeholder()\"\n    [value]=\"value()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    [maxlength]=\"16\"\n    [required]=\"required()\"\n    [vnNumberFilter]=\"type()\"\n    [formControl]=\"formControl()\"\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n",
+            "template": "\n\n@let control =  formControl();\n\n@if(control) {\n  <mat-form-field  >\n    <mat-label>{{ label() }}</mat-label>\n    <input\n    type=\"text\"\n    matInput\n    [formControl]=\"formControl()\"\n    [placeholder]=\"placeholder()\"\n    [disabled]=\"disabled()\"\n    (input)=\"handleInput($event)\"\n    (blur)=\"handleBlur()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    [maxlength]=\"maxLength()\"\n    [required]=\"required()\"\n    [vnNumberFilter]=\"type()\"\n\n    />\n    @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n    <mat-error>Invalid Input</mat-error>\n  </mat-form-field>\n}\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1252,7 +1308,19 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 39,
+                    "line": 44,
+                    "required": false
+                },
+                {
+                    "name": "maxLength",
+                    "defaultValue": "16",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 45,
                     "required": false
                 },
                 {
@@ -1264,7 +1332,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 38,
+                    "line": 43,
                     "required": false
                 },
                 {
@@ -1383,7 +1451,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 28,
+                    "line": 29,
                     "modifierKind": [
                         125,
                         148
@@ -1415,7 +1483,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 24,
                     "modifierKind": [
                         124
                     ],
@@ -1438,6 +1506,20 @@
                     }
                 },
                 {
+                    "name": "formControlName",
+                    "defaultValue": "signal<string | null>(null)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "ngControl",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1445,7 +1527,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 27,
+                    "line": 28,
                     "decorators": [
                         {
                             "name": "Self",
@@ -1475,7 +1557,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 22,
                     "modifierKind": [
                         124
                     ],
@@ -1492,7 +1574,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 23,
                     "modifierKind": [
                         124
                     ],
@@ -1517,7 +1599,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 47,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -1542,25 +1624,12 @@
                     }
                 },
                 {
-                    "name": "detect",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 72,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
                     "name": "handleBlur",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -1582,7 +1651,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1603,6 +1672,19 @@
                     }
                 },
                 {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "registerOnChange",
                     "args": [
                         {
@@ -1617,7 +1699,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 59,
+                    "line": 60,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1652,7 +1734,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1687,7 +1769,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1722,7 +1804,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55,
+                    "line": 56,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1750,15 +1832,15 @@
             "standalone": true,
             "imports": [
                 {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                },
+                {
                     "name": "MatFormFieldModule",
                     "type": "module"
                 },
                 {
                     "name": "MatInputModule",
-                    "type": "module"
-                },
-                {
-                    "name": "ReactiveFormsModule",
                     "type": "module"
                 },
                 {
@@ -1769,7 +1851,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, NumberInputType } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n@Component({\n  selector: 'vn-input[type=number], vn-input[type=integer]',\n  standalone: true,\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NumberFilterDirective],\n  template: `\n  <mat-form-field>\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [formControl]=\"formControl()\"\n      [placeholder]=\"placeholder()\"\n      [value]=\"value()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      [maxlength]=\"16\"\n      [required]=\"required()\"\n      [vnNumberFilter]=\"type()\"     \n      [formControl]=\"formControl()\"\n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  `,\n  styleUrls: ['../input/input.scss'],\n})\nexport class InputNumberComponent extends BaseInput<number, NumberInputType> {\n  min = input<number>(Number.MIN_SAFE_INTEGER)\n  max = input<number>(Number.MAX_SAFE_INTEGER)\n\n  protected override convertToValue(value: string): any {\n\n    if (value === null || value === undefined || value === '') {\n      return null\n    }\n\n    const parsedValue = this.type() === 'integer'\n      ? parseInt(value, 10)\n      : parseFloat(value);\n\n    return isNaN(parsedValue) ? null : parsedValue;\n\n  }\n}\n",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, NumberInputType } from '../input/input';\nimport { NumberFilterDirective } from '../number-filter/number-filter';\n\n@Component({\n  selector: 'vn-input[type=number], vn-input[type=integer]',\n  standalone: true,\n  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NumberFilterDirective],\n  template: `\n\n\n  @let control =  formControl(); \n\n  @if(control) { \n    <mat-form-field  >\n      <mat-label>{{ label() }}</mat-label>\n      <input\n      type=\"text\"\n      matInput\n      [formControl]=\"formControl()\"\n      [placeholder]=\"placeholder()\"\n      [disabled]=\"disabled()\"\n      (input)=\"handleInput($event)\"\n      (blur)=\"handleBlur()\"\n      [min]=\"min()\"\n      [max]=\"max()\"\n      [maxlength]=\"maxLength()\"\n      [required]=\"required()\"\n      [vnNumberFilter]=\"type()\"     \n     \n      />\n      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n      <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n  }\n    `,\n  styleUrls: ['../input/input.scss'],\n})\nexport class InputNumberComponent extends BaseInput<number, NumberInputType> {\n  min = input<number>(Number.MIN_SAFE_INTEGER)\n  max = input<number>(Number.MAX_SAFE_INTEGER)\n  maxLength = input<number>(16);\n\n  protected override convertToValue(value: string): any {\n\n    if (value === null || value === undefined || value === '') {\n      return null\n    }\n\n    const parsedValue = this.type() === 'integer'\n      ? parseInt(value, 10)\n      : parseFloat(value);\n\n    return isNaN(parsedValue) ? null : parsedValue;\n\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1784,7 +1866,7 @@
         },
         {
             "name": "InputTextComponent",
-            "id": "component-InputTextComponent-1cc830defc6cc6f5e74485a3f4ae9ee16a39077d49e54f77ce6c603ba46e736d83f4552de9e9c58cf955458d50bbcae823e44043b1a88d612468eae1164615f7",
+            "id": "component-InputTextComponent-92d369c2444ead453f73ac980e5ac29aa8c918915dbb6274c297d9ae3fdf72e0b4db96765d2e88963f1db540cb6fa3afaf1298bda15d01afd4550f4d9ddb6173",
             "file": "libs/material/src/input-text/input-text.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1796,7 +1878,7 @@
                 "../input/input.scss"
             ],
             "styles": [],
-            "template": "\n\n\n<mat-form-field >\n  <mat-label>{{ label() }}</mat-label>\n  <input\n  type=\"text\"\n  matInput\n  [formControl]=\"formControl()\"\n  [placeholder]=\"placeholder()\"\n  [value]=\"value()\"\n  [disabled]=\"disabled()\"\n  (input)=\"handleInput($event)\"\n  (blur)=\"handleBlur()\"\n  [minLength]=\"minLength()\"\n  [maxLength]=\"maxLength()\"\n  [required]=\"required()\"\n  [formControl]=\"formControl()\"\n  />\n  @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n\n  <mat-error>Invalid Input</mat-error>\n </mat-form-field>\n\n",
+            "template": "\n@let control =  formControl();\n\n @if(control){\n   <mat-form-field >\n     <mat-label>{{ label() }}</mat-label>\n     <input\n     type=\"text\"\n     matInput\n     [formControl]=\"formControl()\"\n     [placeholder]=\"placeholder()\"\n     [disabled]=\"disabled()\"\n     (input)=\"handleInput($event)\"\n     (blur)=\"handleBlur()\"\n     [minLength]=\"minLength()\"\n     [maxLength]=\"maxLength()\"\n     [required]=\"required()\"\n     />\n     @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n\n     <mat-error>Invalid Input</mat-error>\n    </mat-form-field>\n\n  }\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1941,7 +2023,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 28,
+                    "line": 29,
                     "modifierKind": [
                         125,
                         148
@@ -1973,7 +2055,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 24,
                     "modifierKind": [
                         124
                     ],
@@ -1996,6 +2078,20 @@
                     }
                 },
                 {
+                    "name": "formControlName",
+                    "defaultValue": "signal<string | null>(null)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "ngControl",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -2003,7 +2099,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 27,
+                    "line": 28,
                     "decorators": [
                         {
                             "name": "Self",
@@ -2033,7 +2129,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 22,
                     "modifierKind": [
                         124
                     ],
@@ -2050,7 +2146,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 23,
                     "modifierKind": [
                         124
                     ],
@@ -2100,25 +2196,12 @@
                     }
                 },
                 {
-                    "name": "detect",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 72,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "inheritance": {
-                        "file": "BaseInput"
-                    }
-                },
-                {
                     "name": "handleBlur",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 50,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -2140,7 +2223,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2161,6 +2244,19 @@
                     }
                 },
                 {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "BaseInput"
+                    }
+                },
+                {
                     "name": "registerOnChange",
                     "args": [
                         {
@@ -2175,7 +2271,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 59,
+                    "line": 60,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2210,7 +2306,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 64,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2245,7 +2341,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 67,
+                    "line": 68,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2280,7 +2376,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55,
+                    "line": 56,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2308,22 +2404,22 @@
             "standalone": false,
             "imports": [
                 {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                },
+                {
                     "name": "MatFormFieldModule",
                     "type": "module"
                 },
                 {
                     "name": "MatInputModule",
                     "type": "module"
-                },
-                {
-                    "name": "ReactiveFormsModule",
-                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, StringInputType } from '../input/input';\n\n@Component({\n  selector: 'vn-input[type=\"text\"]',\n  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],\n  template: `\n   \n\n     \n     <mat-form-field >\n       <mat-label>{{ label() }}</mat-label>\n       <input\n       type=\"text\"\n       matInput\n       [formControl]=\"formControl()\"\n       [placeholder]=\"placeholder()\"\n       [value]=\"value()\"\n       [disabled]=\"disabled()\"\n       (input)=\"handleInput($event)\"\n       (blur)=\"handleBlur()\"\n       [minLength]=\"minLength()\"\n       [maxLength]=\"maxLength()\"\n       [required]=\"required()\"\n       [formControl]=\"formControl()\"\n       />\n       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n       \n       <mat-error>Invalid Input</mat-error>\n      </mat-form-field>\n\n    `,\n  styleUrls: ['../input/input.scss'],\n})\nexport class InputTextComponent extends BaseInput<string, StringInputType> {\n  minLength = input<number>(0)\n  maxLength = input<number>(1000)\n\n  protected override convertToValue(value: string): string | null {\n    if (value === '' || value === null || value === undefined) {\n      return null;\n    }\n    return value;\n  }\n}\n",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { BaseInput, StringInputType } from '../input/input';\n\n@Component({\n  selector: 'vn-input[type=\"text\"]',\n  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],\n  template: `\n\n  @let control =  formControl(); \n\n   @if(control){ \n     <mat-form-field >\n       <mat-label>{{ label() }}</mat-label>\n       <input\n       type=\"text\"\n       matInput\n       [formControl]=\"formControl()\"\n       [placeholder]=\"placeholder()\"\n       [disabled]=\"disabled()\"\n       (input)=\"handleInput($event)\"\n       (blur)=\"handleBlur()\"\n       [minLength]=\"minLength()\"\n       [maxLength]=\"maxLength()\"\n       [required]=\"required()\"\n       />\n       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }\n       \n       <mat-error>Invalid Input</mat-error>\n      </mat-form-field>\n      \n    }    \n    `,\n  styleUrls: ['../input/input.scss'],\n})\nexport class InputTextComponent extends BaseInput<string, StringInputType> {\n  minLength = input<number>(0)\n  maxLength = input<number>(1000)\n\n  protected override convertToValue(value: string): string | null {\n    if (value === '' || value === null || value === undefined) {\n      return null;\n    }\n    return value;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2434,37 +2530,300 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "digitExp",
+                "name": "DigitExp",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/material/src/number-filter/number-filter.ts",
+                "file": "libs/material/src/utils/expressions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
                 "defaultValue": "/^[0-9]{1}$/"
             },
             {
+                "name": "IntegerExp",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/material/src/utils/expressions.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "/^[0-9]{1,}$/"
+            },
+            {
                 "name": "navigationKeys",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/material/src/number-filter/number-filter.ts",
+                "file": "libs/material/src/utils/keyboard.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "[]",
+                "type": "Readonly<string[]>",
                 "defaultValue": "[\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n]"
             },
             {
-                "name": "numberExp",
+                "name": "NumberExp",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/material/src/number-filter/number-filter.ts",
+                "file": "libs/material/src/utils/expressions.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
                 "defaultValue": "/(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/"
             }
         ],
-        "functions": [],
+        "functions": [
+            {
+                "name": "isCommandEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isCopyEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isCutEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isDigitString",
+                "file": "libs/material/src/utils/expressions.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "digit",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "digit",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isIntegerString",
+                "file": "libs/material/src/utils/expressions.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "integerString",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "integerString",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isNavigationEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isNumberString",
+                "file": "libs/material/src/utils/expressions.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "numberString",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "numberString",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isPasteEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "isSelectAllEvent",
+                "file": "libs/material/src/utils/keyboard.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "event",
+                        "type": "KeyboardEvent",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
         "typealiases": [
             {
                 "name": "FlexDirValue",
@@ -2524,40 +2883,309 @@
         ],
         "enumerations": [],
         "groupedVariables": {
-            "libs/material/src/number-filter/number-filter.ts": [
+            "libs/material/src/utils/expressions.ts": [
                 {
-                    "name": "digitExp",
+                    "name": "DigitExp",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/material/src/number-filter/number-filter.ts",
+                    "file": "libs/material/src/utils/expressions.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "defaultValue": "/^[0-9]{1}$/"
                 },
                 {
-                    "name": "navigationKeys",
+                    "name": "IntegerExp",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/material/src/number-filter/number-filter.ts",
+                    "file": "libs/material/src/utils/expressions.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n]"
+                    "type": "unknown",
+                    "defaultValue": "/^[0-9]{1,}$/"
                 },
                 {
-                    "name": "numberExp",
+                    "name": "NumberExp",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/material/src/number-filter/number-filter.ts",
+                    "file": "libs/material/src/utils/expressions.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
                     "defaultValue": "/(^0.[0-9]{1,}$) | (^[1-9]{1,}\\.?[0-9]+$)/"
                 }
+            ],
+            "libs/material/src/utils/keyboard.ts": [
+                {
+                    "name": "navigationKeys",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Readonly<string[]>",
+                    "defaultValue": "[\n    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'\n]"
+                }
             ]
         },
-        "groupedFunctions": {},
+        "groupedFunctions": {
+            "libs/material/src/utils/keyboard.ts": [
+                {
+                    "name": "isCommandEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isCopyEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isCutEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isNavigationEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isPasteEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isSelectAllEvent",
+                    "file": "libs/material/src/utils/keyboard.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "KeyboardEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "libs/material/src/utils/expressions.ts": [
+                {
+                    "name": "isDigitString",
+                    "file": "libs/material/src/utils/expressions.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "digit",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "digit",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isIntegerString",
+                    "file": "libs/material/src/utils/expressions.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "integerString",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "integerString",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "isNumberString",
+                    "file": "libs/material/src/utils/expressions.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "numberString",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "numberString",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "groupedEnumerations": {},
         "groupedTypeAliases": {
             "libs/material/src/flex/flex.ts": [
@@ -2755,7 +3383,7 @@
                 "linktype": "component",
                 "name": "InputNumberComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/25",
+                "coverageCount": "0/27",
                 "status": "low"
             },
             {
@@ -2764,7 +3392,7 @@
                 "linktype": "component",
                 "name": "InputTextComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/25",
+                "coverageCount": "0/26",
                 "status": "low"
             },
             {
@@ -2773,7 +3401,7 @@
                 "linktype": "directive",
                 "name": "BaseInput",
                 "coveragePercent": 0,
-                "coverageCount": "0/24",
+                "coverageCount": "0/25",
                 "status": "low"
             },
             {
@@ -2812,35 +3440,135 @@
                 "linktype": "directive",
                 "name": "NumberFilterDirective",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/number-filter/number-filter.ts",
-                "type": "variable",
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "function",
                 "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "digitExp",
+                "linksubtype": "function",
+                "name": "isDigitString",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "libs/material/src/number-filter/number-filter.ts",
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isIntegerString",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isNumberString",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "DigitExp",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "IntegerExp",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/expressions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "NumberExp",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isCommandEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isCopyEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isCutEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isNavigationEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isPasteEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "isSelectAllEvent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/material/src/utils/keyboard.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "navigationKeys",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/material/src/number-filter/number-filter.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "numberExp",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
