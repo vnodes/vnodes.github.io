@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FlexModule } from '../flex/flex';
-import { FormComponent } from '../form/form';
-import { InputNumberComponent } from '../input-number/input-number';
-import { InputTextComponent } from '../input-text/input-text';
+import { FlexModule, FormComponent, InputNumberComponent, InputTextComponent } from '@vnodes/material';
 
 
 @Component({

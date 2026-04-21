@@ -2,6 +2,10 @@
   "name": "@vnodes/material",
   "version": "0.0.1",
   "exports": {
+    ".": {
+      "types": "./src/public-api.ts",
+      "default": "./src/public-api.ts"
+    },
     "./flex": {
       "types": "./src/flex/public-api.ts",
       "default": "./src/flex/public-api.ts"
@@ -10,17 +14,25 @@
       "types": "./src/form/public-api.ts",
       "default": "./src/form/public-api.ts"
     },
+    "./form-sample": {
+      "types": "./src/form-sample/public-api.ts",
+      "default": "./src/form-sample/public-api.ts"
+    },
     "./input": {
       "types": "./src/input/public-api.ts",
       "default": "./src/input/public-api.ts"
     },
     "./input-number": {
-      "types": "./input-src/number/public-api.ts",
-      "default": "./input-src/number/public-api.ts"
+      "types": "./src/input-number/public-api.ts",
+      "default": "./src/input-number/public-api.ts"
     },
-    "./input-string": {
-      "types": "./input-src/string/public-api.ts",
-      "default": "./input-src/string/public-api.ts"
+    "./input-text": {
+      "types": "./src/input-text/public-api.ts",
+      "default": "./src/input-text/public-api.ts"
+    },
+    "./number-filter": {
+      "types": "./src/number-filter/public-api.ts",
+      "default": "./src/number-filter/public-api.ts"
     },
     "./utils": {
       "types": "./src/utils/public-api.ts",
@@ -32,5 +44,6 @@
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5",
     "@vnodes/material": "workspace:*"
-  }
+  },
+  "peerDependencies": {}
 }

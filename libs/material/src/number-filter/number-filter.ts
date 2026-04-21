@@ -1,8 +1,5 @@
 import { Directive, ElementRef, HostListener, input } from '@angular/core';
-import { clipboardText } from '../utils/clipboard';
-import { dispatchEmptyInputEvent } from '../utils/event';
-import { isDigitString, isIntegerString, isNumberString } from '../utils/expressions';
-import { isCommandEvent } from '../utils/keyboard';
+import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, isIntegerString, isNumberString } from '@vnodes/material/utils';
 
 @Directive({
     selector: '[vnNumberFilter]',

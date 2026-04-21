@@ -1,8 +1,6 @@
 import { Component, input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-
-
 @Component({
   selector: '[vnForm]',
   standalone: true,
@@ -16,3 +14,5 @@ export class FormComponent {
 
 
 }
+
+

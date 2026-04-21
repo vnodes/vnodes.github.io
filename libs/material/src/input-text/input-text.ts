@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, StringInputType } from '../input/input';
+import { BaseInput, StringInputType } from '@vnodes/material/input';
 
 @Component({
   selector: 'vn-input[type="text"]',

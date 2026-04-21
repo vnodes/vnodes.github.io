@@ -7,23 +7,29 @@
     "inlineSources": true,
     "types": [],
     "paths": {
-      "@vnodes/material/utils": [
-        "./utils/public-api.ts"
+      "@vnodes/material": [
+        "./src/public-api.ts"
       ],
-      "@vnodes/material/input": [
-        "./input/public-api.ts"
-      ],
-      "@vnodes/material/input-number": [
-        "./input-number/public-api.ts"
-      ],
-      "@vnodes/material/input-string": [
-        "./input-string/public-api.ts"
+      "@vnodes/material/flex": [
+        "./src/flex/public-api.ts"
       ],
       "@vnodes/material/form": [
-        "./form/public-api.ts"
+        "./src/form/public-api.ts"
+      ],
+      "@vnodes/material/input-number": [
+        "./src/input-number/public-api.ts"
+      ],
+      "@vnodes/material/input-text": [
+        "./src/input-text/public-api.ts"
+      ],
+      "@vnodes/material/input": [
+        "./src/input/public-api.ts"
       ],
       "@vnodes/material/number-filter": [
-        "./number-filter/public-api.ts"
+        "./src/number-filter/public-api.ts"
+      ],
+      "@vnodes/material/utils": [
+        "./src/utils/public-api.ts"
       ],
     }
   },

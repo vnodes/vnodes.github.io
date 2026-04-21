@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput, NumberInputType } from '@vnodes/material/input';
-import { NumberFilterDirective } from '../number-filter/number-filter';
+import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
 @Component({
   selector: 'vn-input[type=number], vn-input[type=integer]',
