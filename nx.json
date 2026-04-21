@@ -117,7 +117,7 @@
       "standalone": true
     },
     "@vnodes/plugin:component": {
-      "prefix": "vn"
+      "project": "material"
     }
   },
   "release": {

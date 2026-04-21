@@ -37,6 +37,22 @@
     "./utils": {
       "types": "./src/utils/public-api.ts",
       "default": "./src/utils/public-api.ts"
+    },
+    "./card": {
+      "types": "./src/card/public-api.ts",
+      "default": "./src/card/public-api.ts"
+    },
+    "./layout": {
+      "types": "./src/layout/public-api.ts",
+      "default": "./src/layout/public-api.ts"
+    },
+    "./mobile-layout": {
+      "types": "./src/mobile-layout/public-api.ts",
+      "default": "./src/mobile-layout/public-api.ts"
+    },
+    "./web-layout": {
+      "types": "./src/web-layout/public-api.ts",
+      "default": "./src/web-layout/public-api.ts"
     }
   },
   "devDependencies": {
