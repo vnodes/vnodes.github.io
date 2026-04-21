@@ -21,7 +21,7 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ],
       "options": {
-        "project": "libs/material/ng-package.json",
+        "project": "libs/material/src/ng-package.json",
         "tsConfig": "libs/material/tsconfig.lib.json"
       },
       "configurations": {

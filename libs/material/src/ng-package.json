@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "deleteDestPath": true,
+  "dest": "../../../dist/libs/material",
+  "assets": [
+    "media"
+  ],
+  "lib": {
+    "entryFile": "./public-api.ts"
+  }
+}
