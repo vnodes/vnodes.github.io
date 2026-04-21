@@ -5,7 +5,27 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "paths": {
+      "@vnodes/material/utils": [
+        "./utils/public-api.ts"
+      ],
+      "@vnodes/material/input": [
+        "./input/public-api.ts"
+      ],
+      "@vnodes/material/input-number": [
+        "./input-number/public-api.ts"
+      ],
+      "@vnodes/material/input-string": [
+        "./input-string/public-api.ts"
+      ],
+      "@vnodes/material/form": [
+        "./form/public-api.ts"
+      ],
+      "@vnodes/material/number-filter": [
+        "./number-filter/public-api.ts"
+      ],
+    }
   },
   "include": [
     "./src/*.ts"

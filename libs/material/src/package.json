@@ -1,23 +1,13 @@
 {
   "name": "@vnodes/material",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/core": "^21.2.0",
-    "@angular/forms": "~21.2.0",
-    "@angular/material": "^21.2.6"
-  },
+  "peerDependencies": {},
   "files": [
     "media"
   ],
-  "exports": {
-    "./media": {
-      "scss": "./media/style.scss"
-    }
-  },
   "devDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5"
-  },
-  "ng-package": "./src/ng-package.json"
+  }
 }

@@ -2,15 +2,19 @@ import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, NumberInputType } from '../input/input';
+import { BaseInput, NumberInputType } from '@vnodes/material/input';
 import { NumberFilterDirective } from '../number-filter/number-filter';
 
 @Component({
   selector: 'vn-input[type=number], vn-input[type=integer]',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NumberFilterDirective],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NumberFilterDirective
+  ],
   template: `
-
 
   @let control =  formControl(); 
 

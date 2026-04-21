@@ -1,23 +1,36 @@
 {
   "name": "@vnodes/material",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/core": "^21.2.0",
-    "@angular/forms": "~21.2.0",
-    "@angular/material": "^21.2.6"
-  },
-  "files": [
-    "media"
-  ],
   "exports": {
-    "./media": {
-      "scss": "./media/style.scss"
+    "./flex": {
+      "types": "./src/flex/public-api.ts",
+      "default": "./src/flex/public-api.ts"
+    },
+    "./form": {
+      "types": "./src/form/public-api.ts",
+      "default": "./src/form/public-api.ts"
+    },
+    "./input": {
+      "types": "./src/input/public-api.ts",
+      "default": "./src/input/public-api.ts"
+    },
+    "./input-number": {
+      "types": "./input-src/number/public-api.ts",
+      "default": "./input-src/number/public-api.ts"
+    },
+    "./input-string": {
+      "types": "./input-src/string/public-api.ts",
+      "default": "./input-src/string/public-api.ts"
+    },
+    "./utils": {
+      "types": "./src/utils/public-api.ts",
+      "default": "./src/utils/public-api.ts"
     }
   },
   "devDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
-    "@storybook/addon-docs": "^10.3.5"
-  },
-  "ng-package": "./src/ng-package.json"
+    "@storybook/addon-docs": "^10.3.5",
+    "@vnodes/material": "workspace:*"
+  }
 }
