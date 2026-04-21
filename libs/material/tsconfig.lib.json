@@ -8,11 +8,10 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "./src/*.ts"
   ],
   "exclude": [
-    ".storybook",
-    "src/**/*.spec.ts",
+    "./src/**/*.spec.ts",
     "**/*.stories.ts"
   ]
 }

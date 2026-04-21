@@ -13,7 +13,6 @@ const config: StorybookConfig = {
       compodoc: {
         compodocJson: '../documentation.json',
       },
-
       theme,
 
     }

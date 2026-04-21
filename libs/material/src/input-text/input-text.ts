@@ -1,12 +1,13 @@
 import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput, StringInputType } from '../input/input';
 
 @Component({
   selector: 'vn-input[type="text"]',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatIconModule, MatFormFieldModule, MatInputModule],
   template: `
 
   @let control =  formControl(); 
@@ -14,6 +15,8 @@ import { BaseInput, StringInputType } from '../input/input';
    @if(control){ 
      <mat-form-field >
        <mat-label>{{ label() }}</mat-label>
+
+       <mat-icon matIconPrefix class="rounded fill">home</mat-icon>
        <input
        type="text"
        matInput

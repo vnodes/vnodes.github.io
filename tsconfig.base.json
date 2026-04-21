@@ -17,14 +17,7 @@
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "paths": {
-      "@vnodes/material/button": [
-        "libs/material/src/lib/button/public-api.ts"
-      ],
-      "@vnodes/material/material": [
-        "libs/material/src/lib/material/public-api.ts"
-      ],
-    }
+    "paths": {}
   },
   "exclude": [
     "node_modules",

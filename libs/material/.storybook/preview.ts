@@ -26,7 +26,6 @@ const preview: Preview = {
 
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*|^.*Change$' },
-
         controls: {
             matchers: {
                 color: /(background|color)$/i,
@@ -37,7 +36,7 @@ const preview: Preview = {
                 radio: /options$/i,
             },
         },
-    },
+    }
 };
 
 export default preview;

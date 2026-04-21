@@ -3,8 +3,6 @@ import { computed, Directive, HostBinding, input, NgModule } from "@angular/core
 export type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'
 export type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';
 
-
-
 @Directive({
     selector: "[vnFlex]",
     standalone: true,

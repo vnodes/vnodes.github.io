@@ -1,8 +1,5 @@
 @use '@angular/material' as mat;
-@use "../../../libs/material/media/roboto-flex/style.css" as roboto-flex;
-@use "../../../libs/material/media/icon/outlined/style.css" as icon-outlined;
-@use "../../../libs/material/media/icon/sharp/style.css" as icon-sharp;
-@use "../../../libs/material/media/icon/rounded/style.css" as icon-rounded;
+@use "../../../libs/material/media/style.scss" as media;
 
 
 

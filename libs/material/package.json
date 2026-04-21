@@ -2,36 +2,16 @@
   "name": "@vnodes/material",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/cdk": "^21.2.6",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "~21.2.0",
+    "@angular/material": "^21.2.6"
   },
   "files": [
     "media"
   ],
-  "sideEffects": false,
   "exports": {
-    "./button": {
-      "types": "./types/button.d.ts",
-      "default": "./fesm2022/button.mjs"
-    },
-    "./material": {
-      "types": "./types/material.d.ts",
-      "default": "./fesm2022/material.mjs"
-    },
     "./media": {
       "scss": "./media/style.scss"
-    },
-    "./media/icon-outlined": {
-      "style": "./media/icon/outlined/style.css"
-    },
-    "./media/icon-rounded": {
-      "style": "./media/icon/rounded/style.css"
-    },
-    "./media/icon-sharp": {
-      "style": "./media/icon/sharp/style.css"
-    },
-    "./roboto-flex": {
-      "style": "./media/roboto-flex/style.css"
     }
   },
   "devDependencies": {
