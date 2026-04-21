@@ -82,7 +82,7 @@
           "-e",
           "json",
           "-d",
-          "libs/material/.storybook"
+          "libs/material"
         ]
       },
       "configurations": {

@@ -6,6 +6,6 @@
     "media"
   ],
   "lib": {
-    "entryFile": "public-api.ts"
+    "entryFile": "./public-api.ts"
   }
 }

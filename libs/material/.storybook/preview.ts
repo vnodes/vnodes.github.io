@@ -1,9 +1,8 @@
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { applicationConfig, moduleMetadata, type Preview } from '@storybook/angular';
 import docJson from '../documentation.json';
-
-import { provideHttpClient } from '@angular/common/http';
 
 setCompodocJson(docJson);
 

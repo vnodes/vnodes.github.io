@@ -61,5 +61,7 @@
     "@storybook/addon-docs": "^10.3.5",
     "@vnodes/material": "workspace:*"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@vnodes/material": "workspace:*"
+  }
 }
