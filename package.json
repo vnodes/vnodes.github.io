@@ -2,7 +2,9 @@
   "name": "@vnodes/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky"
+  },
   "private": true,
   "dependencies": {
     "@angular/cdk": "^21.2.6",
