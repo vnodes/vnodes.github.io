@@ -1,6 +1,8 @@
 {
   "name": "@vnodes/material",
   "version": "0.0.1",
+  "description": "Vnodes Material Library",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./src/public-api.ts",

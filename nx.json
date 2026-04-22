@@ -41,7 +41,10 @@
       "inputs": [
         "default",
         "^production"
-      ]
+      ],
+      "options": {
+        "watch": false
+      }
     },
     "@nx/angular:package": {
       "cache": true,
@@ -58,7 +61,10 @@
       "inputs": [
         "default",
         "^production"
-      ]
+      ],
+      "options": {
+        "watch": false
+      }
     }
   },
   "plugins": [
@@ -121,6 +127,9 @@
     }
   },
   "release": {
+    "projects": [
+      "material"
+    ],
     "version": {
       "preVersionCommand": "pnpm dlx nx run-many -t build"
     }

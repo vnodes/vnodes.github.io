@@ -25,8 +25,8 @@ import { BaseInput, StringInputType } from '@vnodes/material/input';
        [disabled]="disabled()"
        (input)="handleInput($event)"
        (blur)="handleBlur()"
-       [minLength]="minLength()"
-       [maxLength]="maxLength()"
+       [minlength]="minlength()"
+       [maxlength]="maxlength()"
        [required]="required()"
        />
        @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
@@ -35,12 +35,11 @@ import { BaseInput, StringInputType } from '@vnodes/material/input';
       </mat-form-field>
       
     }    
-    `,
-  styleUrls: ['../input/input.scss'],
+    `
 })
 export class InputTextComponent extends BaseInput<string, StringInputType> {
-  minLength = input<number>(0)
-  maxLength = input<number>(1000)
+  minlength = input<number>(0)
+  maxlength = input<number>(1000)
 
   protected override convertToValue(value: string): string | null {
     if (value === '' || value === null || value === undefined) {

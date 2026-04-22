@@ -1,9 +1,62 @@
 {
   "name": "@vnodes/material",
   "version": "0.0.1",
+  "type": "module",
   "exports": {
     "./media": {
       "sass": "./media/_index.scss"
+    },
+    ".": {
+      "types": "./public-api.ts",
+      "default": "./public-api.ts"
+    },
+    "./flex": {
+      "types": "./flex/public-api.ts",
+      "default": "./flex/public-api.ts"
+    },
+    "./form": {
+      "types": "./form/public-api.ts",
+      "default": "./form/public-api.ts"
+    },
+    "./form-sample": {
+      "types": "./form-sample/public-api.ts",
+      "default": "./form-sample/public-api.ts"
+    },
+    "./input": {
+      "types": "./input/public-api.ts",
+      "default": "./input/public-api.ts"
+    },
+    "./input-number": {
+      "types": "./input-number/public-api.ts",
+      "default": "./input-number/public-api.ts"
+    },
+    "./input-text": {
+      "types": "./input-text/public-api.ts",
+      "default": "./input-text/public-api.ts"
+    },
+    "./number-filter": {
+      "types": "./number-filter/public-api.ts",
+      "default": "./number-filter/public-api.ts"
+    },
+    "./utils": {
+      "types": "./utils/public-api.ts",
+      "default": "./utils/public-api.ts"
+    },
+    "./card": {
+      "types": "./card/public-api.ts",
+      "default": "./card/public-api.ts"
+    },
+    "./layout": {
+      "types": "./layout/public-api.ts",
+      "default": "./layout/public-api.ts"
+    },
+    "./mobile-layout": {
+      "types": "./mobile-layout/public-api.ts",
+      "default": "./mobile-layout/public-api.ts"
+    },
+    "./web-layout": {
+      "types": "./web-layout/public-api.ts",
+      "default": "./web-layout/public-api.ts"
     }
   },
   "files": [

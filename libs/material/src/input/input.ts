@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 export type NumberInputType = 'number' | 'integer';
 export type StringInputType = 'text';
-export type InputType = NumberInputType | StringInputType
+export type InputType = (NumberInputType | StringInputType)
 
 @Directive()
 export abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor, OnInit {

@@ -33,15 +33,13 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
       [max]="max()"
       [maxlength]="maxLength()"
       [required]="required()"
-      [vnNumberFilter]="type()"     
-     
+      vnNumberFilter
       />
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
       <mat-error>Invalid Input</mat-error>
     </mat-form-field>
   }
-    `,
-  styleUrls: ['../input/input.scss'],
+    `
 })
 export class InputNumberComponent extends BaseInput<number, NumberInputType> {
   min = input<number>(Number.MIN_SAFE_INTEGER)

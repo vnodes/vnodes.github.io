@@ -6,15 +6,18 @@ import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, 
     standalone: true
 })
 export class NumberFilterDirective {
-    type = input<'number' | 'integer'>('number', { alias: "vnNumberFilter" });
     decimals = input<number>(6);
-    readonly el = inject(ElementRef<HTMLInputElement>);
+    readonly elementRef = inject(ElementRef<HTMLInputElement>);
 
+    protected isInteger() {
+        return this.elementRef.nativeElement.type === 'integer'
+    }
+    
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         const currentKey = event.key;
-        const isIntegerComponent = this.type() === 'integer'
-        const element = this.el.nativeElement
+
+        const element = this.elementRef.nativeElement
         const previousValue = element.value
         const hasMinus = !!previousValue?.includes('-');
         const hasDot = !!previousValue?.includes('.')
@@ -28,7 +31,7 @@ export class NumberFilterDirective {
             // If is the key is DOT 
         } else if (currentKey === '.') {
             // And the input is INTEGER
-            if (isIntegerComponent || hasDot) {
+            if (this.isInteger() || hasDot) {
                 // Then prevent event 
                 event.preventDefault();
             }
@@ -65,12 +68,12 @@ export class NumberFilterDirective {
 
     @HostListener('paste', ['$event'])
     onPaste(event: ClipboardEvent) {
-        const isIntegerComponent = this.type() === 'integer'
+
         const pastedText = clipboardText(event);
         if (!pastedText) return;
 
 
-        const isValidNumberString = isIntegerComponent ?
+        const isValidNumberString = this.isInteger() ?
             isIntegerString :
             isNumberString
 

@@ -36,6 +36,7 @@
     "@nx/js": "22.6.5",
     "@nx/playwright": "22.6.5",
     "@nx/storybook": "^22.6.5",
+    "@nx/vite": "^22.6.5",
     "@nx/web": "22.6.5",
     "@nx/workspace": "22.6.5",
     "@oxc-project/runtime": "^0.115.0",
@@ -67,6 +68,7 @@
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
     "verdaccio": "^6.3.2",
+    "vite": "^8.0.9",
     "vitest": "^4.0.8"
   },
   "nx": {
