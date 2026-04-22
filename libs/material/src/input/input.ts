@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, input, model, OnInit, Optional, Self, signal } from '@angular/core';
+import { ChangeDetectorRef, Directive, inject, input, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 
 export type NumberInputType = 'number' | 'integer';
@@ -19,22 +19,24 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
 
 
 
-  protected onChange: (value: ValueType | null) => void = () => { };
-  protected onTouched: () => void = () => { };
-  protected errors: () => {} = () => ({})
-
-
-  constructor(
-    @Self() @Optional() public readonly ngControl?: NgControl,
-    public readonly changeDetection?: ChangeDetectorRef,
-  ) {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-
-    }
-
+  protected onChange: (value: ValueType | null) => void = () => {
+    return;
+  };
+  protected onTouched: () => void = () => {
+    return;
+  };
+  protected errors: () => object = () => {
+    return {}
   }
+  readonly changeDetection = inject(ChangeDetectorRef);
+  readonly ngControl = inject(NgControl, { self: true, optional: true });
 
+  constructor() {
+
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this
+    }
+  }
   handleInput(event: Event): void {
 
     console.log(this.handleInput.name, '....')
@@ -71,6 +73,7 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
 
   ngOnInit(): void {
     if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
       this.formControl.update(() => this.ngControl?.control as FormControl);
     }
   }

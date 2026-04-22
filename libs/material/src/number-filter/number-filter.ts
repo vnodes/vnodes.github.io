@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, input } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, isIntegerString, isNumberString } from '@vnodes/material/utils';
 
 @Directive({
@@ -8,9 +8,7 @@ import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, 
 export class NumberFilterDirective {
     type = input<'number' | 'integer'>('number', { alias: "vnNumberFilter" });
     decimals = input<number>(6);
-
-
-    constructor(protected readonly el: ElementRef<HTMLInputElement>) { }
+    readonly el = inject(ElementRef<HTMLInputElement>);
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {

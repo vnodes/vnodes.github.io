@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: '[vnForm]',
+  selector: 'vn-form, [vnForm]',
   standalone: true,
   exportAs: "vnForm",
   template: `

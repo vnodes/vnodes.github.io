@@ -48,7 +48,7 @@ export class InputNumberComponent extends BaseInput<number, NumberInputType> {
   max = input<number>(Number.MAX_SAFE_INTEGER)
   maxLength = input<number>(16);
 
-  protected override convertToValue(value: string): any {
+  protected override convertToValue(value: string) {
 
     if (value === null || value === undefined || value === '') {
       return null

@@ -12,6 +12,8 @@ describe('InputNumberComponent', () => {
 
     fixture = TestBed.createComponent(InputNumberComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput("type", "number")
+
     await fixture.whenStable();
   });
 
