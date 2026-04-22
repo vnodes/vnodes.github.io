@@ -38,7 +38,7 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
 
       - name: Build main app
-        run: npx nx build client
+        run: npx nx build web
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

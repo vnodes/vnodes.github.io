@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, StringInputType } from '@vnodes/material/input';
+import { BaseInput } from '@vnodes/material/input';
 
 @Component({
   selector: 'vn-input[type="text"]',
@@ -37,7 +37,8 @@ import { BaseInput, StringInputType } from '@vnodes/material/input';
     }    
     `
 })
-export class InputTextComponent extends BaseInput<string, StringInputType> {
+export class InputTextComponent extends BaseInput<string> {
+  type = input.required<'text'>();
   minlength = input<number>(0)
   maxlength = input<number>(1000)
 

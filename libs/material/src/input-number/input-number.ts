@@ -2,8 +2,9 @@ import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, NumberInputType } from '@vnodes/material/input';
+import { BaseInput, InputType } from '@vnodes/material/input';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
+
 
 @Component({
   selector: 'vn-input[type=number], vn-input[type=integer]',
@@ -31,7 +32,7 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
       (blur)="handleBlur()"
       [min]="min()"
       [max]="max()"
-      [maxlength]="maxLength()"
+      [maxlength]="maxlength()"
       [required]="required()"
       vnNumberFilter
       />
@@ -41,10 +42,11 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
   }
     `
 })
-export class InputNumberComponent extends BaseInput<number, NumberInputType> {
+export class InputNumberComponent extends BaseInput<number> {
+  type = input.required<InputType>();
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
-  maxLength = input<number>(16);
+  maxlength = input<number>(16);
 
   protected override convertToValue(value: string) {
 

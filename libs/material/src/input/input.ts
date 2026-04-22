@@ -6,8 +6,7 @@ export type StringInputType = 'text';
 export type InputType = (NumberInputType | StringInputType)
 
 @Directive()
-export abstract class BaseInput<ValueType = any, IInputType extends InputType = InputType> implements ControlValueAccessor, OnInit {
-  type = input.required<IInputType>()
+export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
   label = input<string>('');
   placeholder = input<string>('');
   hint = input<string>('');
@@ -22,12 +21,15 @@ export abstract class BaseInput<ValueType = any, IInputType extends InputType = 
   protected onChange: (value: ValueType | null) => void = () => {
     return;
   };
+
   protected onTouched: () => void = () => {
     return;
   };
+
   protected errors: () => object = () => {
     return {}
   }
+  
   readonly changeDetection = inject(ChangeDetectorRef);
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
