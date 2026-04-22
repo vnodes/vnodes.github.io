@@ -38,6 +38,9 @@ importers:
       '@angular/service-worker':
         specifier: ~21.2.0
         version: 21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2))(rxjs@7.8.2)
+      '@vnodes/material':
+        specifier: workspace:*
+        version: link:libs/material
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2

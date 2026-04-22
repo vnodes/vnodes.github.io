@@ -6,6 +6,9 @@
       "types": "./src/public-api.ts",
       "default": "./src/public-api.ts"
     },
+    "./media": {
+      "sass": "./src/media/_index.scss"
+    },
     "./flex": {
       "types": "./src/flex/public-api.ts",
       "default": "./src/flex/public-api.ts"
@@ -55,13 +58,14 @@
       "default": "./src/web-layout/public-api.ts"
     }
   },
+  "peerDependencies": {
+    "@angular/cdk": "^21.2.6",
+    "@angular/material": "^21.2.6"
+  },
   "devDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5",
-    "@vnodes/material": "workspace:*"
-  },
-  "peerDependencies": {
     "@vnodes/material": "workspace:*"
   }
 }
