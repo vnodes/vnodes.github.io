@@ -2,6 +2,10 @@
   "name": "@vnodes/material",
   "version": "0.0.1",
   "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
   "exports": {
     "./media": {
       "sass": "./media/_index.scss"
