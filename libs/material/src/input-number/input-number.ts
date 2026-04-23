@@ -2,8 +2,9 @@ import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, InputType } from '@vnodes/material/input';
+import { BaseInput, NumberInputType } from '@vnodes/material/input';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
+import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 
 
 @Component({
@@ -13,15 +14,29 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NumberFilterDirective
+    NumberFilterDirective,
   ],
+  providers: [ErrorMessageRegistry],
   template: `
-
   @let control =  formControl(); 
 
   @if(control) { 
-    <mat-form-field  >
-      <mat-label>{{ label() }}</mat-label>
+    <mat-form-field>
+      <!-- Description -->
+      @if(label()){ <mat-label>{{ label() }}</mat-label>}
+      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
+
+      <!-- Prefix/Suffix -->
+      @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
+      @if(textSuffix()){ <span matTextSuffix="">{{textSuffix()}}</span>}
+      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
+      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
+
+
+      <!-- Errors -->
+      <mat-error>{{errorMessage()}}</mat-error>
+
+      <!-- Input -->
       <input
       type="text"
       matInput
@@ -36,14 +51,13 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
       [required]="required()"
       vnNumberFilter
       />
-      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
-      <mat-error>Invalid Input</mat-error>
     </mat-form-field>
   }
     `
 })
 export class InputNumberComponent extends BaseInput<number> {
-  type = input.required<InputType>();
+
+  type = input.required<NumberInputType>();
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
   maxlength = input<number>(16);
@@ -61,4 +75,13 @@ export class InputNumberComponent extends BaseInput<number> {
     return isNaN(parsedValue) ? null : parsedValue;
 
   }
+
+  constraints(): ErrorConstraints {
+    return {
+      min: this.min(),
+      max: this.max(),
+      maxlength: this.maxlength()
+    }
+  }
+
 }

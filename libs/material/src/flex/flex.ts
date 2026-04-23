@@ -136,8 +136,6 @@ export class FlexFull {
     }
 })
 export class FlexContainer {
-    @HostBinding("style.width") width = "100%"
-    @HostBinding("style.height") height = "100%"
 }
 
 

@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
+import { ErrorConstraints } from '../utils/error-message-registry';
 
 @Component({
   selector: 'vn-input[type="text"]',
@@ -14,9 +15,20 @@ import { BaseInput } from '@vnodes/material/input';
 
    @if(control){ 
      <mat-form-field >
-       <mat-label>{{ label() }}</mat-label>
+       <!-- Description -->
+      @if(label()){ <mat-label>{{ label() }}</mat-label>}
+      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
 
-       <mat-icon matIconPrefix class="rounded fill">home</mat-icon>
+      <!-- Prefix/Suffix -->
+      @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
+      @if(textSuffix()){ <span matTextSuffix="">{{textSuffix()}}</span>}
+      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
+      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
+
+
+      <!-- Errors -->
+      <mat-error>{{errorMessage()}}</mat-error>
+
        <input
        type="text"
        matInput
@@ -29,9 +41,7 @@ import { BaseInput } from '@vnodes/material/input';
        [maxlength]="maxlength()"
        [required]="required()"
        />
-       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
        
-       <mat-error>Invalid Input</mat-error>
       </mat-form-field>
       
     }    
@@ -42,6 +52,12 @@ export class InputTextComponent extends BaseInput<string> {
   minlength = input<number>(0)
   maxlength = input<number>(1000)
 
+  protected override constraints(): ErrorConstraints {
+    return {
+      minlength: this.minlength(),
+      maxlength: this.maxlength()
+    }
+  }
   protected override convertToValue(value: string): string | null {
     if (value === '' || value === null || value === undefined) {
       return null;
