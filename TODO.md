@@ -1,0 +1,2 @@
+- [ ] fix the component generator to add the reference paths to the sconfig.base.json. 
+- [ ] also set the exports for the inner package.json. 
