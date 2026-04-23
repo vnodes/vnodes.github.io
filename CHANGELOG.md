@@ -1,3 +1,18 @@
+## 0.0.3 (2026-04-23)
+
+### 🚀 Features
+
+- fixed the publish configuration and workflow ([b59afee](https://github.com/vnodes/vnodes.github.io/commit/b59afee))
+- todos ([26b6d45](https://github.com/vnodes/vnodes.github.io/commit/26b6d45))
+
+### 🩹 Fixes
+
+- fixed the publish configuration ([0bbecc6](https://github.com/vnodes/vnodes.github.io/commit/0bbecc6))
+
+### ❤️ Thank You
+
+- robert-brightline @vnodes
+
 ## 0.0.2 (2026-04-22)
 
 ### 🚀 Features
