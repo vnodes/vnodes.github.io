@@ -62,6 +62,14 @@
     "./web-layout": {
       "types": "./src/web-layout/public-api.ts",
       "default": "./src/web-layout/public-api.ts"
+    },
+    "./layout-app": {
+      "types": "./src/layout-app/public-api.ts",
+      "default": "./src/layout-app/public-api.ts"
+    },
+    "./logo": {
+      "types": "./src/logo/public-api.ts",
+      "default": "./src/logo/public-api.ts"
     }
   },
   "peerDependencies": {

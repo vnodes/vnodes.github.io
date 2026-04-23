@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { FormSampleComponent, provideTestImports } from '@vnodes/material/form-sample';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, FormSampleComponent, ...provideTestImports()]
+      imports: [App]
     }).compileComponents();
   });
 

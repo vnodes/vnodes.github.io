@@ -17,6 +17,50 @@
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "paths": {
+      "@vnodes/material/samples": [
+        "libs/material/src/samples/public-api.ts"
+      ],
+      "@vnodes/material/flex": [
+        "libs/material/src/flex/public-api.ts"
+      ],
+      "@vnodes/material/form": [
+        "libs/material/src/form/public-api.ts"
+      ],
+      "@vnodes/material/input-number": [
+        "libs/material/src/input-number/public-api.ts"
+      ],
+      "@vnodes/material/input-text": [
+        "libs/material/src/input-text/public-api.ts"
+      ],
+      "@vnodes/material/input": [
+        "libs/material/src/input/public-api.ts"
+      ],
+      "@vnodes/material/number-filter": [
+        "libs/material/src/number-filter/public-api.ts"
+      ],
+      "@vnodes/material/utils": [
+        "libs/material/src/utils/public-api.ts"
+      ],
+      "@vnodes/material/card": [
+        "libs/material/src/card/public-api.ts"
+      ],
+      "@vnodes/material/layout": [
+        "libs/material/src/layout/public-api.ts"
+      ],
+      "@vnodes/material/mobile-layout": [
+        "libs/material/src/mobile-layout/public-api.ts"
+      ],
+      "@vnodes/material/web-layout": [
+        "libs/material/src/web-layout/public-api.ts"
+      ],
+      "@vnodes/material/layout-app": [
+        "libs/material/src/layout-app/public-api.ts"
+      ],
+      "@vnodes/material/logo": [
+        "libs/material/src/logo/public-api.ts"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

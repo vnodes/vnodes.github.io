@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormSampleComponent } from '@vnodes/material/form-sample';
+import { LayoutAppModule } from '@vnodes/material/layout-app';
 
 @Component({
-  imports: [RouterModule, FormSampleComponent],
+  imports: [RouterModule, LayoutAppModule],
   selector: 'vn-root',
   templateUrl: './app.html',
   styles: ``,

@@ -14,6 +14,10 @@
       "types": "./public-api.ts",
       "default": "./public-api.ts"
     },
+    "./samples": {
+      "types": "./samples/public-api.ts",
+      "default": "./samples/public-api.ts"
+    },
     "./flex": {
       "types": "./flex/public-api.ts",
       "default": "./flex/public-api.ts"
@@ -61,6 +65,14 @@
     "./web-layout": {
       "types": "./web-layout/public-api.ts",
       "default": "./web-layout/public-api.ts"
+    },
+    "./layout-app": {
+      "types": "./layout-app/public-api.ts",
+      "default": "./layout-app/public-api.ts"
+    },
+    "./logo": {
+      "types": "./logo/public-api.ts",
+      "default": "./logo/public-api.ts"
     }
   },
   "files": [

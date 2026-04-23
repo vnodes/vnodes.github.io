@@ -6,41 +6,6 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "paths": {
-      "@vnodes/material/flex": [
-        "./src/flex/public-api.ts"
-      ],
-      "@vnodes/material/form": [
-        "./src/form/public-api.ts"
-      ],
-      "@vnodes/material/input-number": [
-        "./src/input-number/public-api.ts"
-      ],
-      "@vnodes/material/input-text": [
-        "./src/input-text/public-api.ts"
-      ],
-      "@vnodes/material/input": [
-        "./src/input/public-api.ts"
-      ],
-      "@vnodes/material/number-filter": [
-        "./src/number-filter/public-api.ts"
-      ],
-      "@vnodes/material/utils": [
-        "./src/utils/public-api.ts"
-      ],
-      "@vnodes/material/card": [
-        "./src/card/public-api.ts"
-      ],
-      "@vnodes/material/layout": [
-        "./src/layout/public-api.ts"
-      ],
-      "@vnodes/material/mobile-layout": [
-        "./src/mobile-layout/public-api.ts"
-      ],
-      "@vnodes/material/web-layout": [
-        "./src/web-layout/public-api.ts"
-      ]
-    }
   },
   "include": [
     "./src/*.ts"

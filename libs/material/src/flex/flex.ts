@@ -5,7 +5,6 @@ export type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';
 
 @Directive({
     selector: "[vnFlex]",
-    standalone: true,
     host: {
         "[style.display]": "'flex'",
         "[style.flex-direction]": 'computedValue()',
@@ -20,34 +19,45 @@ export class Flex {
 
 @Directive({
     selector: "[vnFlexRow]",
-    standalone: true,
     host: {
         '[style.display]': '"flex"',
         '[style.flex-direction]': '"row"',
-
-
-
     }
 })
 export class FlexRow { }
 
 @Directive({
     selector: "[vnFlexCol]",
-    standalone: true,
     host: {
         '[style.display]': '"flex"',
         '[style.flex-direction]': '"column"'
-
     }
 })
 export class FlexCol { }
 
 @Directive({
+    selector: "[vnFlexBetween]",
+    host: {
+        '[style.justify-content]': '"space-between"',
+        '[style.width]': '"100%"',
+    }
+})
+export class FlexBetween { }
+
+@Directive({
+    selector: "[vnFlexCenter]",
+    host: {
+        '[style.align-items]': '"center"',
+    }
+})
+export class FlexCenter { }
+
+
+
+@Directive({
     selector: "[vnFlexWrap]",
-    standalone: true,
     host: {
         "[style.flex-wrap]": "computedValue()",
-
     }
 })
 export class FlexWrap {
@@ -60,7 +70,6 @@ export class FlexWrap {
 
 @Directive({
     selector: "[vnFlexGrow]",
-    standalone: true,
     host: {
         "[style.flex-grow]": 'computedValue()'
     }
@@ -74,7 +83,6 @@ export class FlexGrow {
 
 @Directive({
     selector: "[vnFlexGap]",
-    standalone: true,
     host: {
         "[style.gap]": 'computedValue()'
     }
@@ -88,7 +96,6 @@ export class FlexGap {
 
 @Directive({
     selector: "[vnFlexRowGap]",
-    standalone: true,
     host: {
         "[style.row-gap]": 'computedValue()'
     }
@@ -101,7 +108,6 @@ export class FlexRowGap {
 }
 @Directive({
     selector: "[vnFlexColGap]",
-    standalone: true,
     host: {
         "[style.column-gap]": 'computedValue()'
     }
@@ -115,22 +121,43 @@ export class FlexColGap {
 
 @Directive({
     selector: "[vnFlexFull]",
-    standalone: true
 })
 export class FlexFull {
     @HostBinding("style.width") flexFull = "100%"
 }
 
+@Directive({
+    selector: "[vnFlexContainer]",
+    host: {
+        '[style.display]': '"flex"',
+        '[style.flex-direction]': '"column"',
+        '[style.width]': '"100%"',
+        '[style.height]': '"100%"',
+    }
+})
+export class FlexContainer {
+    @HostBinding("style.width") width = "100%"
+    @HostBinding("style.height") height = "100%"
+}
+
+
+export const flexboxDirectives = [
+    Flex,
+    FlexGrow,
+    FlexGap,
+    FlexColGap,
+    FlexWrap,
+    FlexRowGap,
+    FlexFull,
+    FlexRow,
+    FlexCol,
+    FlexBetween,
+    FlexContainer,
+    FlexCenter
+];
+
 @NgModule({
-    imports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull
-        , FlexRow,
-        FlexCol,
-
-    ],
-    exports: [Flex, FlexGrow, FlexGap, FlexColGap, FlexWrap, FlexRowGap, FlexFull
-        , FlexRow,
-        FlexCol,
-
-    ]
+    imports: [...flexboxDirectives],
+    exports: [...flexboxDirectives]
 })
 export class FlexModule { }

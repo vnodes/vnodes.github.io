@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Directive, input } from "@angular/core";
 
-@Component({
-  selector: 'vn-layout',
-  standalone: true,
-  imports: [],
-  template: `<p>layout</p>`,
-  styles: ``,
-})
-export class LayoutComponent {}
+export type LayoutType = 'app' | 'web';
+
+@Directive()
+export abstract class Layout {
+    type = input.required<LayoutType>()
+}
