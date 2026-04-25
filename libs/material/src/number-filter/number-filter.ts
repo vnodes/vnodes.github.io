@@ -12,7 +12,7 @@ export class NumberFilterDirective {
     protected isInteger() {
         return this.elementRef.nativeElement.type === 'integer'
     }
-    
+
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         const currentKey = event.key;
@@ -58,11 +58,14 @@ export class NumberFilterDirective {
             if (previousValue === '0') {
                 event.preventDefault()
             }
+        } else if (previousValue === '0') {
+            event.preventDefault();
+            element.value = `${currentKey}`
+            dispatchEmptyInputEvent(element)
+
         } else if (!isDigitString(currentKey)) {
             event.preventDefault();
         }
-
-
 
     }
 

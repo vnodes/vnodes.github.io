@@ -39,7 +39,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
   constructor() {
-
     if (this.ngControl) {
       this.ngControl.valueAccessor = this
     }
