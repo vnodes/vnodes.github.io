@@ -1,9 +1,12 @@
-import { Component, Directive, input, isDevMode, NgModule } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Component, computed, Directive, inject, input, isDevMode, NgModule } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 // Toolbar
 // ToolbarLeft
@@ -55,6 +58,56 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Directive({ selector: "[vnFloatRightCenter]" }) export class FloatRightCenterDirective { }
 
 
+
+
+@Directive({
+  selector: "[vnViewPort]",
+  exportAs: "vnViewPort"
+})
+export class ViewPortDirective {
+  private readonly observer = inject(BreakpointObserver)
+  private readonly state = toSignal<BreakpointState>(
+    this.observer.observe(Object.values(Breakpoints)),
+    { initialValue: null }
+  );
+
+  private isMatched(breakpoint: string) {
+    return computed(() => {
+      this.state()
+      return this.observer.isMatched(breakpoint)
+    });
+
+  }
+
+  readonly isHandset = this.isMatched(Breakpoints.Handset);
+  readonly isHandsetLandscape = this.isMatched(Breakpoints.HandsetLandscape);
+  readonly isHandsetPortrait = this.isMatched(Breakpoints.HandsetPortrait);
+  readonly isLarge = this.isMatched(Breakpoints.Large);
+  readonly isMedium = this.isMatched(Breakpoints.Medium);
+  readonly isSmall = this.isMatched(Breakpoints.Small);
+  readonly isTablet = this.isMatched(Breakpoints.Tablet);
+  readonly isTabletLandscape = this.isMatched(Breakpoints.TabletLandscape);
+  readonly isTabletPortrait = this.isMatched(Breakpoints.TabletPortrait);
+  readonly isWeb = this.isMatched(Breakpoints.Web);
+  readonly isWebLandscape = this.isMatched(Breakpoints.WebLandscape);
+  readonly isWebPortrait = this.isMatched(Breakpoints.WebPortrait);
+  readonly isXLarge = this.isMatched(Breakpoints.XLarge);
+  readonly isXSmall = this.isMatched(Breakpoints.XSmall);
+
+  readonly sidenavMode = computed<MatDrawerMode>(() => {
+    if (this.isSmall() || this.isXSmall()) {
+      return 'over'
+    } else {
+      return 'side'
+    }
+  })
+
+  readonly sidenavOpen = computed<boolean>(() => {
+    return !(this.isSmall() || this.isXSmall())
+  })
+}
+
+
 const layoutPositionDirectives = [
   ToolbarDirective,
   ToolbarLeftDirective,
@@ -78,6 +131,7 @@ const layoutPositionDirectives = [
   FloatCenterCenterDirective,
   FloatLeftCenterDirective,
   FloatRightCenterDirective,
+  ViewPortDirective
 ]
 
 
@@ -87,9 +141,6 @@ const layoutPositionDirectives = [
   exports: [...layoutPositionDirectives]
 })
 export class LayoutPositionModule { }
-
-
-
 
 @Component({
   selector: "vn-ng-test[selector]",

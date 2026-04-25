@@ -15,11 +15,12 @@ import { LogoComponent } from '@vnodes/material/logo';
   template: `
 
   @let isHovered = false; 
-
+  
+  
   @if(isHovered){ 
     IsHoverer
   }
-  <div vnFlexContainer style="border:3px solid orange;" >
+  <div #view="vnViewPort" vnViewPort vnFlexContainer  >
     <!-- Main toolbar -->
     <mat-toolbar>
       <div vnFlexRow>
@@ -49,10 +50,10 @@ import { LogoComponent } from '@vnodes/material/logo';
     
 
     <!-- Sidenav container  -->
-    <mat-sidenav-container vnFlexContainer style="border:3px solid red">
+    <mat-sidenav-container vnFlexContainer  >
       
       <!-- Sidenav -->
-      <mat-sidenav #sidenav>
+      <mat-sidenav #sidenav [mode]="view.sidenavMode()" [opened]="view.sidenavOpen()"  >
         <div vnFlexContainer vnFlexBetween>
           <ng-content select="[vnSidenavTop]">
             <vn-ng-test selector="vnSidenavTop"></vn-ng-test>
@@ -68,7 +69,6 @@ import { LogoComponent } from '@vnodes/material/logo';
       
       <!-- Sidenav content -->
       <mat-sidenav-content>
-
         <div vnFlexContainer vnFlexBetween>
           <ng-content select="[vnContentTop]">
             <vn-ng-test selector="vnContentTop"></vn-ng-test>
@@ -107,8 +107,7 @@ import { LogoComponent } from '@vnodes/material/logo';
   host: {
     '[style.width]': '"100%"',
     '[style.height]': '"100%"',
-  },
-  styles: ``
+  }
 })
 export class LayoutAppComponent extends Layout {
 
