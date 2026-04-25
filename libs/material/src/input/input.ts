@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
+import { ErrorMessageRegistry } from '@vnodes/material/utils';
 
 export type NumberInputType = 'number' | 'integer';
 export type StringInputType = 'text';
@@ -9,10 +9,17 @@ export type InputType = (NumberInputType | StringInputType)
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
   errorMessageRegistry = inject(ErrorMessageRegistry);
+
+  // Validators
+  required = input<boolean>(false);
+  minlength = input<number>(0);
+  maxlength = input<number>(1000);
+  min = input<number>(Number.MIN_SAFE_INTEGER)
+  max = input<number>(Number.MAX_SAFE_INTEGER)
+  // 
   label = input<string>('');
   placeholder = input<string>('');
   hint = input<string>('');
-  required = input<boolean>(false);
   value = model<ValueType | null>(null);
   disabled = signal<boolean>(false);
   formControl = signal<FormControl>(new FormControl())
@@ -32,7 +39,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   protected onTouched: () => void = () => {
     return;
   };
-  protected abstract constraints(): ErrorConstraints;
 
 
   readonly changeDetection = inject(ChangeDetectorRef);
@@ -50,10 +56,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.value.set(cValue);
     this.onChange(cValue);
   }
-
-
-
-
 
   handleBlur(): void {
     this.onTouched();
@@ -77,15 +79,12 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.disabled.set(isDisabled);
   }
 
-
-
-
   errorMessage() {
     const errors = this.formControl().errors;
     const value = this.formControl().value;
     if (errors) {
       const constraint = Object.entries(errors)[0][0]
-      return this.errorMessageRegistry.resolve(value, constraint, this.constraints())
+      return this.errorMessageRegistry.resolve(value, constraint, this)
     }
     return null
   }

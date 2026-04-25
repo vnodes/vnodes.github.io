@@ -4,7 +4,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
-import { ErrorConstraints } from '@vnodes/material/utils';
 
 @Component({
   selector: 'vn-input[type="text"]',
@@ -31,6 +30,7 @@ import { ErrorConstraints } from '@vnodes/material/utils';
 
        <input
        type="text"
+       autocomplete="off"
        matInput
        [formControl]="formControl()"
        [placeholder]="placeholder()"
@@ -49,15 +49,7 @@ import { ErrorConstraints } from '@vnodes/material/utils';
 })
 export class InputTextComponent extends BaseInput<string> {
   type = input.required<'text'>();
-  minlength = input<number>(0)
-  maxlength = input<number>(1000)
 
-  protected override constraints(): ErrorConstraints {
-    return {
-      minlength: this.minlength(),
-      maxlength: this.maxlength()
-    }
-  }
   protected override convertToValue(value: string): string | null {
     if (value === '' || value === null || value === undefined) {
       return null;

@@ -70,6 +70,10 @@
     "./input-time": {
       "types": "./src/input-time/public-api.ts",
       "default": "./src/input-time/public-api.ts"
+    },
+    "./validators": {
+      "types": "./src/validators/public-api.ts",
+      "default": "./src/validators/public-api.ts"
     }
   },
   "peerDependencies": {

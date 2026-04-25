@@ -73,6 +73,10 @@
     "./input-time": {
       "types": "./input-time/public-api.ts",
       "default": "./input-time/public-api.ts"
+    },
+    "./validators": {
+      "types": "./validators/public-api.ts",
+      "default": "./validators/public-api.ts"
     }
   },
   "files": [

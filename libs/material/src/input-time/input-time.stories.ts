@@ -11,12 +11,14 @@ export default meta;
 type Story = StoryObj<InputTimeComponent>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    label: "Time"
+  },
 };
 
 export const Heading: Story = {
-  args: {},
+  ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/input-time/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Time/gi)).toBeTruthy();
   },
 };

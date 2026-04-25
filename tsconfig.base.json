@@ -59,7 +59,10 @@
       ],
       "@vnodes/material/input-time": [
         "libs/material/src/input-time/public-api.ts"
-      ]
+      ],
+      "@vnodes/material/validators": [
+        "libs/material/src/validators/public-api.ts"
+      ],
     }
   },
   "exclude": [

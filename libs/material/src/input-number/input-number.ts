@@ -40,6 +40,7 @@ import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
       <input
       type="text"
       matInput
+      autocomplete="off"
       [formControl]="formControl()"
       [placeholder]="placeholder()"
       [disabled]="disabled()"
@@ -58,9 +59,7 @@ import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 export class InputNumberComponent extends BaseInput<number> {
 
   type = input.required<NumberInputType>();
-  min = input<number>(Number.MIN_SAFE_INTEGER)
-  max = input<number>(Number.MAX_SAFE_INTEGER)
-  maxlength = input<number>(16);
+
 
   protected override convertToValue(value: string) {
 
