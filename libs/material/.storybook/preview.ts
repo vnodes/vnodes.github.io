@@ -1,24 +1,22 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
-import { applicationConfig, moduleMetadata, type Preview } from '@storybook/angular';
+import { applicationConfig, type Preview } from '@storybook/angular';
 import docJson from '../documentation.json';
+import { provideDefaultErrorMessage, provideErrorMessageRegistry } from '@vnodes/material/utils';
 
 setCompodocJson(docJson);
 
 const preview: Preview = {
     tags: ["autodocs"],
     decorators: [
-        moduleMetadata({
-            imports: [
-            ],
-        }),
         applicationConfig({
 
             providers: [
                 provideHttpClient(),
                 provideRouter([]),
-
+                provideErrorMessageRegistry(),
+                provideDefaultErrorMessage()
             ],
         }),
     ],

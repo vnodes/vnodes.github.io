@@ -8,7 +8,7 @@ import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 
 
 @Component({
-  selector: 'vn-input[type=number], vn-input[type=integer]',
+  selector: 'vn-input[type="number"], vn-input[type="integer"]',
   standalone: true,
   imports: [
     ReactiveFormsModule,

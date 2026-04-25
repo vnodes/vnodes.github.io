@@ -1,0 +1,22 @@
+import type { Meta, StoryObj } from '@storybook/angular';
+import { expect } from 'storybook/test';
+import { InputDateComponent } from './input-date';
+
+const meta: Meta<InputDateComponent> = {
+  component: InputDateComponent,
+  title: 'InputDateComponent',
+};
+export default meta;
+
+type Story = StoryObj<InputDateComponent>;
+
+export const Primary: Story = {
+  args: {},
+};
+
+export const Heading: Story = {
+  args: {},
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText(/input-date/gi)).toBeTruthy();
+  },
+};

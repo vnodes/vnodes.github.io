@@ -70,6 +70,14 @@
     "./logo": {
       "types": "./src/logo/public-api.ts",
       "default": "./src/logo/public-api.ts"
+    },
+    "./input-date": {
+      "types": "./src/input-date/public-api.ts",
+      "default": "./src/input-date/public-api.ts"
+    },
+    "./input-time": {
+      "types": "./src/input-time/public-api.ts",
+      "default": "./src/input-time/public-api.ts"
     }
   },
   "peerDependencies": {

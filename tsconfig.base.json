@@ -59,6 +59,12 @@
       ],
       "@vnodes/material/logo": [
         "libs/material/src/logo/public-api.ts"
+      ],
+      "@vnodes/material/input-date": [
+        "libs/material/src/input-date/public-api.ts"
+      ],
+      "@vnodes/material/input-time": [
+        "libs/material/src/input-time/public-api.ts"
       ]
     }
   },

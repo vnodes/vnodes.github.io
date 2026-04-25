@@ -4,17 +4,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
-import { ErrorConstraints } from '../utils/error-message-registry';
+import { ErrorConstraints } from '@vnodes/material/utils';
 
 @Component({
   selector: 'vn-input[type="text"]',
   imports: [ReactiveFormsModule, MatIconModule, MatFormFieldModule, MatInputModule],
   template: `
 
-  @let control =  formControl(); 
+   @let control =  formControl(); 
 
    @if(control){ 
-     <mat-form-field >
+     <mat-form-field>
        <!-- Description -->
       @if(label()){ <mat-label>{{ label() }}</mat-label>}
       @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }

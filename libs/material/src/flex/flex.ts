@@ -90,7 +90,7 @@ export class FlexGrow {
 export class FlexGap {
     value = input<string>("", { alias: "vnFlexGap" });
     computedValue = computed(() => {
-        return this.value() ? this.value() : '0.5em'
+        return this.value() ? this.value() : '1em'
     })
 }
 

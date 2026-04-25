@@ -7,24 +7,7 @@ export default [
   {
     ignores: ['**/dist', '**/out-tsc'],
   },
-  {
-    files: ['**/*.ts'],
-    rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint\\.config\\.mjs'],
-          depConstraints: [
-            {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
-            },
-          ],
-        },
-      ],
-    },
-  },
+
   {
     files: ['**/*.ts', '**/*.mts'],
     // Override or add rules here

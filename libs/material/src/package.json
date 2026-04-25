@@ -73,6 +73,14 @@
     "./logo": {
       "types": "./logo/public-api.ts",
       "default": "./logo/public-api.ts"
+    },
+    "./input-date": {
+      "types": "./input-date/public-api.ts",
+      "default": "./input-date/public-api.ts"
+    },
+    "./input-time": {
+      "types": "./input-time/public-api.ts",
+      "default": "./input-time/public-api.ts"
     }
   },
   "files": [
