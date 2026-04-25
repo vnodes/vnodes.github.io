@@ -4,7 +4,7 @@ import { InputTextComponent } from './input-text';
 
 const meta: Meta<InputTextComponent> = {
   component: InputTextComponent,
-  title: 'Form/Text',
+  title: 'Input/Text',
 };
 export default meta;
 

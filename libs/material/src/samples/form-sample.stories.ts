@@ -6,7 +6,7 @@ import { FormSampleComponent } from './form-sample';
 
 const meta: Meta<FormSampleComponent> = {
   component: FormSampleComponent,
-  title: 'Form/FormSampleComponent',
+  title: 'Input/Samples',
   decorators: [
     applicationConfig({
       providers: [

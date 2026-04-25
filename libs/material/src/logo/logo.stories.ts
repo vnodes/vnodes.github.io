@@ -4,7 +4,7 @@ import { LogoComponent } from './logo';
 
 const meta: Meta<LogoComponent> = {
   component: LogoComponent,
-  title: 'LogoComponent',
+  title: 'Img/Logo',
 };
 export default meta;
 

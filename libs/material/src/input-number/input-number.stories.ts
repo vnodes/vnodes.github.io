@@ -4,7 +4,7 @@ import { InputNumberComponent } from './input-number';
 
 const meta: Meta<InputNumberComponent> = {
   component: InputNumberComponent,
-  title: 'Form/Number',
+  title: 'Input/Number',
 };
 export default meta;
 

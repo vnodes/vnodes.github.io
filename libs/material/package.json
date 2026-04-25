@@ -55,14 +55,6 @@
       "types": "./src/layout/public-api.ts",
       "default": "./src/layout/public-api.ts"
     },
-    "./mobile-layout": {
-      "types": "./src/mobile-layout/public-api.ts",
-      "default": "./src/mobile-layout/public-api.ts"
-    },
-    "./web-layout": {
-      "types": "./src/web-layout/public-api.ts",
-      "default": "./src/web-layout/public-api.ts"
-    },
     "./layout-app": {
       "types": "./src/layout-app/public-api.ts",
       "default": "./src/layout-app/public-api.ts"

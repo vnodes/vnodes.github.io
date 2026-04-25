@@ -1,5 +1,5 @@
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -12,17 +12,16 @@ import { ErrorConstraints } from '@vnodes/material/utils';
   selector: 'vn-input[type="date"]',
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
   template: `
-<mat-form-field>
-  <mat-label>{{label()}}</mat-label>
-  <input matInput [matDatepicker]="picker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
+    <mat-form-field>
+      <mat-label>{{label()}}</mat-label>
+      <input matInput [matDatepicker]="picker" [placeholder]="placeholder()" [formControl]="formControl()" [required]="required()"  (dblclick)="picker.open()">
+      <mat-hint>{{hint() || "MM/DD/YYYY"}}</mat-hint>
+      <mat-error>{{errorMessage()}} </mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   `,
-  providers: [provideNativeDateAdapter()],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()]
 })
 export class InputDateComponent extends BaseInput<Date> {
 

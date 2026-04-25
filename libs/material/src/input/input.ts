@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, inject, input, model, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 
@@ -7,7 +7,7 @@ export type StringInputType = 'text';
 export type InputType = (NumberInputType | StringInputType)
 
 @Directive()
-export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
+export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
   errorMessageRegistry = inject(ErrorMessageRegistry);
   label = input<string>('');
   placeholder = input<string>('');
@@ -98,6 +98,10 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
       this.ngControl.valueAccessor = this;
       this.formControl.update(() => this.ngControl?.control as FormControl);
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("Changed: ", this.formControl().value)
   }
 }
 

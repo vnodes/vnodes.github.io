@@ -4,7 +4,7 @@ import { InputTimeComponent } from './input-time';
 
 const meta: Meta<InputTimeComponent> = {
   component: InputTimeComponent,
-  title: 'InputTimeComponent',
+  title: 'Input/Time',
 };
 export default meta;
 

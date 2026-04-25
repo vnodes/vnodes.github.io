@@ -4,7 +4,7 @@ import { InputDateComponent } from './input-date';
 
 const meta: Meta<InputDateComponent> = {
   component: InputDateComponent,
-  title: 'InputDateComponent',
+  title: 'Input/Date',
 };
 export default meta;
 

@@ -4,7 +4,7 @@ import { FormComponent } from './form';
 
 const meta: Meta<FormComponent> = {
   component: FormComponent,
-  title: 'Form/FormComponent',
+  title: 'Input/FormComponent',
 };
 export default meta;
 

@@ -48,12 +48,6 @@
       "@vnodes/material/layout": [
         "libs/material/src/layout/public-api.ts"
       ],
-      "@vnodes/material/mobile-layout": [
-        "libs/material/src/mobile-layout/public-api.ts"
-      ],
-      "@vnodes/material/web-layout": [
-        "libs/material/src/web-layout/public-api.ts"
-      ],
       "@vnodes/material/layout-app": [
         "libs/material/src/layout-app/public-api.ts"
       ],

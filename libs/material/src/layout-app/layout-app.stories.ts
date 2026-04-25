@@ -4,7 +4,7 @@ import { LayoutAppComponent } from './layout-app';
 
 const meta: Meta<LayoutAppComponent> = {
   component: LayoutAppComponent,
-  title: 'LayoutAppComponent',
+  title: 'Layout/App',
 };
 export default meta;
 
