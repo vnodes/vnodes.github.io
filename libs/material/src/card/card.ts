@@ -32,7 +32,7 @@ export class CardActionDirective {
 
       <mat-card-content>
           @for(c of content(); track c){ 
-          <p> {{c}}</p>
+            <p> {{c}}</p>
           }
       </mat-card-content>
   }
