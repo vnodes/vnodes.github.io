@@ -1,5 +1,5 @@
 import { CdkTrapFocus } from '@angular/cdk/a11y';
-import { Component, contentChildren, Directive, input, model, NgModule } from '@angular/core';
+import { Component, contentChildren, Directive, input, NgModule, output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,18 +9,18 @@ import { BaseInput } from '@vnodes/material/input';
 @Directive({ selector: "[vnFormAction]" })
 export class FormActionDirective { }
 
+
 @Component({
   selector: 'vn-form, [vnForm]',
-  imports: [FlexModule, MatButtonModule, MatIconModule, CdkTrapFocus],
+  imports: [FlexModule, MatButtonModule, MatIconModule, CdkTrapFocus,],
   exportAs: "vnForm",
   template: `
-   
       <div vnFlexCol vnFlexGap cdkTrapFocus>
         <ng-content select="vn-input, [vnInput]"></ng-content>
         <div vnFlexRow vnFlexGap>
         
         <!-- Submit button -->
-        <button [disabled]="isSubmitButtonDisabled()" type="button" mat-raised-button (click)="submit()">{{submitLabel()}}</button>
+        <button [disabled]="this.formGroup().invalid" type="button" mat-raised-button (click)="submit()">{{submitLabel()}}</button>
 
           <!-- Reset button -->
          @if(!hideResetButton()){ <button mat-flat-button (click)="reset()">{{resetLabel()}}</button>}
@@ -37,36 +37,24 @@ export class FormComponent {
   readonly submitLabel = input<string>("Submit")
   readonly resetLabel = input<string>("Reset")
   readonly formGroup = input.required<FormGroup>();
-  readonly value = model();
   readonly hideResetButton = input<boolean>(false)
+
+  readonly formSubmitEvet = output()
 
 
   submit() {
-    this.value.set(this.formGroup().value)
+    this.formSubmitEvet.emit(this.formGroup().value)
   }
-
-
-  isSubmitButtonDisabled() {
-    const fg = this.formGroup();
-    if (fg.dirty && fg.touched) {
-      return !fg.valid
-    }
-    return true;
-  }
-
 
   reset() {
     this.formGroup().reset();
-
-    for (const inputComponent of this.formInputs()) {
-      inputComponent.reset()
-    }
   }
 }
 
 
 @NgModule({
-  imports: [FormComponent, FormActionDirective,],
-  exports: [FormComponent, FormActionDirective]
+  imports: [FormComponent, FormActionDirective],
+  exports: [FormComponent, FormActionDirective],
+
 })
 export class FormModule { }

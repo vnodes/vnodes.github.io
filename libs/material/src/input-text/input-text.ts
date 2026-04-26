@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
 
+
 @Component({
   selector: 'vn-input[type="text"]',
   imports: [ReactiveFormsModule, MatIconModule, MatFormFieldModule, MatInputModule],
@@ -20,7 +21,7 @@ import { BaseInput } from '@vnodes/material/input';
 
       <!-- Prefix/Suffix -->
       @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
-      @if(textSuffix()){ <span matTextSuffix="">{{textSuffix()}}</span>}
+      @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
       @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
       @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
 

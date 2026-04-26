@@ -22,22 +22,22 @@ import { BaseInput } from '@vnodes/material/input';
 
       <!-- Prefix/Suffix -->
       @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
-      @if(textSuffix()){ <span matTextSuffix="">{{textSuffix()}}</span>}
+      @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
       @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
       @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
 
 
       <input 
-      autocomplete="off"
-       matInput 
-      [disabled]="disabled()"
-       (input)="handleInput($event)"
-       (blur)="handleBlur()"
-       [matDatepicker]="picker" 
-       [placeholder]="placeholder()" 
-       [formControl]="formControl()" 
-       [required]="required()" 
-       (dblclick)="picker.open()">
+        autocomplete="off"
+        matInput 
+        [disabled]="disabled()"
+        (input)="handleInput($event)"
+        (blur)="handleBlur()"
+        [matDatepicker]="picker" 
+        [placeholder]="placeholder()" 
+        [formControl]="formControl()" 
+        [required]="required()" 
+        (dblclick)="picker.open()">
       <mat-hint>{{hint() || "MM/DD/YYYY"}}</mat-hint>
       <mat-error>{{errorMessage()}} </mat-error>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

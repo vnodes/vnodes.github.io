@@ -1,4 +1,4 @@
-import { computed, Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { InputValidator } from '@vnodes/material/validators';
 
@@ -10,27 +10,15 @@ export type InputType = (NumberInputType | StringInputType)
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
 
-
   inputValidator = inject(InputValidator);
   // Validators
   required = input<boolean>(false);
   minlength = input<number>(1);
-  maxlength = input<number>(2000);
+  maxlength = input<number>(400);
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
   email = input<boolean>(false);
   password = input<boolean>(false);
-  passwordConstraints = computed(() => {
-    if (this.password()) {
-      return {
-        hasUppercase: 1,
-        hasLowercase: 1,
-        hasSpecialchar: 1,
-        minlength: 8,
-      }
-    }
-    return {};
-  })
 
   // 
   label = input<string>('');
@@ -39,7 +27,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   value = model<ValueType | null>(null);
   disabled = signal<boolean>(false);
   formControl = signal<FormControl>(new FormControl())
-  formControlName = signal<string | null>(null)
+
 
   iconPrefix = input<string>()
   iconSuffix = input<string>()
@@ -93,9 +81,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   }
 
   errorMessage() {
-
     const errors = this.formControl().errors;
-
     if (errors) {
       const [constraint, constraintValue] = Object.entries(errors)[0];
       return this.inputValidator.errorMessage(this.formControl().value, constraint, constraintValue)
@@ -106,7 +92,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
 
 
   reset() {
-    console.log("Reseting: ", this.formControlName())
     this.formControl().reset();
     this.formControl().setErrors(null);
   }
@@ -122,6 +107,8 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Changed: ", this.formControl().value)
   }
+
+
 }
 
 

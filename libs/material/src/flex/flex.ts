@@ -48,6 +48,7 @@ export class FlexBetween { }
     selector: "[vnFlexCenter]",
     host: {
         '[style.align-items]': '"center"',
+        '[style.justify-content]': '"center"',
     }
 })
 export class FlexCenter { }

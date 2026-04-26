@@ -5,12 +5,11 @@ import { FormModule } from '@vnodes/material/form';
 import { InputTextComponent } from '@vnodes/material/input-text';
 import { InputValidator } from '@vnodes/material/validators';
 
-
 @Component({
   selector: 'vn-form-sample',
   imports: [FormModule, ReactiveFormsModule, InputTextComponent, FlexModule],
   template: `
-  <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" >  
+  <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" (formSubmitEvet)="handleFormSubmit($event)">  
     <vn-input formControlName="unit" type="text" [required]="true" label="Unit" ></vn-input>
     <vn-input formControlName="street" type="text" [required]="true" label="Street" ></vn-input>
     <vn-input formControlName="city" type="text" [required]="true" label="City" ></vn-input>
@@ -18,8 +17,7 @@ import { InputValidator } from '@vnodes/material/validators';
     <vn-input formControlName="country" type="text" [required]="true" label="Country" ></vn-input>
     <vn-input formControlName="zip" type="text" [required]="true" label="Zip" ></vn-input>
   </form>
-  `,
-  standalone: true,
+  `
 })
 export class FormAddress {
   inputValidator = inject(InputValidator)
@@ -33,7 +31,10 @@ export class FormAddress {
   });
 
 
+  handleFormSubmit(value: any) {
+    console.log("Addredd form submit: ", value)
 
+  }
 
 
 }
