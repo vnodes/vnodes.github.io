@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -45,7 +45,13 @@ import { BaseInput } from '@vnodes/material/input';
       </mat-form-field>
       
     }    
-    `
+    `,
+  providers: [
+    {
+      provide: BaseInput,
+      useExisting: forwardRef(() => InputTextComponent)
+    }
+  ]
 })
 export class InputTextComponent extends BaseInput<string> {
   type = input.required<'text'>();

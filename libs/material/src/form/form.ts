@@ -1,25 +1,26 @@
-import { Component, Directive, input, NgModule, output } from '@angular/core';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { Component, contentChildren, Directive, input, model, NgModule } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexModule } from '@vnodes/material/flex';
-
-
+import { BaseInput } from '@vnodes/material/input';
 
 @Directive({ selector: "[vnFormAction]" })
 export class FormActionDirective { }
 
 @Component({
   selector: 'vn-form, [vnForm]',
-  imports: [FlexModule, MatButtonModule, MatIconModule],
+  imports: [FlexModule, MatButtonModule, MatIconModule, CdkTrapFocus],
   exportAs: "vnForm",
   template: `
-      <div vnFlexCol vnFlexGap>
+   
+      <div vnFlexCol vnFlexGap cdkTrapFocus>
         <ng-content select="vn-input, [vnInput]"></ng-content>
         <div vnFlexRow vnFlexGap>
         
         <!-- Submit button -->
-        <button type="button" mat-raised-button (click)="submit()">{{submitLabel()}}</button>
+        <button [disabled]="isSubmitButtonDisabled()" type="button" mat-raised-button (click)="submit()">{{submitLabel()}}</button>
 
           <!-- Reset button -->
          @if(!hideResetButton()){ <button mat-flat-button (click)="reset()">{{resetLabel()}}</button>}
@@ -31,23 +32,34 @@ export class FormActionDirective { }
   `
 })
 export class FormComponent {
+
+  readonly formInputs = contentChildren<BaseInput>(BaseInput, { descendants: true, })
   readonly submitLabel = input<string>("Submit")
   readonly resetLabel = input<string>("Reset")
   readonly formGroup = input.required<FormGroup>();
-  readonly formSubmit = output()
-
+  readonly value = model();
   readonly hideResetButton = input<boolean>(false)
 
+
   submit() {
-    this.formSubmit.emit(this.formGroup().value)
+    this.value.set(this.formGroup().value)
   }
+
+
+  isSubmitButtonDisabled() {
+    const fg = this.formGroup();
+    if (fg.dirty && fg.touched) {
+      return !fg.valid
+    }
+    return true;
+  }
+
 
   reset() {
     this.formGroup().reset();
-    const controls = Object.values(this.formGroup().controls);
-    for (const c of controls) {
-      c.reset();
-      c.setErrors(null)
+
+    for (const inputComponent of this.formInputs()) {
+      inputComponent.reset()
     }
   }
 }

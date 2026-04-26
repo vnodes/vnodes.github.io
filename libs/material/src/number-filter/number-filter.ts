@@ -1,6 +1,8 @@
 import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, isIntegerString, isNumberString } from '@vnodes/material/utils';
 
+
+
 @Directive({
     selector: '[vnNumberFilter]',
     standalone: true
@@ -21,9 +23,6 @@ export class NumberFilterDirective {
         const previousValue = element.value
         const hasMinus = !!previousValue?.includes('-');
         const hasDot = !!previousValue?.includes('.')
-        // const selectionStart = nativeElm.selectionStart ?? previousValue.length - 1
-        // const selectionEnd = nativeElm.selectionEnd ?? previousValue.length - 1
-
 
 
         if (isCommandEvent(event)) {

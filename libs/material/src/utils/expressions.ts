@@ -1,6 +1,9 @@
+
+
 export const DigitExp = /^[0-9]{1}$/;
 export const NumberExp = /^(?!0+$)(?!0\.0+$)\d+(\.\d+)?$/
 export const IntegerExp = /^[0-9]{1,}$/
+
 
 
 export function isDigitString(digit: string) {
@@ -14,4 +17,3 @@ export function isNumberString(numberString: string) {
 export function isIntegerString(integerString: string) {
     return IntegerExp.test(integerString)
 }
-

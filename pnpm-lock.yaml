@@ -41,6 +41,12 @@ importers:
       '@vnodes/material':
         specifier: workspace:*
         version: link:libs/material
+      '@vnodes/types':
+        specifier: ^0.1.0
+        version: 0.1.0
+      '@vnodes/utils':
+        specifier: ^0.1.0
+        version: 0.1.0(@vnodes/errors@0.1.0)(@vnodes/types@0.1.0)
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -3567,8 +3573,23 @@ packages:
   '@vitest/utils@4.1.4':
     resolution: {integrity: sha512-13QMT+eysM5uVGa1rG4kegGYNp6cnQcsTc67ELFbhNLQO+vgsygtYJx2khvdt4gVQqSSpC/KT5FZZxUpP3Oatw==}
 
+  '@vnodes/errors@0.1.0':
+    resolution: {integrity: sha512-DCKio4zcTrz4T7lQu9yeq0kVGKAN2i0ufJLi7GD+IIrrCFWXarVOyo6RQfWV7R5FI1INdqn/vZsKx9n6AvZauQ==}
+    hasBin: true
+
   '@vnodes/plugin@0.1.2':
     resolution: {integrity: sha512-uSBJ9tdTzcJpxgynI1SHApsHWJQ1nSdEiQ0r3aBWbbVWG+M06DCYxg++mbYi/UTyAR2zhUXZRxbp/ySzsY8xlw==}
+
+  '@vnodes/types@0.1.0':
+    resolution: {integrity: sha512-a2eGrf9MkQ7H7RwjtXG2L7pL2xJ5gE7hG0/xfyd+XwKfo6OnsckCqOdhQoouj7va3IiUe+6XO6FKok++LJ9XBQ==}
+    hasBin: true
+
+  '@vnodes/utils@0.1.0':
+    resolution: {integrity: sha512-EXfFNX/greOVzrByj5QiPX0KCmURrOutt0u/u5UclSVR/YRAI070KDiz2gbSeImBAbdubWM+dILmCbQmUVua3g==}
+    hasBin: true
+    peerDependencies:
+      '@vnodes/errors': 0.1.0
+      '@vnodes/types': 0.1.0
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -13434,12 +13455,26 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
 
+  '@vnodes/errors@0.1.0':
+    dependencies:
+      '@swc/helpers': 0.5.21
+
   '@vnodes/plugin@0.1.2(nx@22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))':
     dependencies:
       '@nx/devkit': 22.6.1(nx@22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))
       tslib: 2.8.1
     transitivePeerDependencies:
       - nx
+
+  '@vnodes/types@0.1.0':
+    dependencies:
+      '@swc/helpers': 0.5.21
+
+  '@vnodes/utils@0.1.0(@vnodes/errors@0.1.0)(@vnodes/types@0.1.0)':
+    dependencies:
+      '@swc/helpers': 0.5.21
+      '@vnodes/errors': 0.1.0
+      '@vnodes/types': 0.1.0
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
@@ -14364,12 +14399,12 @@ snapshots:
 
   css-loader@7.1.3(@rspack/core@1.6.8(@swc/helpers@0.5.21))(webpack@5.105.2(@swc/core@1.15.24(@swc/helpers@0.5.21))(esbuild@0.27.3)):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.9)
-      postcss: 8.5.9
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.9)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.9)
-      postcss-modules-scope: 3.2.1(postcss@8.5.9)
-      postcss-modules-values: 4.0.0(postcss@8.5.9)
+      icss-utils: 5.1.0(postcss@8.5.10)
+      postcss: 8.5.10
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.10)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.10)
+      postcss-modules-scope: 3.2.1(postcss@8.5.10)
+      postcss-modules-values: 4.0.0(postcss@8.5.10)
       postcss-value-parser: 4.2.0
       semver: 7.7.4
     optionalDependencies:
@@ -15583,6 +15618,10 @@ snapshots:
   iconv-lite@0.7.2:
     dependencies:
       safer-buffer: 2.1.2
+
+  icss-utils@5.1.0(postcss@8.5.10):
+    dependencies:
+      postcss: 8.5.10
 
   icss-utils@5.1.0(postcss@8.5.9):
     dependencies:
@@ -17069,9 +17108,20 @@ snapshots:
       postcss: 8.5.9
       postcss-selector-parser: 7.1.1
 
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.10):
+    dependencies:
+      postcss: 8.5.10
+
   postcss-modules-extract-imports@3.1.0(postcss@8.5.9):
     dependencies:
       postcss: 8.5.9
+
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.10):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.10)
+      postcss: 8.5.10
+      postcss-selector-parser: 7.1.1
+      postcss-value-parser: 4.2.0
 
   postcss-modules-local-by-default@4.2.0(postcss@8.5.9):
     dependencies:
@@ -17080,10 +17130,20 @@ snapshots:
       postcss-selector-parser: 7.1.1
       postcss-value-parser: 4.2.0
 
+  postcss-modules-scope@3.2.1(postcss@8.5.10):
+    dependencies:
+      postcss: 8.5.10
+      postcss-selector-parser: 7.1.1
+
   postcss-modules-scope@3.2.1(postcss@8.5.9):
     dependencies:
       postcss: 8.5.9
       postcss-selector-parser: 7.1.1
+
+  postcss-modules-values@4.0.0(postcss@8.5.10):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.10)
+      postcss: 8.5.10
 
   postcss-modules-values@4.0.0(postcss@8.5.9):
     dependencies:
@@ -17417,7 +17477,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 8.5.9
+      postcss: 8.5.10
       source-map: 0.6.1
 
   resolve.exports@2.0.3: {}

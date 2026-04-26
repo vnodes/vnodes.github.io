@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { computed, Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { ErrorMessageRegistry } from '@vnodes/material/utils';
+import { InputValidator } from '@vnodes/material/validators';
+
 
 export type NumberInputType = 'number' | 'integer';
 export type StringInputType = 'text';
@@ -8,14 +9,29 @@ export type InputType = (NumberInputType | StringInputType)
 
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
-  errorMessageRegistry = inject(ErrorMessageRegistry);
 
+
+  inputValidator = inject(InputValidator);
   // Validators
   required = input<boolean>(false);
-  minlength = input<number>(0);
-  maxlength = input<number>(1000);
+  minlength = input<number>(1);
+  maxlength = input<number>(2000);
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
+  email = input<boolean>(false);
+  password = input<boolean>(false);
+  passwordConstraints = computed(() => {
+    if (this.password()) {
+      return {
+        hasUppercase: 1,
+        hasLowercase: 1,
+        hasSpecialchar: 1,
+        minlength: 8,
+      }
+    }
+    return {};
+  })
+
   // 
   label = input<string>('');
   placeholder = input<string>('');
@@ -30,8 +46,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   textPrefix = input<string>()
   textSuffix = input<string>()
 
-
-
   protected onChange: (value: ValueType | null) => void = () => {
     return;
   };
@@ -40,8 +54,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     return;
   };
 
-
-  readonly changeDetection = inject(ChangeDetectorRef);
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
   constructor() {
@@ -49,6 +61,8 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
       this.ngControl.valueAccessor = this
     }
   }
+
+  protected abstract convertToValue(value: string): ValueType | null;
 
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -61,7 +75,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.onTouched();
   }
 
-  protected abstract convertToValue(value: string): ValueType | null;
 
   writeValue(value: ValueType): void {
     this.value.set(value);
@@ -80,15 +93,23 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   }
 
   errorMessage() {
+
     const errors = this.formControl().errors;
-    const value = this.formControl().value;
+
     if (errors) {
-      const constraint = Object.entries(errors)[0][0]
-      return this.errorMessageRegistry.resolve(value, constraint, this)
+      const [constraint, constraintValue] = Object.entries(errors)[0];
+      return this.inputValidator.errorMessage(this.formControl().value, constraint, constraintValue)
     }
+
     return null
   }
 
+
+  reset() {
+    console.log("Reseting: ", this.formControlName())
+    this.formControl().reset();
+    this.formControl().setErrors(null);
+  }
 
 
   ngOnInit(): void {

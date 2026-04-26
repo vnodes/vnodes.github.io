@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FlexModule } from '@vnodes/material/flex';
 import { FormModule } from '@vnodes/material/form';
 import { InputTextComponent } from '@vnodes/material/input-text';
-import { provideDefaultErrorMessage, provideErrorMessageRegistry } from '@vnodes/material/utils';
+import { InputValidator } from '@vnodes/material/validators';
 
 
 @Component({
@@ -11,6 +11,7 @@ import { provideDefaultErrorMessage, provideErrorMessageRegistry } from '@vnodes
   imports: [FormModule, ReactiveFormsModule, InputTextComponent, FlexModule],
   template: `
   <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" >  
+    <vn-input formControlName="unit" type="text" [required]="true" label="Unit" ></vn-input>
     <vn-input formControlName="street" type="text" [required]="true" label="Street" ></vn-input>
     <vn-input formControlName="city" type="text" [required]="true" label="City" ></vn-input>
     <vn-input formControlName="state" type="text" [required]="true" label="State" ></vn-input>
@@ -19,20 +20,19 @@ import { provideDefaultErrorMessage, provideErrorMessageRegistry } from '@vnodes
   </form>
   `,
   standalone: true,
-  providers: [
-    provideDefaultErrorMessage(),
-    provideErrorMessageRegistry(),
-  ]
 })
 export class FormAddress {
+  inputValidator = inject(InputValidator)
   formGroup = new FormGroup({
-    unit: new FormControl('', [Validators.required]),
-    street: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    state: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    zip: new FormControl('', [Validators.required]),
+    unit: new FormControl('', []),
+    street: new FormControl('', [InputValidator.required]),
+    city: new FormControl('', [InputValidator.required]),
+    state: new FormControl('', [InputValidator.required]),
+    country: new FormControl('', [InputValidator.required]),
+    zip: new FormControl('', [InputValidator.required]),
   });
+
+
 
 
 

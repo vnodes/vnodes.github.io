@@ -4,7 +4,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput, NumberInputType } from '@vnodes/material/input';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
-import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 
 
 @Component({
@@ -16,7 +15,6 @@ import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
     MatInputModule,
     NumberFilterDirective,
   ],
-  providers: [ErrorMessageRegistry],
   template: `
   @let control =  formControl(); 
 
@@ -59,8 +57,6 @@ import { ErrorConstraints, ErrorMessageRegistry } from '@vnodes/material/utils';
 export class InputNumberComponent extends BaseInput<number> {
 
   type = input.required<NumberInputType>();
-
-
   protected override convertToValue(value: string) {
 
     if (value === null || value === undefined || value === '') {
@@ -75,12 +71,5 @@ export class InputNumberComponent extends BaseInput<number> {
 
   }
 
-  constraints(): ErrorConstraints {
-    return {
-      min: this.min(),
-      max: this.max(),
-      maxlength: this.maxlength()
-    }
-  }
 
 }

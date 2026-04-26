@@ -1,49 +1,190 @@
-import { ValidatorFn } from "@angular/forms";
+import { Injectable, InjectionToken, Provider } from "@angular/core";
+import { AbstractControl, Validators } from "@angular/forms";
 
 
 
 
-const hasUppercase: ValidatorFn = (control) => {
-    if (control.value) {
-        if (!/[A-Z]{1,}/.test(control.value)) {
-            return { hasUppercase: true }
-        }
+export type ConstraintValue = string | number | boolean;
+export type Constraints = Partial<{
+    required: boolean,
+    min: number,
+    max: number,
+    maxlength: number,
+    minlength: number,
+    email: boolean,
+    password: boolean,
+    uuid: boolean,
+    unique: boolean;
+    hasUppercase: number;
+    hasLowercase: number;
+    hasNumber: number;
+    hasSpecialchar: number;
+    noSpace: boolean;
+}>
 
-    }
-    return null;
-}
+export type ValidatorFn = (control: AbstractControl) => null | Constraints;
 
-const hasLowercase: ValidatorFn = (control) => {
-    if (control.value) {
-        if (!/[a-z]{1,}/.test(control.value)) {
-            return { hasUppercase: true }
-        }
-    }
-    return null;
-}
+export const DEFAULT_ERROR_MESSAGE = new InjectionToken<string>('DEFAULT_ERROR_MESSAGE');
+export type InputValidatorMessageResolver = (value: any, constraint: string, constraintValue: ConstraintValue) => string;
 
-const hasNumber: ValidatorFn = (control) => {
-    if (control.value) {
-        if (!/[0-9]{1,}/.test(control.value)) {
-            return { hasUppercase: true }
-        }
-    }
-    return null;
-}
-
-const hasSpecialchar: ValidatorFn = (control) => {
-    if (control.value) {
-        if (!/[\W]{1,}/.test(control.value)) {
-            return { hasUppercase: true }
-        }
-    }
-    return null;
+function isDefined<T>(value: T | undefined | null): value is T {
+    return value !== null && value !== undefined;
 }
 
 
-export const CustomValidators = {
-    hasLowercase,
-    hasUppercase,
-    hasSpecialchar,
-    hasNumber
+
+@Injectable()
+export class InputValidator {
+    protected readonly messages = new Map<string, InputValidatorMessageResolver>()
+
+    static required(): ValidatorFn {
+        return (control) => {
+            if (Validators.required(control)) {
+                return { required: true }
+            }
+            return null;
+        }
+    }
+
+    static email(): ValidatorFn {
+        return (control) => {
+            if (Validators.email(control)) {
+                return { email: true }
+            }
+            return null;
+        }
+    }
+
+
+    static minlength(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.minLength(length)(control)) {
+                return {
+                    minlength: length
+                }
+            }
+            return null;
+        }
+    }
+    static maxlength(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.minLength(length)(control)) {
+                return {
+                    maxlength: length
+                }
+            }
+            return null;
+        }
+    }
+    static min(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.min(length)(control)) {
+                return {
+                    min: length
+                }
+            }
+            return null;
+        }
+    }
+    static max(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.max(length)(control)) {
+                return {
+                    max: length
+                }
+            }
+            return null;
+        }
+    }
+
+    static hasUppercase(count = 1): ValidatorFn {
+        return ({ value }) => {
+            if (!/[A-Z]{1,}/.test(value)) {
+                return { hasUppercase: count }
+            }
+            return null;
+        }
+    }
+    static hasLowercase(count = 1): ValidatorFn {
+        return ({ value }) => {
+            if (!/[a-z]{1,}/.test(value)) {
+                return { hasLowercase: count }
+            }
+            return null;
+        }
+    }
+    static hasNumber(count = 1): ValidatorFn {
+        return ({ value }) => {
+            if (!/[0-9]{1,}/.test(value)) {
+                return { hasNumber: count }
+            }
+            return null;
+        }
+    }
+    static hasSpecialchar(count = 1): ValidatorFn {
+        return ({ value }) => {
+            if (!/[\W]{1,}/.test(value)) {
+                return { hasSpecialchar: count }
+            }
+            return null;
+        }
+    }
+    static noSpace(): ValidatorFn {
+        return ({ value }) => {
+            if (/[\s]{1,}/.test(value)) {
+                return { noSpace: true }
+            }
+            return null;
+        }
+    }
+
+    static password(): ValidatorFn {
+        return (control) => {
+            const result =
+                this.noSpace()(control) ||
+                this.minlength(8)(control) ||
+                this.hasUppercase()(control) ||
+                this.hasLowercase()(control) ||
+                this.hasSpecialchar()(control) ||
+                this.hasNumber()(control)
+
+            return result;
+
+        }
+    }
+
+    static provideDefault(): Provider {
+
+        const instance = new InputValidator();
+        instance.initDefaultMessages();
+        return {
+
+            provide: InputValidator,
+            useValue: instance
+        }
+    }
+
+
+    errorMessage(value: any, constraint: string, constraintValue: any) {
+        return this.messages.get(constraint)?.(value, constraint, constraintValue)
+    }
+
+    /**
+     * Initialize default messsages
+     */
+    initDefaultMessages() {
+        this.messages.set('required', (v, c, cv) => `Required`)
+        this.messages.set('minlength', (v, c, cv) => `Shorter than ${cv}`)
+        this.messages.set('maxlength', (v, c, cv) => `Longer than ${cv}`)
+        this.messages.set('min', (v, c, cv) => `Less than ${cv}`)
+        this.messages.set('max', (v, c, cv) => `More than ${cv}`)
+        this.messages.set('hasUppercase', (v, c, cv) => `At least ${cv} uppercase letters`)
+        this.messages.set('hasLowercase', (v, c, cv) => `At least ${cv} lowercase letters`)
+        this.messages.set('hasNumber', (v, c, cv) => `At least ${cv} number`)
+        this.messages.set('noSpace', (v, c, cv) => `Space is not allowed`)
+        this.messages.set('hasSpecialchar', (v, c, cv) => `At least ${cv} special chracters`)
+        this.messages.set('email', () => `Invalid email`)
+    }
+
+
 }

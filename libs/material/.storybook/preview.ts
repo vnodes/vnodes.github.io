@@ -2,8 +2,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { applicationConfig, type Preview } from '@storybook/angular';
+import { InputValidator } from '@vnodes/material/validators';
 import docJson from '../documentation.json';
-import { provideDefaultErrorMessage, provideErrorMessageRegistry } from '@vnodes/material/utils';
 
 setCompodocJson(docJson);
 
@@ -15,8 +15,7 @@ const preview: Preview = {
             providers: [
                 provideHttpClient(),
                 provideRouter([]),
-                provideErrorMessageRegistry(),
-                provideDefaultErrorMessage()
+                InputValidator.provideDefault()
             ],
         }),
     ],
