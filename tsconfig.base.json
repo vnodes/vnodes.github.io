@@ -63,6 +63,12 @@
       "@vnodes/material/validators": [
         "libs/material/src/validators/public-api.ts"
       ],
+      "@vnodes/material/select": [
+        "libs/material/src/select/public-api.ts"
+      ],
+      "@vnodes/material/autocomplete": [
+        "libs/material/src/autocomplete/public-api.ts"
+      ],
     }
   },
   "exclude": [

@@ -74,6 +74,14 @@
     "./validators": {
       "types": "./src/validators/public-api.ts",
       "default": "./src/validators/public-api.ts"
+    },
+    "./select": {
+      "types": "./src/select/public-api.ts",
+      "default": "./src/select/public-api.ts"
+    },
+    "./autocomplete": {
+      "types": "./src/autocomplete/public-api.ts",
+      "default": "./src/autocomplete/public-api.ts"
     }
   },
   "peerDependencies": {
