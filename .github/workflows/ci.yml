@@ -31,6 +31,6 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec nx run-many -t lint test build
+      - run: pnpm exec nx run-many -t lint test build build-storybook
       - run: pnpm exec nx fix-ci
         if: always()
