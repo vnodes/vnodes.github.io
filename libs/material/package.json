@@ -82,6 +82,10 @@
     "./autocomplete": {
       "types": "./src/autocomplete/public-api.ts",
       "default": "./src/autocomplete/public-api.ts"
+    },
+    "./checkbox": {
+      "types": "./src/checkbox/public-api.ts",
+      "default": "./src/checkbox/public-api.ts"
     }
   },
   "peerDependencies": {
