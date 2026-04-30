@@ -4,7 +4,7 @@ import { CheckboxComponent } from './checkbox';
 
 const meta: Meta<CheckboxComponent> = {
   component: CheckboxComponent,
-  title: 'CheckboxComponent',
+  title: 'Input/Checkbox',
 };
 export default meta;
 
@@ -12,7 +12,7 @@ type Story = StoryObj<CheckboxComponent>;
 
 export const Primary: Story = {
   args: {
-    label: "Input/Checkbox"
+    label: "Checkbox Label"
   },
 };
 
