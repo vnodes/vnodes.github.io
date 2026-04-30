@@ -37,8 +37,10 @@ jobs:
 
       - run: pnpm install --no-frozen-lockfile
 
-      - name: Build storybooks
-        run: pnpm exec nx run-many -t build build-storybook
+      - name: Build
+        run: |
+          pnpm exec nx run-many -t build
+          pnpm exec nx run-many -t build-storybook
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
