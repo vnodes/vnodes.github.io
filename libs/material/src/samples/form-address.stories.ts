@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/angular';
-import { FormAddress } from './form-address';
-import { FormLogin } from './form-login';
+import { FormAddress } from '@vnodes/material/samples';
+
 
 const meta: Meta<FormAddress> = {
   component: FormAddress,
@@ -8,7 +8,7 @@ const meta: Meta<FormAddress> = {
 };
 export default meta;
 
-type Story = StoryObj<FormLogin>;
+type Story = StoryObj<FormAddress>;
 
 export const Primary: Story = {
   args: {}

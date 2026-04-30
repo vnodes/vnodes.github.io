@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/angular';
-import { FormLogin } from './form-login';
+import { FormLogin } from '@vnodes/material/samples';
 
 const meta: Meta<FormLogin> = {
   component: FormLogin,

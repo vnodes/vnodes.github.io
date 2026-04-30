@@ -6,6 +6,7 @@ const config: StorybookConfig = {
   addons: ['@storybook/addon-docs'],
   framework: {
     name: '@storybook/angular',
+
     options: {
       builder: {
         viteConfigPath: 'vite.config.mts',
@@ -19,9 +20,13 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../../../dist/apps/web/browser'],
   docs: {
-    defaultName: "Doc"
-  }
-
+    defaultName: "Doc",
+  },
+  webpackFinal: async (config) => {
+    config.output ??= {};
+    config.output.publicPath = './'
+    return config;
+  },
 };
 
 export default config;

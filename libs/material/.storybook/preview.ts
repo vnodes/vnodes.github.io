@@ -9,6 +9,7 @@ setCompodocJson(docJson);
 
 const preview: Preview = {
     tags: ["autodocs"],
+
     decorators: [
         applicationConfig({
 
