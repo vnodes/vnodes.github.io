@@ -86,6 +86,10 @@
     "./checkbox": {
       "types": "./src/checkbox/public-api.ts",
       "default": "./src/checkbox/public-api.ts"
+    },
+    "./button-toggle": {
+      "types": "./src/button-toggle/public-api.ts",
+      "default": "./src/button-toggle/public-api.ts"
     }
   },
   "peerDependencies": {

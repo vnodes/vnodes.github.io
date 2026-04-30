@@ -5,8 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
-    "paths": {}
+    "types": []
   },
   "include": [
     "./src/*.ts"

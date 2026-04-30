@@ -71,6 +71,9 @@
       ],
       "@vnodes/material/checkbox": [
         "libs/material/src/checkbox/public-api.ts"
+      ],
+      "@vnodes/material/button-toggle": [
+        "libs/material/src/button-toggle/public-api.ts"
       ]
     }
   },
