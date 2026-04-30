@@ -12,7 +12,7 @@ type Story = StoryObj<CheckboxComponent>;
 
 export const Primary: Story = {
   args: {
-    label: "Checkbox"
+    label: "Input/Checkbox"
   },
 };
 

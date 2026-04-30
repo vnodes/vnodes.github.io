@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { FormComponent } from './form';
 
@@ -12,9 +12,7 @@ type Story = StoryObj<FormComponent>;
 
 export const Primary: Story = {
   args: {
-    formGroup: new FormGroup({
-      username: new FormControl("")
-    })
+    formGroup: {} as FormGroup
   },
 };
 
