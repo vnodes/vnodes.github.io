@@ -1,3 +1,24 @@
+## 0.0.4 (2026-04-30)
+
+### 🚀 Features
+
+- created the error message handler registry ([2afd8fd](https://github.com/vnodes/vnodes.github.io/commit/2afd8fd))
+- removed the unit tests ([4a7d678](https://github.com/vnodes/vnodes.github.io/commit/4a7d678))
+- created teh viewport directive to manage reactive view ([1fb3411](https://github.com/vnodes/vnodes.github.io/commit/1fb3411))
+- checked the changes ([5a529b4](https://github.com/vnodes/vnodes.github.io/commit/5a529b4))
+- created teh sample forms ([77b6cfe](https://github.com/vnodes/vnodes.github.io/commit/77b6cfe))
+- refactored the error-message resolver ([a7d67ad](https://github.com/vnodes/vnodes.github.io/commit/a7d67ad))
+- created the autocomplete component ([4cd6ceb](https://github.com/vnodes/vnodes.github.io/commit/4cd6ceb))
+
+### 🩹 Fixes
+
+- fixed the 0 bug in the number input ([5d65ec8](https://github.com/vnodes/vnodes.github.io/commit/5d65ec8))
+- fixed the github page workflow ([af7f8d0](https://github.com/vnodes/vnodes.github.io/commit/af7f8d0))
+
+### ❤️ Thank You
+
+- robert-brightline @vnodes
+
 ## 0.0.3 (2026-04-23)
 
 ### 🚀 Features
