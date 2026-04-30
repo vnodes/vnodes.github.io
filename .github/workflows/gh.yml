@@ -41,6 +41,7 @@ jobs:
         run: |
           pnpm exec nx run-many -t build
           pnpm exec nx run-many -t build-storybook
+          cp -r dist/apps/web/browser/. public/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
