@@ -5,8 +5,8 @@
 ![Bundle size](https://img.shields.io/bundlephobia/min/@vnodes/material)
 
 <p align="center">
-  <img   srcset="./assets/favicon.png, https://vnodes.github.io/libs/auth/assets/favicon.png" alt="Logo"  width="200" height="200" style="border-radius: 100%"/>
-</p>
+  <img   srcset="./assets/favicon.png, https://vnodes.github.io/libs/material/assets/favicon.png" alt="Logo"  width="200" height="200" style="border-radius: 100%"/>
+</p>s
 
 ## @vnodes/material
 
