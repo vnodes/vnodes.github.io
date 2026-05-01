@@ -11,12 +11,16 @@ export default meta;
 type Story = StoryObj<LogoComponent>;
 
 export const Primary: Story = {
-  args: {},
+
+
+  args: {
+    alt: "Logo"
+  }
 };
 
 export const Heading: Story = {
-  args: {},
+  ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/logo/gi)).toBeTruthy();
+    await expect(canvas.getByAltText(/Logo/gi)).toBeTruthy();
   },
 };

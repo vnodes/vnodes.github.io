@@ -11,7 +11,7 @@ export type ButtonToggleOption = {
 }
 
 @Component({
-  selector: 'vn-button-toggle',
+  selector: 'vn-input[type="button-toggle"]',
   standalone: true,
   imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonToggleModule],
   template: `

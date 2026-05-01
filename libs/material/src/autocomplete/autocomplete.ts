@@ -8,7 +8,7 @@ import { BaseInput } from '@vnodes/material/input';
 import { map, startWith } from 'rxjs';
 
 @Component({
-  selector: 'vn-autocomplete',
+  selector: 'vn-input[type="autocomplete"]',
   imports: [
     ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe
   ],

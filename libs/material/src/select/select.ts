@@ -13,7 +13,7 @@ export type SelectOption = {
 
 
 @Component({
-  selector: 'vn-select',
+  selector: 'vn-input[type="select"]',
   imports: [
     ReactiveFormsModule,
     MatSelectModule,

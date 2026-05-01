@@ -5,7 +5,7 @@ import { Component, input } from '@angular/core';
   selector: 'vn-logo',
   standalone: true,
   imports: [NgOptimizedImage],
-  template: `<img ngSrc="favicon.png" [width]="width()" [height]="height()" alt="Logo" priority>`,
+  template: `<img ngSrc="favicon.png" [width]="width()" [height]="height()" [alt]="alt()" priority>`,
   host: {
     '[style.display]': '"flex"',
     '[style.flex-direction]': '"column"',
@@ -15,4 +15,5 @@ import { Component, input } from '@angular/core';
 export class LogoComponent {
   width = input(32)
   height = input(32)
+  alt = input("")
 }

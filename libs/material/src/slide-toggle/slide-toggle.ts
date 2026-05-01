@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseInput } from '@vnodes/material/input';
 
 @Component({
-  selector: 'vn-input[type="check"], vn-input[type="checkbox"]',
+  selector: 'vn-input[type=slide]',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    MatInputModule
-  ],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule],
   template: `
-  <mat-checkbox
+  <mat-slide-toggle
+  
+       type="text"
+       autocomplete="off"
        matInput
        [formControl]="formControl()"
        [disabled]="disabled()"
@@ -22,16 +22,12 @@ import { BaseInput } from '@vnodes/material/input';
        [minlength]="minlength()"
        [maxlength]="maxlength()"
        [required]="required()"
-  >
-  {{label()}}
-  </mat-checkbox>
+  >{{label()}}</mat-slide-toggle>
   `
 })
-export class CheckboxComponent extends BaseInput {
-
+export class SlideToggleComponent extends BaseInput {
 
   protected override convertToValue(value: string) {
-    return value
+    return value;
   }
-
 }

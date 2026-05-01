@@ -74,6 +74,15 @@
       ],
       "@vnodes/material/button-toggle": [
         "libs/material/src/button-toggle/public-api.ts"
+      ],
+      "@vnodes/material/slide-toggle": [
+        "libs/material/src/slide-toggle/public-api.ts"
+      ],
+      "@vnodes/material/radio": [
+        "libs/material/src/radio/public-api.ts"
+      ],
+      "@vnodes/material/fieldset": [
+        "libs/material/src/fieldset/public-api.ts"
       ]
     }
   },

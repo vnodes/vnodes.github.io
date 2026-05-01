@@ -4,7 +4,7 @@ import { ButtonToggleComponent } from './button-toggle';
 
 const meta: Meta<ButtonToggleComponent> = {
   component: ButtonToggleComponent,
-  title: 'Input/ButtonToggleComponent',
+  title: 'Input/ButtonToggle',
 };
 export default meta;
 
@@ -31,13 +31,14 @@ export const Size: Story = {
       { value: 'XL', label: 'XL' },
       { value: 'XXL', label: 'XXL' },
     ],
-    label: "Size "
+    label: "Size", 
   }
 }
 
 export const Heading: Story = {
   ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/button-toggle/gi)).toBeTruthy();
+    await expect(canvas.getByText(/First/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Second/gi)).toBeTruthy();
   },
 };

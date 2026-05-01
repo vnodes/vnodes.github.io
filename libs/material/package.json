@@ -90,6 +90,18 @@
     "./button-toggle": {
       "types": "./src/button-toggle/public-api.ts",
       "default": "./src/button-toggle/public-api.ts"
+    },
+    "./slide-toggle": {
+      "types": "./src/slide-toggle/public-api.ts",
+      "default": "./src/slide-toggle/public-api.ts"
+    },
+    "./radio": {
+      "types": "./src/radio/public-api.ts",
+      "default": "./src/radio/public-api.ts"
+    },
+    "./fieldset": {
+      "types": "./src/fieldset/public-api.ts",
+      "default": "./src/fieldset/public-api.ts"
     }
   },
   "peerDependencies": {
