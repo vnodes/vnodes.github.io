@@ -50,7 +50,7 @@
     "@swc/core": "~1.15.5",
     "@swc/helpers": "~0.5.18",
     "@typescript-eslint/utils": "^8.40.0",
-    "@vnodes/plugin": "^0.1.9",
+    "@vnodes/plugin": "^0.1.10",
     "angular-eslint": "^21.2.0",
     "autoprefixer": "^10.4.0",
     "eslint": "^9.8.0",

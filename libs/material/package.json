@@ -106,6 +106,14 @@
     "./checkbox-group": {
       "types": "./src/checkbox-group/public-api.ts",
       "default": "./src/checkbox-group/public-api.ts"
+    },
+    "./list": {
+      "types": "./src/list/public-api.ts",
+      "default": "./src/list/public-api.ts"
+    },
+    "./nav-list": {
+      "types": "./src/nav-list/public-api.ts",
+      "default": "./src/nav-list/public-api.ts"
     }
   },
   "peerDependencies": {

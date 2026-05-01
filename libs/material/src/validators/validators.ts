@@ -1,10 +1,8 @@
 import { Injectable, InjectionToken, Provider } from "@angular/core";
 import { AbstractControl, Validators } from "@angular/forms";
 
-
-
-
 export type ConstraintValue = string | number | boolean;
+
 export type Constraints = Partial<{
     required: boolean,
     min: number,
@@ -27,7 +25,7 @@ export type ValidatorFn = (control: AbstractControl) => null | Constraints;
 export const DEFAULT_ERROR_MESSAGE = new InjectionToken<string>('DEFAULT_ERROR_MESSAGE');
 export type InputValidatorMessageResolver = (value: any, constraint: string, constraintValue: ConstraintValue) => string;
 
-function isDefined<T>(value: T | undefined | null): value is T {
+export function isDefined<T>(value: T | undefined | null): value is T {
     return value !== null && value !== undefined;
 }
 
@@ -173,16 +171,16 @@ export class InputValidator {
      * Initialize default messsages
      */
     initDefaultMessages() {
-        this.messages.set('required', (v, c, cv) => `Required`)
-        this.messages.set('minlength', (v, c, cv) => `Shorter than ${cv}`)
-        this.messages.set('maxlength', (v, c, cv) => `Longer than ${cv}`)
-        this.messages.set('min', (v, c, cv) => `Less than ${cv}`)
-        this.messages.set('max', (v, c, cv) => `More than ${cv}`)
-        this.messages.set('hasUppercase', (v, c, cv) => `At least ${cv} uppercase letters`)
-        this.messages.set('hasLowercase', (v, c, cv) => `At least ${cv} lowercase letters`)
-        this.messages.set('hasNumber', (v, c, cv) => `At least ${cv} number`)
-        this.messages.set('noSpace', (v, c, cv) => `Space is not allowed`)
-        this.messages.set('hasSpecialchar', (v, c, cv) => `At least ${cv} special chracters`)
+        this.messages.set('required', () => `Required`)
+        this.messages.set('minlength', (...args) => `Shorter than ${args[2]}`)
+        this.messages.set('maxlength', (...args) => `Longer than ${args[2]}`)
+        this.messages.set('min', (...args) => `Less than ${args[2]}`)
+        this.messages.set('max', (...args) => `More than ${args[2]}`)
+        this.messages.set('hasUppercase', (...args) => `At least ${args[2]} uppercase letters`)
+        this.messages.set('hasLowercase', (...args) => `At least ${args[2]} lowercase letters`)
+        this.messages.set('hasNumber', (...args) => `At least ${args[2]} number`)
+        this.messages.set('noSpace', (...args) => `Space is not allowed`)
+        this.messages.set('hasSpecialchar', (...args) => `At least ${args[2]} special chracters`)
         this.messages.set('email', () => `Invalid email`)
     }
 
