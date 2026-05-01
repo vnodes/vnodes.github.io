@@ -13,14 +13,7 @@ import { LogoComponent } from '@vnodes/material/logo';
     NgTestSelector
   ],
   template: `
-
-  @let isHovered = false; 
-  
-  
-  @if(isHovered){ 
-    IsHoverer
-  }
-  <div #view="vnViewPort" vnViewPort vnFlexContainer  >
+  <div #view="vnViewPort" vnViewPort vnFlexContainer>
     <!-- Main toolbar -->
     <mat-toolbar>
       <div vnFlexRow>
@@ -30,52 +23,52 @@ import { LogoComponent } from '@vnodes/material/logo';
         </button>
       </div>
 
-      <div vnFlexRow vnFlexBetween>
-          <ng-content select="[vnToolbarLeft]">
-            <button matIconButton title="Sample Button"> 
-              <mat-icon >home</mat-icon>
-            </button>
-          </ng-content>
-          <ng-content select="[vnToolbar]">
-            <vn-ng-test selector="vnToolbar"></vn-ng-test>
-          </ng-content>
-          <ng-content select="[vnToolbarRight]">
-            <button matIconButton>
-                <mat-icon>apps</mat-icon>
-            </button>
-          </ng-content>
+      <div vnFlex="row"  vnFlexBetween>
+
+        <div vnFlexRow>
+          <ng-content select="[vnToolbarLeft]"></ng-content>
+        </div>
+        <div vnFlexRow>
+          <ng-content aria-selected="vnToolbar"></ng-content>
+        </div>  
+        <div vnFlexRow>
+          <ng-content select="[vnToolbarRight]"></ng-content>
+        </div>
+        
       </div>
+      
 
     </mat-toolbar>
     
 
     <!-- Sidenav container  -->
-    <mat-sidenav-container vnFlexContainer  >
+    <mat-sidenav-container vnFlexContainer >
       
       <!-- Sidenav -->
-      <mat-sidenav #sidenav [mode]="view.sidenavMode()" [opened]="view.sidenavOpen()"  >
+      <mat-sidenav #sidenav [mode]="view.sidenavMode()" [opened]="view.sidenavOpen()">
         <div vnFlexContainer vnFlexBetween>
           <ng-content select="[vnSidenavTop]">
-            <vn-ng-test selector="vnSidenavTop"></vn-ng-test>
+           
           </ng-content>
           <ng-content select="[vnSidenav]">
-            <vn-ng-test selector="vnSidenav"></vn-ng-test>
+           
           </ng-content>
           <ng-content select="[vnSidenavBottom]">
-            <vn-ng-test selector="vnSidenavBottom"></vn-ng-test>
+           
           </ng-content>
         </div>
       </mat-sidenav>
       
       <!-- Sidenav content -->
       <mat-sidenav-content>
-        <div vnFlexContainer vnFlexBetween>
+        <div vnFlexContainer>
           <ng-content select="[vnContentTop]">
             <vn-ng-test selector="vnContentTop"></vn-ng-test>
           </ng-content>
           <ng-content select="[vnContent]">
             <vn-ng-test selector="vnContent"></vn-ng-test>
           </ng-content>
+          <div vnFlexGrow></div>
           <ng-content select="[vnContentBottom]">
             <vn-ng-test selector="vnContentBottom"></vn-ng-test>
           </ng-content>
@@ -86,19 +79,22 @@ import { LogoComponent } from '@vnodes/material/logo';
     </mat-sidenav-container>
 
     <!-- Status bar  -->
-    <mat-toolbar>
-      <div vnFlexRow vnFlexBetween>
-        <ng-content select="[vnStatusbarLeft]">
-          <vn-ng-test selector="vnStatusbarLeft"></vn-ng-test>
-        </ng-content>
-        <ng-content select="[vnStatusbar]">
-          <vn-ng-test selector="vnStatusbar"></vn-ng-test>
-        </ng-content>
-        <ng-content select="[vnStatusbarRight]">
-          <button matIconButton title="Sample button">
-            <mat-icon class="fill">notifications</mat-icon>
-          </button>
-        </ng-content>
+    <mat-toolbar>   
+      <div vnFlex="row"  vnFlexBetween>
+
+
+        <div vnFlexRow>
+            <ng-content select="[vnStatusbarLeft]"></ng-content>
+        </div>
+
+        <div vnFlexRow>
+            <ng-content aria-selected="vnStatusbar"></ng-content>
+        </div>  
+
+        <div vnFlexRow>
+            <ng-content select="[vnStatusbarRight]"></ng-content>
+        </div>
+        
       </div>
     </mat-toolbar>
     <!--  -->

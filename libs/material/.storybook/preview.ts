@@ -15,7 +15,12 @@ const preview: Preview = {
 
             providers: [
                 provideHttpClient(),
-                provideRouter([]),
+                provideRouter([
+                    { path: "home", redirectTo: "" },
+                    { path: "about", redirectTo: "" },
+                    { path: "services", redirectTo: "" },
+
+                ]),
                 InputValidator.provideDefault()
             ],
         }),

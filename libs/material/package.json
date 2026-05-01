@@ -114,6 +114,18 @@
     "./nav-list": {
       "types": "./src/nav-list/public-api.ts",
       "default": "./src/nav-list/public-api.ts"
+    },
+    "./common": {
+      "types": "./src/common/public-api.ts",
+      "default": "./src/common/public-api.ts"
+    },
+    "./icon": {
+      "types": "./src/icon/public-api.ts",
+      "default": "./src/icon/public-api.ts"
+    },
+    "./color": {
+      "types": "./src/color/public-api.ts",
+      "default": "./src/color/public-api.ts"
     }
   },
   "peerDependencies": {

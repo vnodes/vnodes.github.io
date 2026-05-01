@@ -61,7 +61,10 @@
         "libs/material/src/checkbox-group/public-api.ts"
       ],
       "@vnodes/material/list": ["libs/material/src/list/public-api.ts"],
-      "@vnodes/material/nav-list": ["libs/material/src/nav-list/public-api.ts"]
+      "@vnodes/material/nav-list": ["libs/material/src/nav-list/public-api.ts"],
+      "@vnodes/material/common": ["libs/material/src/common/public-api.ts"],
+      "@vnodes/material/icon": ["libs/material/src/icon/public-api.ts"],
+      "@vnodes/material/color": ["libs/material/src/color/public-api.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
