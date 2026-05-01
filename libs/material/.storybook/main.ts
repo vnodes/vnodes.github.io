@@ -23,8 +23,11 @@ const config: StorybookConfig = {
     defaultName: "Doc",
   },
   webpackFinal: async (config) => {
-    config.output ??= {};
-    config.output.publicPath = './'
+    console.log("Storybook Mode: ", config.mode)
+    if (config.mode === 'production') {
+      config.output ??= {};
+      config.output.publicPath = './'
+    }
     return config;
   },
 };

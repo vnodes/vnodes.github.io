@@ -21,6 +21,20 @@ export const Primary: Story = {
   },
 };
 
+export const Size: Story = {
+  args: {
+    options: [
+      { value: 'SX', label: 'SX' },
+      { value: 'S', label: 'S' },
+      { value: 'M', label: 'M' },
+      { value: 'L', label: 'L' },
+      { value: 'XL', label: 'XL' },
+      { value: 'XXL', label: 'XXL' },
+    ],
+    label: "Size "
+  }
+}
+
 export const Heading: Story = {
   ...Primary,
   play: async ({ canvas }) => {
