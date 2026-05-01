@@ -83,6 +83,9 @@
       ],
       "@vnodes/material/fieldset": [
         "libs/material/src/fieldset/public-api.ts"
+      ],
+      "@vnodes/source/checkbox-group": [
+        "libs/material/src/checkbox-group/public-api.ts"
       ]
     }
   },

@@ -102,6 +102,10 @@
     "./fieldset": {
       "types": "./src/fieldset/public-api.ts",
       "default": "./src/fieldset/public-api.ts"
+    },
+    "./checkbox-group": {
+      "types": "./src/checkbox-group/public-api.ts",
+      "default": "./src/checkbox-group/public-api.ts"
     }
   },
   "peerDependencies": {

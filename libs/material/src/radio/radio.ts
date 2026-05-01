@@ -12,7 +12,7 @@ export type RadioOption = {
 }
 
 @Component({
-  selector: 'vn-radio',
+  selector: 'vn-input[type="radio"]',
   standalone: true,
   imports: [
     ReactiveFormsModule,

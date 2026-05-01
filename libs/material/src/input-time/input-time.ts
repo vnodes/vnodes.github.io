@@ -8,7 +8,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 import { BaseInput } from '@vnodes/material/input';
 
 @Component({
-  selector: 'vn-input-time',
+  selector: 'vn-input[type="time"]',
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTimepickerModule],
   providers: [provideNativeDateAdapter()],

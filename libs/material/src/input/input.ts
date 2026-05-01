@@ -54,7 +54,11 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
 
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
-    const cValue = this.convertToValue(target.value);
+    this.handleValueChange(target.value);
+  }
+
+  handleValueChange(value: any) {
+    const cValue = this.convertToValue(value);
     this.value.set(cValue);
     this.onChange(cValue);
   }
