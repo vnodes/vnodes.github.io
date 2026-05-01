@@ -1,21 +1,16 @@
-![Npm version](https://img.shields.io/npm/v/@vnodes/material)
-![Npm downloads](https://img.shields.io/npm/dm/@vnodes/material)
-![Build Status](https://img.shields.io/github/actions/workflow/status/vnodes.github.io/vnodes.github.io.github.io/ci.yml)
-![Doc Status](https://img.shields.io/github/actions/workflow/status/vnodes.github.io/vnodes.github.io.github.io/doc.yml)
-![Bundle size](https://img.shields.io/bundlephobia/min/@vnodes/material)
 
 <p align="center">
   <img   srcset="./assets/favicon.png, https://vnodes.github.io/favicon.png" alt="Logo"  width="200" height="200" style="border-radius: 100%"/>
 </p>s
 
-## @vnodes/material
+## @vnodes/web
 
-Angula material library 
+Web app
 
 ## Installation
 
 ```bash
-pnpm add @vnodes/material
+pnpm add @vnodes/web
 ```
 
 ## 💖 Support My Work
