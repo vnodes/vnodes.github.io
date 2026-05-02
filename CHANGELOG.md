@@ -1,3 +1,33 @@
+## 0.0.7 (2026-05-02)
+
+### 🚀 Features
+
+- reconfigured the storybook build ([267808c](https://github.com/vnodes/vnodes.github.io/commit/267808c))
+- configured the index.html seo ([2c31057](https://github.com/vnodes/vnodes.github.io/commit/2c31057))
+- added public github page ([95759b1](https://github.com/vnodes/vnodes.github.io/commit/95759b1))
+- added hash location to the web app ([69016ed](https://github.com/vnodes/vnodes.github.io/commit/69016ed))
+- configured the sw to allow sub directories to render standalone ([a2fbf99](https://github.com/vnodes/vnodes.github.io/commit/a2fbf99))
+- created button-toggle component ([59dd131](https://github.com/vnodes/vnodes.github.io/commit/59dd131))
+- created fieldset component and centeralized the angular configuration ([008576b](https://github.com/vnodes/vnodes.github.io/commit/008576b))
+- created the checkbox group selec ([f8764bf](https://github.com/vnodes/vnodes.github.io/commit/f8764bf))
+- created nav list component ([8301903](https://github.com/vnodes/vnodes.github.io/commit/8301903))
+- created a sample story for layout ([162d3cc](https://github.com/vnodes/vnodes.github.io/commit/162d3cc))
+- created menu component ([9b68a19](https://github.com/vnodes/vnodes.github.io/commit/9b68a19))
+- created menu component ([8206a5b](https://github.com/vnodes/vnodes.github.io/commit/8206a5b))
+- added number length check to the input-number component ([34992ab](https://github.com/vnodes/vnodes.github.io/commit/34992ab))
+- added array validators ([b1e8bfe](https://github.com/vnodes/vnodes.github.io/commit/b1e8bfe))
+
+### 🩹 Fixes
+
+- fixed the storybook base path ([4d9e6c5](https://github.com/vnodes/vnodes.github.io/commit/4d9e6c5))
+- fixed the local and producation storybook configuration ([703b4cd](https://github.com/vnodes/vnodes.github.io/commit/703b4cd))
+- fixed the local and producation storybook configuration ([1d3bf0d](https://github.com/vnodes/vnodes.github.io/commit/1d3bf0d))
+- fixed the body width ([c79498c](https://github.com/vnodes/vnodes.github.io/commit/c79498c))
+
+### ❤️ Thank You
+
+- robert-brightline @vnodes
+
 ## 0.0.4 (2026-04-30)
 
 ### 🚀 Features
