@@ -44,8 +44,7 @@ export type MenuItem = {
 @for(item of items(); track item){ 
   @if(item.children){ 
     <vn-menu #newMenu [items]="item.children" [isSubMenuItems]="true"></vn-menu>
-
-    {{assignMenu(item,newMenu.childMenu)}}
+    {{assignMenu(item, newMenu.childMenu)}}
   }
 
 }
@@ -58,7 +57,7 @@ export class MenuComponent {
 
 
 
-  assignMenu(item: MenuItem, menu: MatMenu) {
+  protected assignMenu(item: MenuItem, menu: MatMenu) {
     item.matMenu = menu;
   }
 
