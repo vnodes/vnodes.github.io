@@ -126,6 +126,10 @@
     "./color": {
       "types": "./src/color/public-api.ts",
       "default": "./src/color/public-api.ts"
+    },
+    "./menu": {
+      "types": "./src/menu/public-api.ts",
+      "default": "./src/menu/public-api.ts"
     }
   },
   "peerDependencies": {

@@ -16,6 +16,5 @@ export const Primary: Story = {
     content: ["Line 1", "line 2"],
     avatarSrc: "./favicon.png",
     imgSrc: "./favicon.png",
-    width: '400px',
   }
 };

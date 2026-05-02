@@ -56,3 +56,6 @@ export type Color =
 export function colorVar(value?: Color) {
     return `var(--mat-sys-${value})`
 }
+
+
+export type Shadow = '1' | '2' | '3' | '4' | '5'  

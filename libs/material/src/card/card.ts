@@ -8,16 +8,17 @@ import { FlexModule } from '@vnodes/material/flex';
 
 
 @Directive({
-  selector: "button[vnCardAction]"
+  selector: "button[vnCardAction],a[vnCardAction]"
 })
 export class CardActionDirective {
 
 }
+
 @Component({
   selector: 'vn-card',
   imports: [FlexModule, MatCardModule, MatButtonModule, MatIconModule],
   template: `
-  <mat-card [style.width]="'400px'" >    
+  <mat-card>    
       <mat-card-header>
           @if(avatarSrc()) { <img  matCardAvatar [src]="avatarSrc()" [alt]="avatarAlt()">}
           @if(title()){ <mat-card-title>{{title()}}</mat-card-title>}
@@ -28,23 +29,22 @@ export class CardActionDirective {
       <img matCardImage  [src]="imgSrc()" [alt]="imgAlt()">
       }
 
-  @if(content()){  
+    @if(content()){  
 
-      <mat-card-content>
-          @for(c of content(); track c){ 
-            <p> {{c}}</p>
-          }
-      </mat-card-content>
-  }
-  <mat-card-actions>
-    <div vnFlexRow vnFlexFull  vnFlexWrap vnFlexCenter vnFlexGap >
-      <ng-content select="button[vnCardAction]"></ng-content>
-    </div>
-  </mat-card-actions>
+        <mat-card-content>
+            @for(c of content(); track c){ 
+              <p> {{c}}</p>
+            }
+        </mat-card-content>
+    }
+    <mat-card-actions>
+      <div vnFlexRow vnFlexFull  vnFlexWrap vnFlexCenter vnFlexGap >
+        <ng-content select="button[vnCardAction]"></ng-content>
+      </div>
+    </mat-card-actions>
 </mat-card>
 
-  `,
-  styles: ``,
+  `
 })
 export class CardComponent {
 
@@ -59,6 +59,6 @@ export class CardComponent {
   imgSrc = input<string>();
   imgAlt = input<string>();
 
-  width = input<string>('360px')
-  height = input('auto')
+
+
 }
