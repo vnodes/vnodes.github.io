@@ -7,6 +7,8 @@ export type Constraints = Partial<{
     required: boolean,
     min: number,
     max: number,
+    maxitems: number;
+    minitems: number;
     maxlength: number,
     minlength: number,
     email: boolean,
@@ -94,6 +96,26 @@ export class InputValidator {
             return null;
         }
     }
+    static maxitems(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.max(length)(control)) {
+                return {
+                    maxitems: length
+                }
+            }
+            return null;
+        }
+    }
+    static minitems(length: number): ValidatorFn {
+        return (control) => {
+            if (Validators.max(length)(control)) {
+                return {
+                    minitems: length
+                }
+            }
+            return null;
+        }
+    }
 
     static hasUppercase(count = 1): ValidatorFn {
         return ({ value }) => {
@@ -174,6 +196,9 @@ export class InputValidator {
         this.messages.set('required', () => `Required`)
         this.messages.set('minlength', (...args) => `Shorter than ${args[2]}`)
         this.messages.set('maxlength', (...args) => `Longer than ${args[2]}`)
+        this.messages.set('maxitems', (...args) => `More than ${args[2]} items`)
+        this.messages.set('minitems', (...args) => `Less than ${args[2]} items`)
+
         this.messages.set('min', (...args) => `Less than ${args[2]}`)
         this.messages.set('max', (...args) => `More than ${args[2]}`)
         this.messages.set('hasUppercase', (...args) => `At least ${args[2]} uppercase letters`)
