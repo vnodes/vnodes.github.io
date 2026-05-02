@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -46,7 +46,6 @@ export type RadioOption = {
   `
 })
 export class RadioComponent extends BaseInput {
-  options = input.required<RadioOption[]>({});
 
   protected override convertToValue(value: string) {
     return value

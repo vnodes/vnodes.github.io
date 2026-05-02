@@ -15,7 +15,7 @@ import { ListComponent } from '@vnodes/material/list';
   template: `
     @let subtitle = title(); 
 
-    <mat-nav-list>
+    <mat-nav-list >
       
       @if(subtitle){<h3 matSubheader vnColor="on-surface-variant">{{subtitle}}</h3>}
       
@@ -52,4 +52,4 @@ import { ListComponent } from '@vnodes/material/list';
     </mat-nav-list>
   `
 })
-export class NavListComponent extends ListComponent { }
+export class ListNavComponent extends ListComponent { }

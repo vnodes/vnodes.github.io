@@ -1,19 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { expect } from 'storybook/test';
-import { CheckboxGroupComponent } from './checkbox-group';
+import { ListSelectComponent } from './list-select';
 
-const meta: Meta<CheckboxGroupComponent> = {
-  component: CheckboxGroupComponent,
-  title: 'Input/CheckboxGroup',
+const meta: Meta<ListSelectComponent> = {
+  component: ListSelectComponent,
+  title: 'Input/ListSelect',
 };
 export default meta;
 
-type Story = StoryObj<CheckboxGroupComponent>;
+type Story = StoryObj<ListSelectComponent>;
 
 export const Primary: Story = {
+
   args: {
 
-    label: "Checkbox Group",
+    label: "List select",
     options: [
       { label: "First", value: "First" },
       { label: "Second", value: "Second" },
@@ -25,6 +26,6 @@ export const Primary: Story = {
 export const Heading: Story = {
   ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/Checkbox Group/gi)).toBeTruthy();
+    await expect(canvas.getByText(/List select/gi)).toBeTruthy();
   },
 };

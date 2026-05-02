@@ -17,3 +17,9 @@ export function isNumberString(numberString: string) {
 export function isIntegerString(integerString: string) {
     return IntegerExp.test(integerString)
 }
+
+
+export function hasNumberOfDecimalsOrMore(numberString: string, count: number): boolean {
+    const decimalCount = numberString.split('.')[1]?.length ?? 0;
+    return decimalCount >= count
+}

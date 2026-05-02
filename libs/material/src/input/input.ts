@@ -5,7 +5,12 @@ import { InputValidator } from '@vnodes/material/validators';
 
 export type NumberInputType = 'number' | 'integer';
 export type StringInputType = 'text';
-export type InputType = (NumberInputType | StringInputType)
+export type InputType = (NumberInputType | StringInputType);
+
+export type InputOption = {
+  label: string;
+  value: any;
+}
 
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
@@ -19,6 +24,9 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   max = input<number>(Number.MAX_SAFE_INTEGER)
   email = input<boolean>(false);
   password = input<boolean>(false);
+
+  options = input<InputOption[]>();
+  multiple = input<boolean>(false);
 
   // 
   label = input<string>('');
@@ -50,7 +58,9 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     }
   }
 
-  protected abstract convertToValue(value: string): ValueType | null;
+  protected convertToValue(value: any) {
+    return value;
+  }
 
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;

@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Vnodes Material Library",
   "type": "module",
   "publishConfig": {
@@ -103,17 +103,9 @@
       "types": "./src/fieldset/public-api.ts",
       "default": "./src/fieldset/public-api.ts"
     },
-    "./checkbox-group": {
-      "types": "./src/checkbox-group/public-api.ts",
-      "default": "./src/checkbox-group/public-api.ts"
-    },
     "./list": {
       "types": "./src/list/public-api.ts",
       "default": "./src/list/public-api.ts"
-    },
-    "./nav-list": {
-      "types": "./src/nav-list/public-api.ts",
-      "default": "./src/nav-list/public-api.ts"
     },
     "./common": {
       "types": "./src/common/public-api.ts",
@@ -130,6 +122,18 @@
     "./menu": {
       "types": "./src/menu/public-api.ts",
       "default": "./src/menu/public-api.ts"
+    },
+    "./layout-web": {
+      "types": "./src/layout-web/public-api.ts",
+      "default": "./src/layout-web/public-api.ts"
+    },
+    "./list-nav": {
+      "types": "./src/list-nav/public-api.ts",
+      "default": "./src/list-nav/public-api.ts"
+    },
+    "./list-select": {
+      "types": "./src/list-select/public-api.ts",
+      "default": "./src/list-select/public-api.ts"
     }
   },
   "peerDependencies": {

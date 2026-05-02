@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,10 +34,4 @@ export type ButtonToggleOption = {
 
   `
 })
-export class ButtonToggleComponent extends BaseInput {
-  options = input.required<ButtonToggleOption[]>();
-
-  protected override convertToValue(value: string) {
-    return value
-  }
-}
+export class ButtonToggleComponent extends BaseInput { }

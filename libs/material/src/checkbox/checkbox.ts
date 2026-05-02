@@ -27,11 +27,4 @@ import { BaseInput } from '@vnodes/material/input';
   </mat-checkbox>
   `
 })
-export class CheckboxComponent extends BaseInput {
-
-
-  protected override convertToValue(value: string) {
-    return value
-  }
-
-}
+export class CheckboxComponent extends BaseInput { }

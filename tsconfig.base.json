@@ -65,7 +65,14 @@
       "@vnodes/material/common": ["libs/material/src/common/public-api.ts"],
       "@vnodes/material/icon": ["libs/material/src/icon/public-api.ts"],
       "@vnodes/material/color": ["libs/material/src/color/public-api.ts"],
-      "@vnodes/material/menu": ["libs/material/src/menu/public-api.ts"]
+      "@vnodes/material/menu": ["libs/material/src/menu/public-api.ts"],
+      "@vnodes/material/layout-web": [
+        "libs/material/src/layout-web/public-api.ts"
+      ],
+      "@vnodes/material/list-nav": ["libs/material/src/list-nav/public-api.ts"],
+      "@vnodes/material/list-select": [
+        "libs/material/src/list-select/public-api.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

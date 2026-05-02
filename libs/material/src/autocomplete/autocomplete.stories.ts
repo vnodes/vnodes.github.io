@@ -14,9 +14,9 @@ export const Primary: Story = {
   args: {
     label: "Autocomplete",
     options: [
-      "First",
-      "Second",
-      "Third"
+      { value: "First", label: "First" },
+      { value: "Second", label: "Second" },
+      { value: "Third", label: "Third" },
     ]
   },
 };

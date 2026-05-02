@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,7 +33,6 @@ import { map, startWith } from 'rxjs';
     <mat-error>{{errorMessage()}}</mat-error>
     
     <input 
-    
            type="text"
            autocomplete="off"
            matInput
@@ -46,7 +45,7 @@ import { map, startWith } from 'rxjs';
            [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       @for (option of filteredOptions | async; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
+        <mat-option [value]="option.value">{{option.label || option.value}}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
@@ -54,19 +53,15 @@ import { map, startWith } from 'rxjs';
   `
 })
 export class AutocompleteComponent extends BaseInput {
-  options = input.required<string[]>();
+
   filteredOptions = this.formControl().valueChanges.pipe(
     startWith(''),
     map(currentValue => this.filter(currentValue))
 
   )
-  protected override convertToValue(value: string) {
-    return value;
-  }
-
 
   filter(currentValue: string) {
-    return this.options().filter(o => o.toLowerCase().startsWith(currentValue.toLowerCase()))
+    return this.options()?.filter(o => o.value.toLowerCase().startsWith(currentValue.toLowerCase()))
   }
 
 

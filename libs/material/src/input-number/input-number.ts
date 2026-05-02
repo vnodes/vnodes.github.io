@@ -49,6 +49,8 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
       [maxlength]="maxlength()"
       [required]="required()"
       vnNumberFilter
+      [vnNumberType]="type()"
+      [vnDecimals]="decimals()"
       />
     </mat-form-field>
   }
@@ -57,6 +59,8 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
 export class InputNumberComponent extends BaseInput<number> {
 
   type = input.required<NumberInputType>();
+  decimals = input<number>(6);
+
   protected override convertToValue(value: string) {
 
     if (value === null || value === undefined || value === '') {

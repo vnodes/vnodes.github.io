@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { expect } from 'storybook/test';
-import { NavListComponent } from './nav-list';
+import { ListNavComponent } from './list-nav';
 
-const meta: Meta<NavListComponent> = {
-  component: NavListComponent,
+const meta: Meta<ListNavComponent> = {
+  component: ListNavComponent,
   title: 'List/Nav',
 };
 export default meta;
 
-type Story = StoryObj<NavListComponent>;
+type Story = StoryObj<ListNavComponent>;
 
 export const Primary: Story = {
 

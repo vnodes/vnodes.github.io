@@ -37,10 +37,8 @@ export type SelectOption = {
 
       <!-- Errors -->
     <mat-error>{{errorMessage()}}</mat-error>
-    <mat-select [multiple]="multiple()" 
-    
-
-
+    <mat-select 
+       [multiple]="multiple()" 
        [formControl]="formControl()"
        [placeholder]="placeholder()"
        [disabled]="disabled()"
@@ -59,12 +57,5 @@ export type SelectOption = {
 })
 export class SelectComponent extends BaseInput {
   type = input.required<'select'>();
-  multiple = input<boolean>(false)
-  options = input.required<SelectOption[]>();
-
-  protected override convertToValue(value: string) {
-    return value;
-  }
-
 
 }

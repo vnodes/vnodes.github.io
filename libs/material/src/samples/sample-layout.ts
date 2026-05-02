@@ -3,10 +3,10 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { LayoutAppComponent, LayoutAppModule } from "@vnodes/material/layout-app";
 import { NavListItem } from "@vnodes/material/list";
-import { NavListComponent } from "@vnodes/material/nav-list";
+import { ListNavComponent } from "@vnodes/material/list-nav";
 
 @Component({
-    imports: [LayoutAppComponent, LayoutAppModule, NavListComponent, MatButtonModule, MatIconModule],
+    imports: [LayoutAppComponent, LayoutAppModule, ListNavComponent, MatButtonModule, MatIconModule],
     template: `
     <vn-layout type="app">
 

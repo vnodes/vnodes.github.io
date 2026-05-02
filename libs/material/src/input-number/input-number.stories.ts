@@ -24,7 +24,7 @@ export const Integer: Story = {
 };
 export const Range10: Story = {
   args: {
-    type: "number",
+    type: "integer",
     label: "Integer label",
     min: 0,
     max: 10
