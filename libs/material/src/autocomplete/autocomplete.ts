@@ -52,7 +52,7 @@ import { map, startWith } from 'rxjs';
   }
   `
 })
-export class AutocompleteComponent extends BaseInput {
+export class AutocompleteComponent extends BaseInput<string> {
 
   filteredOptions = this.formControl().valueChanges.pipe(
     startWith(''),

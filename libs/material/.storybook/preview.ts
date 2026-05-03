@@ -27,12 +27,12 @@ const preview: Preview = {
     ],
 
     parameters: {
-        actions: { argTypesRegex: '^on[A-Z].*|^.*Change$' },
+        actions: { argTypesRegex: '^on[A-Z].*|^.*Change$', },
         controls: {
             matchers: {
                 color: /(background|color)$/i,
                 date: /Date$/i,
-                text: /(name|description)$/i,
+                text: /(name|description|label)$/i,
                 number: /(count|price|cost|id)$/i,
                 checkbox: /^is.*/,
                 radio: /options$/i,

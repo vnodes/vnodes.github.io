@@ -11,7 +11,6 @@ import { BaseInput } from '@vnodes/material/input';
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule],
   template: `
   <mat-slide-toggle
-  
        type="text"
        autocomplete="off"
        matInput
@@ -25,9 +24,4 @@ import { BaseInput } from '@vnodes/material/input';
   >{{label()}}</mat-slide-toggle>
   `
 })
-export class SlideToggleComponent extends BaseInput {
-
-  protected override convertToValue(value: string) {
-    return value;
-  }
-}
+export class SlideToggleComponent extends BaseInput { }

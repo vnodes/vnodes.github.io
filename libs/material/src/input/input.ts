@@ -1,31 +1,34 @@
-import { Directive, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Directive, inject, input, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { InputValidator } from '@vnodes/material/validators';
+import { InputValidator, isDefined } from '@vnodes/material/validators';
 
 
 export type NumberInputType = 'number' | 'integer';
 export type StringInputType = 'text';
 export type InputType = (NumberInputType | StringInputType);
 
-export type InputOption = {
+export type InputOption<T = any> = {
+  id?: string;
   label: string;
-  value: any;
+  value: T;
 }
 
 @Directive()
-export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit, OnChanges {
+export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
 
   inputValidator = inject(InputValidator);
   // Validators
   required = input<boolean>(false);
   minlength = input<number>(1);
   maxlength = input<number>(400);
+  minitems = input<number>(0)
+  maxitems = input<number>(Number.MAX_SAFE_INTEGER)
   min = input<number>(Number.MIN_SAFE_INTEGER)
   max = input<number>(Number.MAX_SAFE_INTEGER)
   email = input<boolean>(false);
   password = input<boolean>(false);
 
-  options = input<InputOption[]>();
+  options = input<InputOption<ValueType>[]>();
   multiple = input<boolean>(false);
 
   // 
@@ -33,6 +36,8 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   placeholder = input<string>('');
   hint = input<string>('');
   value = model<ValueType | null>(null);
+  defaultValue = input<ValueType | null>(null)
+
   disabled = signal<boolean>(false);
   formControl = signal<FormControl>(new FormControl())
 
@@ -42,13 +47,15 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   textPrefix = input<string>()
   textSuffix = input<string>()
 
+
   protected onChange: (value: ValueType | null) => void = () => {
-    return;
+    // 
+  };
+  protected onTouched: () => void = () => {
+    // 
   };
 
-  protected onTouched: () => void = () => {
-    return;
-  };
+
 
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
@@ -58,19 +65,18 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     }
   }
 
-  protected convertToValue(value: any) {
+  protected convertToValue(value: any): ValueType | null {
     return value;
   }
 
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.handleValueChange(target.value);
+    this.handleValueChange(this.convertToValue(target.value));
   }
 
-  handleValueChange(value: any) {
-    const cValue = this.convertToValue(value);
-    this.value.set(cValue);
-    this.onChange(cValue);
+  handleValueChange(value: ValueType | null) {
+    this.value.set(value);
+    this.onChange(value);
   }
 
   handleBlur(): void {
@@ -113,14 +119,22 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
 
   ngOnInit(): void {
     if (this.ngControl) {
+
       this.ngControl.valueAccessor = this;
-      this.formControl.update(() => this.ngControl?.control as FormControl);
+      const __control = this.ngControl.control
+      const __defaultValue = this.defaultValue();
+
+      if (isDefined(__control)) {
+        this.formControl.update(() => __control as FormControl);
+
+        if (isDefined(__defaultValue)) {
+          __control.setValue(__defaultValue)
+        }
+      }
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("Changed: ", this.formControl().value)
-  }
+
 
 
 }

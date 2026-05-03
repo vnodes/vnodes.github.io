@@ -47,10 +47,4 @@ import { BaseInput } from '@vnodes/material/input';
     }
 `
 })
-export class InputTimeComponent extends BaseInput {
-
-
-  protected override convertToValue(value: string) {
-    return value;
-  }
-}
+export class InputTimeComponent extends BaseInput { }

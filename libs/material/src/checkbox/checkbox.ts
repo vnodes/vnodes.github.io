@@ -27,4 +27,4 @@ import { BaseInput } from '@vnodes/material/input';
   </mat-checkbox>
   `
 })
-export class CheckboxComponent extends BaseInput { }
+export class CheckboxComponent extends BaseInput<boolean> { }

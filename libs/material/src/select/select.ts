@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -55,7 +55,4 @@ export type SelectOption = {
   `,
   styles: ``,
 })
-export class SelectComponent extends BaseInput {
-  type = input.required<'select'>();
-
-}
+export class SelectComponent extends BaseInput { }

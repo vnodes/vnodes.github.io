@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,10 +9,9 @@ import { BaseInput } from '@vnodes/material/input';
 
 @Component({
 
-  selector: 'vn-list[type="select"]',
-  imports: [FieldsetComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatListModule],
+  selector: 'vn-input[type="list"]',
+  imports: [FieldsetComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatListModule, JsonPipe],
   template: `
-
   <vn-fieldset [label]="label()">
     <mat-selection-list 
       [ariaLabel]="label()"
@@ -22,16 +22,21 @@ import { BaseInput } from '@vnodes/material/input';
       [required]="required()"
       >
 
+      <!-- Null value  -->
+       @if(!multiple()){ 
+         <mat-list-option [value]="null">None</mat-list-option>
+       }
+
     @for (option of options(); track option) {
       <mat-list-option [value]="option.value">{{option.label}}</mat-list-option>
     }
   </mat-selection-list>
 </vn-fieldset>
+
+{{formControl().value| json}}
   `,
 })
-export class ListSelectComponent extends BaseInput {
+export class ListSelectComponent extends BaseInput<any> {
 
-  protected override convertToValue(value: string) {
-    return value;
-  }
+
 }

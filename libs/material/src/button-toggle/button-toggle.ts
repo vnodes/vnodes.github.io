@@ -25,13 +25,11 @@ export type ButtonToggleOption = {
        [required]="required()"
   >
 
-  @for(option of options(); track option){ 
-
-
-    <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
-  }
+    @for(option of options(); track option){ 
+      <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
+    }
   </mat-button-toggle-group>
 
   `
 })
-export class ButtonToggleComponent extends BaseInput { }
+export class ButtonToggleComponent extends BaseInput<string | number> { }

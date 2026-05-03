@@ -37,7 +37,9 @@ import { BaseInput } from '@vnodes/material/input';
         [placeholder]="placeholder()" 
         [formControl]="formControl()" 
         [required]="required()" 
-        (dblclick)="picker.open()">
+        (dblclick)="picker.open()"
+        [title]="value()"
+        >
       <mat-hint>{{hint() || "MM/DD/YYYY"}}</mat-hint>
       <mat-error>{{errorMessage()}} </mat-error>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -47,14 +49,4 @@ import { BaseInput } from '@vnodes/material/input';
   `,
   providers: [provideNativeDateAdapter()]
 })
-export class InputDateComponent extends BaseInput<Date> {
-
-
-  protected override convertToValue(value: string): Date | null {
-
-    if (value) {
-      return new Date(value);
-    }
-    return null;
-  }
-}
+export class InputDateComponent extends BaseInput<Date> { }
