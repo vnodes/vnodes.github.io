@@ -36,18 +36,17 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
       <!-- Input -->
       <input
-      type="text"
       matInput
+      type="text"
       autocomplete="off"
       [formControl]="formControl()"
       [placeholder]="placeholder()"
       [disabled]="disabled()"
-      (input)="handleInput($event)"
-      (blur)="handleBlur()"
       [min]="min()"
       [max]="max()"
       [maxlength]="maxlength()"
       [required]="required()"
+      
       vnNumberFilter
       [vnNumberType]="type()"
       [vnDecimals]="decimals()"
@@ -57,23 +56,8 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
     `
 })
 export class InputNumberComponent extends BaseInput<number> {
-
   type = input.required<NumberInputType>();
   decimals = input<number>(6);
-
-  protected override convertToValue(value: string) {
-
-    if (value === null || value === undefined || value === '') {
-      return null
-    }
-
-    const parsedValue = this.type() === 'integer'
-      ? parseInt(value, 10)
-      : parseFloat(value);
-
-    return isNaN(parsedValue) ? null : parsedValue;
-
-  }
 
 
 }

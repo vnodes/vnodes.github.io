@@ -20,7 +20,7 @@ import { BaseInput } from '@vnodes/material/input';
 
       <!-- Description -->
       @if(label()){ <mat-label>{{ label() }}</mat-label>}
-      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
+      @if (hint()) { <mat-hint>{{ hint() || "HH:MM" }}</mat-hint> }
 
       <!-- Prefix/Suffix -->
       @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
@@ -28,19 +28,17 @@ import { BaseInput } from '@vnodes/material/input';
       @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
       @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
 
+      <mat-error>{{errorMessage()}}</mat-error>
+
       <input 
       matInput
       autocomplete="off" 
-      [placeholder]="placeholder()" 
       [formControl]="formControl()"
+      [disabled]="disabled()"
       [required]="required()"
       [matTimepicker]="picker"
-      [disabled]="disabled()"
-      (input)="handleInput($event)"
-      (blur)="handleBlur()"
       >
       <mat-timepicker-toggle matIconSuffix [for]="picker"/>
-      <mat-error>{{errorMessage()}}</mat-error>
 
       <mat-timepicker #picker/>
     </mat-form-field>

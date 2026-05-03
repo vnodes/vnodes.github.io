@@ -33,21 +33,21 @@ import { map, startWith } from 'rxjs';
     <mat-error>{{errorMessage()}}</mat-error>
     
     <input 
-           type="text"
-           autocomplete="off"
-           matInput
-           [formControl]="control"
-           [placeholder]="placeholder()"
-           [disabled]="disabled()"
-           (input)="handleInput($event)"
-           (blur)="handleBlur()"
-           [required]="required()"
-           [matAutocomplete]="auto">
+      type="text"
+      autocomplete="off"
+      matInput
+      [formControl]="control"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [matAutocomplete]="auto">
+
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       @for (option of filteredOptions | async; track option) {
         <mat-option [value]="option.value">{{option.label || option.value}}</mat-option>
       }
     </mat-autocomplete>
+
   </mat-form-field>
   }
   `

@@ -5,11 +5,7 @@ import { ListSelectComponent } from './list-select';
 
 const meta: Meta<ListSelectComponent> = {
   component: ListSelectComponent,
-  title: 'Input/List',
-
-  argTypes: {
-    handleValueChange: { action: "value" }
-  }
+  title: 'Input/List'
 };
 export default meta;
 

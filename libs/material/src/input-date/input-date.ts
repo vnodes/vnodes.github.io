@@ -18,30 +18,26 @@ import { BaseInput } from '@vnodes/material/input';
      
       <!-- Description -->
       @if(label()){ <mat-label>{{ label() }}</mat-label>}
-      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
+      @if (hint()) { <mat-hint>{{ hint() || "MM/DD/YYYY" }}</mat-hint> }
+      
 
       <!-- Prefix/Suffix -->
       @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
       @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
       @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
       @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
-
+      <mat-error>{{errorMessage()}} </mat-error>
 
       <input 
-        autocomplete="off"
         matInput 
+        autocomplete="off"
         [disabled]="disabled()"
-        (input)="handleInput($event)"
-        (blur)="handleBlur()"
         [matDatepicker]="picker" 
         [placeholder]="placeholder()" 
         [formControl]="formControl()" 
         [required]="required()" 
         (dblclick)="picker.open()"
-        [title]="value()"
         >
-      <mat-hint>{{hint() || "MM/DD/YYYY"}}</mat-hint>
-      <mat-error>{{errorMessage()}} </mat-error>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

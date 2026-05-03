@@ -17,6 +17,7 @@ export type InputOption<T = any> = {
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
 
   inputValidator = inject(InputValidator);
+  
   // Validators
   required = input<boolean>(false);
   minlength = input<number>(1);
@@ -58,29 +59,10 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
 
 
   readonly ngControl = inject(NgControl, { self: true, optional: true });
-
   constructor() {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this
     }
-  }
-
-  protected convertToValue(value: any): ValueType | null {
-    return value;
-  }
-
-  handleInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.handleValueChange(this.convertToValue(target.value));
-  }
-
-  handleValueChange(value: ValueType | null) {
-    this.value.set(value);
-    this.onChange(value);
-  }
-
-  handleBlur(): void {
-    this.onTouched();
   }
 
 
@@ -100,7 +82,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.disabled.set(isDisabled);
   }
 
-  errorMessage() {
+  protected errorMessage() {
     const errors = this.formControl().errors;
     if (errors) {
       const [constraint, constraintValue] = Object.entries(errors)[0];
@@ -133,9 +115,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
       }
     }
   }
-
-
-
 
 }
 

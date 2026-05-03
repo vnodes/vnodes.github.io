@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseInput } from '@vnodes/material/input';
 
@@ -16,9 +14,7 @@ export type SelectOption = {
   selector: 'vn-input[type="select"]',
   imports: [
     ReactiveFormsModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
+    MatSelectModule
   ],
   template: `
    @let control =  formControl(); 
@@ -34,16 +30,13 @@ export type SelectOption = {
       @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
       @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
       @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
+      
+      <mat-error>{{errorMessage()}}</mat-error>
 
-      <!-- Errors -->
-    <mat-error>{{errorMessage()}}</mat-error>
     <mat-select 
        [multiple]="multiple()" 
        [formControl]="formControl()"
-       [placeholder]="placeholder()"
        [disabled]="disabled()"
-       (input)="handleInput($event)"
-       (blur)="handleBlur()"
        [required]="required()"
     >
       @for (option of options(); track option.value) {

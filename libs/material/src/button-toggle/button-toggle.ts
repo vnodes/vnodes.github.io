@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
 
 export type ButtonToggleOption = {
@@ -13,18 +11,15 @@ export type ButtonToggleOption = {
 @Component({
   selector: 'vn-input[type="button-toggle"], vn-input[type="buttons"]',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonToggleModule],
+  imports: [ReactiveFormsModule, MatButtonToggleModule],
   template: `
   <mat-button-toggle-group 
        [formControl]="formControl()"
        [disabled]="disabled()"
-       (input)="handleInput($event)"
-       (blur)="handleBlur()"
        [minlength]="minlength()"
        [maxlength]="maxlength()"
        [required]="required()"
   >
-
     @for(option of options(); track option){ 
       <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
     }
