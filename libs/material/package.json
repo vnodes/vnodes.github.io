@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vnodes Material Library",
   "keywords": [
     "plugin"
@@ -21,7 +21,8 @@
     "tag": "latest"
   },
   "files": [
-    "assets"
+    "assets",
+    "README.md"
   ],
   "exports": {
     ".": {

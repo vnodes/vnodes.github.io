@@ -4,7 +4,8 @@
   "dest": "../../../dist/libs/material",
   "assets": [
     "media",
-    "assets"
+    "assets",
+    "README.md"
   ],
   "lib": {
     "entryFile": "./public-api.ts"
