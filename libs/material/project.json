@@ -81,6 +81,9 @@
         "outputDir": "public/libs/material",
         "configDir": "libs/material/.storybook",
         "browserTarget": "material:build-storybook",
+        "assets": [
+          "./src/assets"
+        ],
         "compodoc": true,
         "compodocArgs": [
           "-p",

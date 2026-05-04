@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Vnodes Material Library",
   "keywords": [
     "plugin"
@@ -11,7 +11,7 @@
     "url": "https://vnodes.github.io/vnodes"
   },
   "homepage": "https://vnodes.github.io/libs/material",
-  "icon": "https://vnodes.github.io/libs/material/assets/favicon.png",
+  "icon": "https://vnodes.github.io/libs/material/favicon.png",
   "funding": [
     "https://cash.app/$puqlib"
   ],

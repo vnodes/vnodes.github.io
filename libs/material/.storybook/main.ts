@@ -18,7 +18,10 @@ const config: StorybookConfig = {
 
     }
   },
-  staticDirs: ['../../../dist/apps/web/browser'],
+  staticDirs: [
+    '../../../dist/apps/web/browser',
+    '../src/assets',
+  ],
   docs: {
     defaultName: "Doc",
   },
