@@ -3,7 +3,8 @@
   "deleteDestPath": true,
   "dest": "../../../dist/libs/material",
   "assets": [
-    "media"
+    "media",
+    "assets"
   ],
   "lib": {
     "entryFile": "./public-api.ts"

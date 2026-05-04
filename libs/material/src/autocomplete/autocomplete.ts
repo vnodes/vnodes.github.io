@@ -19,14 +19,14 @@ import { map, startWith } from 'rxjs';
      <mat-form-field>
 
        <!-- Description -->
-      @if(label()){  <mat-label>{{ label() }}</mat-label>           }
-      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint>              }
+      @if(label()) { <mat-label>{{ label() }}</mat-label> }
+      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
 
       <!-- Prefix/Suffix -->
-      @if(textPrefix()){  <span matTextPrefix>{{textPrefix()}}</span>           }
-      @if(textSuffix()){  <span matTextSuffix>{{textSuffix()}}</span>           }
-      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>   }
-      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>   }
+      @if(textPrefix()){  <span matTextPrefix>{{textPrefix()}}</span>  }
+      @if(textSuffix()){  <span matTextSuffix>{{textSuffix()}}</span>  }
+      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>  }
+      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>  }
 
 
     <!-- Errors -->

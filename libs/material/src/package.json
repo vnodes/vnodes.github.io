@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Vnodes Material Library",
   "keywords": [
     "plugin"
@@ -16,7 +16,7 @@
     "https://cash.app/$puqlib"
   ],
   "files": [
-    "assets"
+    "*"
   ],
   "publishConfig": {
     "access": "public",
