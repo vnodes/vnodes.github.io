@@ -7,13 +7,12 @@ import { InputTextComponent } from '@vnodes/material/input-text';
 import { InputValidator } from '@vnodes/material/validators';
 
 @Component({
-  selector: 'vn-form-sample',
+  selector: 'vn-form[login]',
   imports: [FormModule, MatButtonModule, ReactiveFormsModule, InputTextComponent, FlexModule],
   template: `
   <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" submitLabel="Login" resetLabel="Reset" >  
     <vn-input type="text" [required]="true" formControlName="username" label="Username" ></vn-input>
     <vn-input type="text" [required]="true" [password]="true" formControlName="password" label="Password" ></vn-input>
-
     <button type="button" mat-flat-button vnFormAction (click)="forgotPassword()">Forgot Password</button>
   </form>
   `,

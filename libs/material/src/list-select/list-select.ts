@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { FieldsetComponent } from '@vnodes/material/fieldset';
 import { BaseInput } from '@vnodes/material/input';
@@ -12,13 +10,12 @@ import { BaseInput } from '@vnodes/material/input';
   imports: [
     FieldsetComponent,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatListModule
   ],
   template: `
   <vn-fieldset [label]="label()">
     <mat-selection-list 
+      #componentRef
       [ariaLabel]="label()"
       [formControl]="formControl()" 
       [multiple]="multiple()"
@@ -28,13 +25,12 @@ import { BaseInput } from '@vnodes/material/input';
       >
 
     @for (option of options(); track option) {
-      <mat-list-option [value]="option.value">{{option.label}}</mat-list-option>
+      <mat-list-option  [value]="option.value"   >{{option.label}}</mat-list-option>
     }
   </mat-selection-list>
 </vn-fieldset>
   `,
 })
 export class ListSelectComponent extends BaseInput<any> {
-
-
+  type = input.required<"list">()
 }

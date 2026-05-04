@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BaseInput } from '@vnodes/material/input';
 
 @Component({
-  selector: 'vn-input[type=slide]',
+  selector: 'vn-input[type="slide"], vn-input[type="slider"]',
   standalone: true,
   imports: [ReactiveFormsModule, MatSlideToggleModule],
   template: `
@@ -16,4 +16,6 @@ import { BaseInput } from '@vnodes/material/input';
   </mat-slide-toggle>
   `
 })
-export class SlideToggleComponent extends BaseInput { }
+export class SlideToggleComponent extends BaseInput {
+  type = input.required<"slider" | 'slide'>();
+}

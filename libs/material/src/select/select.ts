@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseInput } from '@vnodes/material/input';
@@ -11,7 +11,7 @@ export type SelectOption = {
 
 
 @Component({
-  selector: 'vn-input[type="select"]',
+  selector: 'vn-input[type="select"], vn-input[type="dropdown"]',
   imports: [
     ReactiveFormsModule,
     MatSelectModule
@@ -45,7 +45,9 @@ export type SelectOption = {
     </mat-select>
   </mat-form-field>
 }
-  `,
-  styles: ``,
+  `
 })
-export class SelectComponent extends BaseInput { }
+export class SelectComponent extends BaseInput {
+
+  type = input.required<'select' | 'dropdown'>()
+}

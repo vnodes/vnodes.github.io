@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,10 +7,9 @@ import { BaseInput } from '@vnodes/material/input';
 
 
 @Component({
-  selector: 'vn-input[type="text"]',
+  selector: 'vn-input[type="text"], vn-input[type="string"],',
   imports: [ReactiveFormsModule, MatIconModule, MatFormFieldModule, MatInputModule],
   template: `
-
    @let control =  formControl(); 
 
    @if(control){ 
@@ -53,4 +52,5 @@ import { BaseInput } from '@vnodes/material/input';
   ]
 })
 export class InputTextComponent extends BaseInput<string> {
+  type = input.required<'text' | 'string'>();
 }

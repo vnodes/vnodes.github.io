@@ -6,7 +6,7 @@ import { InputTextComponent } from '@vnodes/material/input-text';
 import { InputValidator } from '@vnodes/material/validators';
 
 @Component({
-  selector: 'vn-form-sample',
+  selector: 'vn-form[address]',
   imports: [FormModule, ReactiveFormsModule, InputTextComponent, FlexModule],
   template: `
   <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" (formSubmitEvet)="handleFormSubmit($event)">  

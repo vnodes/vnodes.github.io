@@ -30,7 +30,13 @@
         },
         "development": {}
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "generate-package"
+      ]
+    },
+    "generate-package": {
+      "command": "node {projectRoot}/scripts/generate-package.mjs"
     },
     "nx-release-publish": {
       "options": {

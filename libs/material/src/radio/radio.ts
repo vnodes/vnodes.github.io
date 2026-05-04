@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { FieldsetComponent } from '@vnodes/material/fieldset';
@@ -18,7 +18,6 @@ export type RadioOption = {
     FieldsetComponent
   ],
   template: `
-
 <vn-fieldset [label]="label()">
     <mat-radio-group  
       matInput
@@ -38,5 +37,5 @@ export type RadioOption = {
   `
 })
 export class RadioComponent extends BaseInput {
-
+  type = input.required<'radio'>()
 }

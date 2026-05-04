@@ -1,4 +1,4 @@
-import { Directive, inject, input, model, OnInit, signal } from '@angular/core';
+import { Directive, inject, input, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { InputValidator, isDefined } from '@vnodes/material/validators';
 
@@ -17,7 +17,7 @@ export type InputOption<T = any> = {
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
 
   inputValidator = inject(InputValidator);
-  
+
   // Validators
   required = input<boolean>(false);
   minlength = input<number>(1);
@@ -36,7 +36,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   label = input<string>('');
   placeholder = input<string>('');
   hint = input<string>('');
-  value = model<ValueType | null>(null);
   defaultValue = input<ValueType | null>(null)
 
   disabled = signal<boolean>(false);
@@ -56,18 +55,16 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     // 
   };
 
-
-
   readonly ngControl = inject(NgControl, { self: true, optional: true });
+
   constructor() {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this
     }
   }
 
-
   writeValue(value: ValueType): void {
-    this.value.set(value);
+    // this.value.set(value);
   }
 
   registerOnChange(fn: any): void {
@@ -100,20 +97,33 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
 
 
   ngOnInit(): void {
+    this.__setValueAccessor();
+    this.__setDefaultValue()
+  }
+
+
+  private __setValueAccessor() {
     if (this.ngControl) {
-
       this.ngControl.valueAccessor = this;
-      const __control = this.ngControl.control
+    }
+  }
+
+  private __setDefaultValue() {
+    const __control = this.ngControl?.control as FormControl
+
+    if (isDefined(__control)) {
+      this.formControl.update(() => __control as FormControl);
+
       const __defaultValue = this.defaultValue();
-
-      if (isDefined(__control)) {
-        this.formControl.update(() => __control as FormControl);
-
-        if (isDefined(__defaultValue)) {
-          __control.setValue(__defaultValue)
-        }
+      if (isDefined(__defaultValue)) {
+        this.setDefaultValue(__control, __defaultValue)
       }
     }
+  }
+
+  protected setDefaultValue(control: FormControl, value: ValueType) {
+    control.setValue(value, { emitEvent: false })
+
   }
 
 }
