@@ -46,7 +46,7 @@ importers:
         version: 0.1.0
       '@vnodes/utils':
         specifier: ^0.1.0
-        version: 0.1.0(@vnodes/errors@0.1.0)(@vnodes/types@0.1.0)
+        version: 0.1.0(@vnodes/types@0.1.0)
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -132,6 +132,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.40.0
         version: 8.58.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@vnodes/fs':
+        specifier: ^0.1.1
+        version: 0.1.1(js-yaml@4.1.1)
       '@vnodes/plugin':
         specifier: ^0.1.10
         version: 0.1.10(nx@22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))
@@ -3580,9 +3583,12 @@ packages:
   '@vitest/utils@4.1.4':
     resolution: {integrity: sha512-13QMT+eysM5uVGa1rG4kegGYNp6cnQcsTc67ELFbhNLQO+vgsygtYJx2khvdt4gVQqSSpC/KT5FZZxUpP3Oatw==}
 
-  '@vnodes/errors@0.1.0':
-    resolution: {integrity: sha512-DCKio4zcTrz4T7lQu9yeq0kVGKAN2i0ufJLi7GD+IIrrCFWXarVOyo6RQfWV7R5FI1INdqn/vZsKx9n6AvZauQ==}
+  '@vnodes/fs@0.1.1':
+    resolution: {integrity: sha512-lVRDE/P/x+mM7h9p0pU1k4eRLxBAhceNN3F30BN2k0FiYIJ9akYIHriVOIsrveXSgVOIYGaUay+98ztIpaxi2w==}
     hasBin: true
+    peerDependencies:
+      '@vnodes/errors': 0.1.1
+      js-yaml: ^4.1.1
 
   '@vnodes/plugin@0.1.10':
     resolution: {integrity: sha512-8bEZ5A9GuFt1wrNdxLffE3WKHxzgUNDsCVRG0wD09v2frDtheBQuWGEcIuBDepPjB7aD3t//0Ci7r7vL29Ggpw==}
@@ -13462,9 +13468,10 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
 
-  '@vnodes/errors@0.1.0':
+  '@vnodes/fs@0.1.1(js-yaml@4.1.1)':
     dependencies:
       '@swc/helpers': 0.5.21
+      js-yaml: 4.1.1
 
   '@vnodes/plugin@0.1.10(nx@22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))':
     dependencies:
@@ -13477,10 +13484,9 @@ snapshots:
     dependencies:
       '@swc/helpers': 0.5.21
 
-  '@vnodes/utils@0.1.0(@vnodes/errors@0.1.0)(@vnodes/types@0.1.0)':
+  '@vnodes/utils@0.1.0(@vnodes/types@0.1.0)':
     dependencies:
       '@swc/helpers': 0.5.21
-      '@vnodes/errors': 0.1.0
       '@vnodes/types': 0.1.0
 
   '@webassemblyjs/ast@1.14.1':

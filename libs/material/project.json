@@ -82,7 +82,7 @@
         "configDir": "libs/material/.storybook",
         "browserTarget": "material:build-storybook",
         "assets": [
-          "./src/assets"
+          "libs/material/src/assets"
         ],
         "compodoc": true,
         "compodocArgs": [
