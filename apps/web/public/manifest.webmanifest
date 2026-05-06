@@ -2,8 +2,48 @@
   "name": "web",
   "short_name": "web",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/",
+  "start_url": "/",
+  "theme_color": "#abc7ff",
+  "background_color": "#121316",
+  "screenshots": [
+    {
+      "src": "screenshots/mobile-screenshot.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Dashboard on Mobile"
+    },
+    {
+      "src": "screenshots/desktop-screenshot.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard on Desktop"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "url": "/#/home",
+      "icons": [
+        {
+          "src": "shortcuts/home.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "About",
+      "url": "/#/about",
+      "icons": [
+        {
+          "src": "shortcuts/about.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-72x72.png",

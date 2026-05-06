@@ -16,6 +16,7 @@
         "browser": "apps/web/src/main.ts",
         "tsConfig": "apps/web/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "ssr": false,
         "assets": [
           {
             "glob": "**/*",
@@ -44,7 +45,13 @@
         },
         "development": {}
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "build-script"
+      ]
+    },
+    "build-script": {
+      "command": "node apps/web/scripts/build.mjs"
     },
     "serve": {
       "continuous": true,

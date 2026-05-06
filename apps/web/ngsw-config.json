@@ -1,11 +1,12 @@
 {
   "$schema": "../../node_modules/@angular/service-worker/config/schema.json",
-  "index": "/index.html",
+  "index": "index.html",
   "navigationUrls": [
     "/**",
+    "!/**/app-1/**",
+    "!/**/app-2/**",
+    "!/**/app-3/**",
     "!/**/*.*",
-    "!/**/assets/**",
-    "!/**/icons/**",
     "!/**/*__*",
     "!/libs/**",
     "!/vnodes/**"
@@ -16,12 +17,12 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/favicon.png",
-          "/index.csr.html",
-          "/index.html",
-          "/manifest.webmanifest",
-          "/*.css",
-          "/*.js"
+          "favicon.png",
+          "index.csr.html",
+          "index.html",
+          "manifest.webmanifest",
+          "*.css",
+          "*.js"
         ]
       }
     },
@@ -31,7 +32,8 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "assets/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)",
+          "icons/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
     }
