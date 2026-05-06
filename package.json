@@ -63,6 +63,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "~21.2.0",
     "nx": "22.6.5",
+    "nx-electron": "^22.0.0",
     "plugin:latest": "link:@vnodes/plugin:latest",
     "postcss": "^8.4.5",
     "prettier": "~3.6.2",
