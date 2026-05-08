@@ -23,6 +23,28 @@ export class ColorDirective {
 
 
 
+/**
+ * Directive to set elements's style color from the angular-theme variables
+ */
+@Directive({
+  selector: `[vnBgColor]`,
+  host: {
+    '[style.backgroundColor]': 'vnBgColorComputed()',
+  }
+})
+export class BgColorDirective {
+
+  /**
+   * {@link Color}
+   */
+  vnBgColor = input.required<Color>();
+
+  vnBgColorComputed = computed(() => colorVar(this.vnBgColor()))
+}
+
+
+
+
 
 
 

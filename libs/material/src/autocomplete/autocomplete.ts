@@ -47,7 +47,6 @@ import { map, startWith } from 'rxjs';
       [disabled]="disabled()"
       [required]="required()"
       [matAutocomplete]="auto"
-      [attr.data-test-id]="inputTestId()"
       >
 
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">

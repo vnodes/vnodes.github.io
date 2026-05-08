@@ -11,12 +11,14 @@ export default meta;
 type Story = StoryObj<FieldsetComponent>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    label: "Label"
+  },
 };
 
 export const Heading: Story = {
-  args: {},
+  ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/fieldset/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Label/gi)).toBeTruthy();
   },
 };
