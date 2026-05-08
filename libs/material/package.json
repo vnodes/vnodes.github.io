@@ -151,6 +151,10 @@
     "./list-select": {
       "types": "./src/list-select/public-api.ts",
       "default": "./src/list-select/public-api.ts"
+    },
+    "./input-field": {
+      "types": "./src/input-field/public-api.ts",
+      "default": "./src/input-field/public-api.ts"
     }
   },
   "peerDependencies": {

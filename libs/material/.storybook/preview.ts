@@ -36,6 +36,7 @@ const preview: Preview = {
                 number: /(count|price|cost|id)$/i,
                 checkbox: /^is.*/,
                 radio: /options$/i,
+            
             },
         },
     }

@@ -72,6 +72,9 @@
       "@vnodes/material/list-nav": ["libs/material/src/list-nav/public-api.ts"],
       "@vnodes/material/list-select": [
         "libs/material/src/list-select/public-api.ts"
+      ],
+      "@vnodes/material/input-field": [
+        "libs/material/src/input-field/public-api.ts"
       ]
     }
   },

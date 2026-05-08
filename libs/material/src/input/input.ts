@@ -13,6 +13,7 @@ export type InputOption<T = any> = {
   value: T;
 }
 
+
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
 
