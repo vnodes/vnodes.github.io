@@ -1,22 +1,34 @@
 import { computed, Directive, HostBinding, input, NgModule } from "@angular/core";
 
-export type FlexDirValue = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'
-export type FlexWrapValue = '' | 'wrap' | 'nowrap' | 'wrap-reverse';
+export type FlexDirectionOptions = '' | 'column' | 'row' | 'column-reverse' | 'row-reverse'
+export type FlexWrapOptions = '' | 'wrap' | 'nowrap' | 'wrap-reverse';
 
+
+/**
+ * Set display style value of the container flex
+ */
 @Directive({
     selector: "[vnFlex]",
     host: {
         "[style.display]": "'flex'",
-        "[style.flex-direction]": 'computedValue()',
+        "[style.flex-direction]": 'computedVnFlex()',
     }
 })
 export class Flex {
-    value = input<FlexDirValue>("row", { alias: "vnFlex" });
-    computedValue = computed(() => {
-        return this.value() ? this.value() : 'row'
+    /**
+     * Flex direction {@link FlexDirectionOptions}
+     */
+    vnFlex = input<FlexDirectionOptions>("row");
+
+    computedVnFlex = computed(() => {
+        return this.vnFlex() ? this.vnFlex() : 'row'
     })
 }
 
+
+/**
+ * Set `display` style `flex` and `flex-direction` `row`
+ */
 @Directive({
     selector: "[vnFlexRow]",
     host: {
@@ -26,6 +38,10 @@ export class Flex {
 })
 export class FlexRow { }
 
+
+/**
+ * Set `display` style `flex` and `flex-direction` `column`
+ */
 @Directive({
     selector: "[vnFlexCol]",
     host: {
@@ -35,6 +51,10 @@ export class FlexRow { }
 })
 export class FlexCol { }
 
+
+/**
+ * Set `justify-content` `space-between` and the `width` `100%`
+ */
 @Directive({
     selector: "[vnFlexBetween]",
     host: {
@@ -44,6 +64,10 @@ export class FlexCol { }
 })
 export class FlexBetween { }
 
+
+/**
+ * Set `align-items` `center`, and `justify-content` `center`
+ */
 @Directive({
     selector: "[vnFlexCenter]",
     host: {
@@ -62,8 +86,8 @@ export class FlexCenter { }
     }
 })
 export class FlexWrap {
-    value = input<FlexWrapValue>("wrap", { alias: "vnFlexWrap" });
-    computedValue = computed<FlexWrapValue>(() => {
+    value = input<FlexWrapOptions>("wrap", { alias: "vnFlexWrap" });
+    computedValue = computed<FlexWrapOptions>(() => {
         return this.value() ? this.value() : 'wrap'
     })
 }

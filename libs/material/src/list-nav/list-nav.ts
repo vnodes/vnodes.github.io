@@ -4,13 +4,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { ColorDirective } from '@vnodes/material/color';
-import { IconDirective } from '@vnodes/material/icon';
+import { IconFillDirective } from '@vnodes/material/icon';
 import { ListComponent } from '@vnodes/material/list';
 
 @Component({
   selector: 'vn-list[type="nav"]',
   imports: [
-    RouterModule, MatListModule, MatIconModule, TitleCasePipe, IconDirective, ColorDirective
+    RouterModule, MatListModule, MatIconModule, TitleCasePipe, IconFillDirective, ColorDirective
   ],
   template: `
     @let subtitle = title(); 
@@ -33,7 +33,7 @@ import { ListComponent } from '@vnodes/material/list';
 
             @if(item.metadataIcon){ 
               <div matListItemMeta>
-                <mat-icon vnIcon [vnIconFilled]="link.isActive" vnColor="primary" >{{item.metadataIcon}}</mat-icon>
+                <mat-icon [vnIconFill]="link.isActive" vnColor="primary" >{{item.metadataIcon}}</mat-icon>
               </div>
             }
             
@@ -43,7 +43,7 @@ import { ListComponent } from '@vnodes/material/list';
 
             @if(item.icon){ 
               <div matListItemIcon>
-                <mat-icon vnIcon [vnIconFilled]="link.isActive" vnColor="primary">{{item.icon}}</mat-icon>
+                <mat-icon [vnIconFill]="link.isActive" vnColor="primary">{{item.icon}}</mat-icon>
               </div>
             }
         </mat-list-item>
