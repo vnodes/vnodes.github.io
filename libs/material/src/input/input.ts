@@ -16,6 +16,8 @@ export type InputOption<T = any> = {
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
 
+  inputTestId = input<string>();
+  labelTestId = input<string>()
   inputValidator = inject(InputValidator);
 
   // Validators

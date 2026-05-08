@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BaseInput } from '@vnodes/material/input';
 import { map, startWith } from 'rxjs';
@@ -10,7 +11,12 @@ import { map, startWith } from 'rxjs';
 @Component({
   selector: 'vn-input[type="autocomplete"]',
   imports: [
-    ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    AsyncPipe
   ],
   template: `
    @let control =  formControl(); 
@@ -40,7 +46,9 @@ import { map, startWith } from 'rxjs';
       [placeholder]="placeholder()"
       [disabled]="disabled()"
       [required]="required()"
-      [matAutocomplete]="auto">
+      [matAutocomplete]="auto"
+      [attr.data-test-id]="inputTestId()"
+      >
 
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       @for (option of filteredOptions | async; track option) {
@@ -54,12 +62,19 @@ import { map, startWith } from 'rxjs';
 })
 export class AutocompleteComponent extends BaseInput<string> {
 
+  /**
+   * Observable filtered options based on the input
+   */
   filteredOptions = this.formControl().valueChanges.pipe(
     startWith(''),
     map(currentValue => this.filter(currentValue))
-
   )
 
+  /**
+   * Filter the autocomplete options by starting with the input
+   * @param currentValue current input value  
+   * @returns filtered {@link options}
+   */
   filter(currentValue: string) {
     return this.options()?.filter(o => o.value.toLowerCase().startsWith(currentValue.toLowerCase()))
   }
