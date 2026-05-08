@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { expect } from 'storybook/test';
+import { expect, userEvent } from 'storybook/test';
 import { ButtonToggleComponent } from './button-toggle';
 
 const meta: Meta<ButtonToggleComponent> = {
@@ -10,35 +10,41 @@ export default meta;
 
 type Story = StoryObj<ButtonToggleComponent>;
 
-export const Primary: Story = {
-  args: {
-    options: [
-      { value: 'First', label: 'First' },
-      { value: 'Second', label: 'Second' },
-      { value: 'Third', label: 'Third' },
-    ],
-    label: "Select Button"
-  },
-};
+const args: Story['args'] = {
 
-export const Size: Story = {
-  args: {
-    options: [
-      { value: 'SX', label: 'SX' },
-      { value: 'S', label: 'S' },
-      { value: 'M', label: 'M' },
-      { value: 'L', label: 'L' },
-      { value: 'XL', label: 'XL' },
-      { value: 'XXL', label: 'XXL' },
-    ],
-    label: "Size", 
-  }
+  options: [
+    { value: 'First', label: 'First' },
+    { value: 'Second', label: 'Second' },
+    { value: 'Third', label: 'Third' },
+  ],
+  label: "Label",
+  hint: "Hint"
 }
 
+export const Primary: Story = {
+  args
+};
+
+
 export const Heading: Story = {
-  ...Primary,
-  play: async ({ canvas }) => {
-    await expect(canvas.getByText(/First/gi)).toBeTruthy();
-    await expect(canvas.getByText(/Second/gi)).toBeTruthy();
+  args,
+  play: async ({ canvas, step }) => {
+
+    const first = canvas.getByText(/First/gi)
+    const second = canvas.getByText(/Second/gi)
+    const third = canvas.getByText(/Third/gi)
+
+    step('should render the options', async ({ canvas }) => {
+      await expect(first).toBeTruthy();
+      await expect(second).toBeTruthy();
+      await expect(third).toBeTruthy();
+    });
+
+    step("should click the options", async () => {
+      await userEvent.click(first)
+      await userEvent.click(second)
+      await userEvent.click(third)
+    })
+
   },
 };

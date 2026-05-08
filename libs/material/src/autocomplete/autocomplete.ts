@@ -26,7 +26,7 @@ import { map, startWith } from 'rxjs';
 
        <!-- Description -->
       @if(label()) { <mat-label>{{ label() }}</mat-label> }
-      @if (hint()) { <mat-hint>{{ hint() }}</mat-hint> }
+      @if(hint()) { <mat-hint>{{ hint() }}</mat-hint> }
 
       <!-- Prefix/Suffix -->
       @if(textPrefix()){  <span matTextPrefix>{{textPrefix()}}</span>  }

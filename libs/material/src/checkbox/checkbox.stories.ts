@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { expect } from 'storybook/test';
+import { expect, userEvent } from 'storybook/test';
 import { CheckboxComponent } from './checkbox';
 
 const meta: Meta<CheckboxComponent> = {
@@ -10,15 +10,33 @@ export default meta;
 
 type Story = StoryObj<CheckboxComponent>;
 
+const args: Story['args'] = {
+
+  label: "Label"
+
+}
 export const Primary: Story = {
-  args: {
-    label: "Checkbox Label"
-  },
+  args
 };
 
 export const Heading: Story = {
-  ...Primary,
-  play: async ({ canvas }) => {
-    await expect(canvas.getByText(/Checkbox/gi)).toBeTruthy();
+  args,
+  play: async ({ canvas, step }) => {
+
+    const input = canvas.getByText(/Label/gi);
+
+    await step("should render the checkbox", async () => {
+      await expect(input).toBeTruthy();
+    })
+
+
+
+    await step("should click the checkbox", async () => {
+      await userEvent.click(input, { delay: 400 });
+      await userEvent.click(input, { delay: 400 });
+    })
+
+
+
   },
 };

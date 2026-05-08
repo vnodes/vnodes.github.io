@@ -8,12 +8,14 @@ import { BaseInput } from '@vnodes/material/input';
   standalone: true,
   imports: [ReactiveFormsModule, MatSlideToggleModule],
   template: `
-  <mat-slide-toggle
-       [formControl]="formControl()"
-       [disabled]="disabled()"
-  >
-  {{label()}}
-  </mat-slide-toggle>
+    <mat-slide-toggle
+    [formControl]="formControl()"
+    [disabled]="disabled()"
+    [ariaLabel]="label()"
+    >
+    {{label()}}
+
+    </mat-slide-toggle>
   `
 })
 export class SlideToggleComponent extends BaseInput {

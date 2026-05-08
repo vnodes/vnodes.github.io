@@ -13,18 +13,28 @@ export type ButtonToggleOption = {
   standalone: true,
   imports: [ReactiveFormsModule, MatButtonToggleModule],
   template: `
-  <mat-button-toggle-group 
-       [formControl]="formControl()"
-       [disabled]="disabled()"
-       [minlength]="minlength()"
-       [maxlength]="maxlength()"
-       [required]="required()"
-  >
-    @for(option of options(); track option){ 
-      <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
-    }
-  </mat-button-toggle-group>
+  @let control = formControl();
 
+  @if(control){ 
+
+      <mat-button-toggle-group 
+      matInput
+      [formControl]="formControl()"
+      [disabled]="disabled()"
+      [minlength]="minlength()"
+      [maxlength]="maxlength()"
+      [required]="required()"
+      [ariaLabel]="label()"
+      [multiple]="multiple()"
+      >
+      
+      @for(option of options(); track option){ 
+        <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+    
+  }
+  
   `
 })
 export class ButtonToggleComponent extends BaseInput<string | number> { }

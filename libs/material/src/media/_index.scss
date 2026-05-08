@@ -43,7 +43,6 @@ html {
 // 3. System Theme Selector (Media Query)
 @media (prefers-color-scheme: dark) {
     html {
-
         @include mat.theme($dark-theme-config);
     }
 }
@@ -59,4 +58,19 @@ body {
 
 mat-form-field {
     width: 100%;
+}
+
+mat-label,
+label {
+    user-select: none;
+}
+
+mat-button-toggle-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &>mat-button-toggle {
+        flex-grow: 1;
+    }
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseInput } from '@vnodes/material/input';
 
 @Component({
@@ -11,15 +11,22 @@ import { BaseInput } from '@vnodes/material/input';
     MatCheckboxModule,
   ],
   template: `
-  <mat-checkbox
-       [formControl]="formControl()"
-       [disabled]="disabled()"
-       [minlength]="minlength()"
-       [maxlength]="maxlength()"
-       [required]="required()"
-  >
-  {{label()}}
+  @let control = formControl(); 
+
+  @if(control){ 
+    <mat-checkbox
+    [formControl]="formControl()"
+    [disabled]="disabled()"
+    [minlength]="minlength()"
+    [maxlength]="maxlength()"
+    [required]="required()"
+    [labelPosition]="labelPosition()"
+    >
+    {{label()}}
   </mat-checkbox>
+  }
   `
 })
-export class CheckboxComponent extends BaseInput<boolean> { }
+export class CheckboxComponent extends BaseInput<boolean> {
+  labelPosition = input<MatCheckbox['labelPosition']>('after');
+}
