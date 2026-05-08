@@ -74,3 +74,16 @@ mat-button-toggle-group {
         flex-grow: 1;
     }
 }
+
+
+fieldset {
+    width: 100%;
+    border-radius: var(--box-radious, 1em);
+    padding: 1em;
+
+}
+
+legend {
+    padding-left: 1em;
+    padding-right: 1em;
+}
