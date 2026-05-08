@@ -1,33 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxComponent } from '@vnodes/material/checkbox';
 import { FlexModule } from '@vnodes/material/flex';
 import { FormModule } from '@vnodes/material/form';
-import { InputNumberComponent } from '@vnodes/material/input-number';
-import { InputTextComponent } from '@vnodes/material/input-text';
+import { InputFieldComponent } from '@vnodes/material/input-field';
 import { InputValidator } from '@vnodes/material/validators';
 
 
 
 @Component({
   selector: 'vn-form[address]',
-  imports: [FormModule, ReactiveFormsModule, CheckboxComponent, InputNumberComponent, InputTextComponent, FlexModule],
+  imports: [FormModule, ReactiveFormsModule, InputFieldComponent, FlexModule],
   template: `
   <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" (formSubmitEvet)="handleFormSubmit($event)">  
 
   <div vnInput>
-
     @for(input of inputs; track input.name){ 
-      @if (input.type ==="text") {
-        <vn-input [formControlName]="input.name" type="text" [required]="true" [label]="input.label" ></vn-input>  
-      } @else if(input.type ==="number") {
-        <vn-input [formControlName]="input.name" type="number" [required]="true" [label]="input.label" ></vn-input>  
-      } @else if(input.type ==="integer") {
-        <vn-input [formControlName]="input.name" type="integer" [required]="true" [label]="input.label" ></vn-input>  
-      } @else if(input.type ==="checkbox") {
-        <vn-input [formControlName]="input.name" type="checkbox" [required]="true" [label]="input.label" ></vn-input>  
-      }
-      
+      <vn-input-field [type]="input.type" [formControlName]="input.name" [label]="input.label"></vn-input-field>
     }
   </div>
     

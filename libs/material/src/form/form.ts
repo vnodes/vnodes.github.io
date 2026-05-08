@@ -22,7 +22,7 @@ export class FormActionDirective { }
   exportAs: "vnForm",
   template: `
       <div vnFlexCol vnFlexGap cdkTrapFocus>
-        <ng-content select="vn-input, [vnInput]"></ng-content>
+        <ng-content select="vn-input, [vnInput], vn-input-field, [vnInputField]"></ng-content>
         <div vnFlexRow vnFlexGap>
         
         <!-- Submit button -->

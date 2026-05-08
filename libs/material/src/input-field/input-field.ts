@@ -27,9 +27,9 @@ export type InputType =
   | 'checkbox'
 
 
-  
+
 @Component({
-  selector: 'vn-input-field',
+  selector: 'vn-input-field, [vnInputField]',
   imports: [
     InputDateComponent,
     InputTimeComponent,
@@ -49,7 +49,7 @@ export type InputType =
   
   @let t = type(); 
 
-  @if(t==='text'){ <vn-input type="text"></vn-input> }
+  @if(t==='text'){ <vn-input [label]="label()" type="text"></vn-input> }
   @else if(t==='select'){ <vn-input [label]="label()" type="select" [options]="options()"></vn-input> }
   @else if(t==='autocomplete'){ <vn-input [label]="label()" type="autocomplete" [options]="options()"  ></vn-input> }
   @else if(t==='radio'){ <vn-input [label]="label()" type="radio" [options]="options()"></vn-input> }
