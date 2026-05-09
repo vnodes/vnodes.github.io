@@ -14,11 +14,11 @@ import { Color, colorVar } from '@vnodes/material/common';
 export class ColorDirective {
 
   /**
-   * {@link Color}
+   * Text color variable {@link Color}
    */
   vnColor = input.required<Color>();
 
-  vnColorComputed = computed(() => colorVar(this.vnColor()))
+  protected vnColorComputed = computed(() => colorVar(this.vnColor()))
 }
 
 
@@ -35,11 +35,11 @@ export class ColorDirective {
 export class BgColorDirective {
 
   /**
-   * {@link Color}
+   * Background color variable {@link Color}
    */
   vnBgColor = input.required<Color>();
 
-  vnBgColorComputed = computed(() => colorVar(this.vnBgColor()))
+  protected vnBgColorComputed = computed(() => colorVar(this.vnBgColor()))
 }
 
 

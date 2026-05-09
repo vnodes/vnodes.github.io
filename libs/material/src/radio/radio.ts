@@ -10,7 +10,7 @@ export type RadioOption = {
 }
 
 @Component({
-  selector: 'vn-input[type="radio"]',
+  selector: 'vn-input[type="radio"], vn-input[type="radio-group"]',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -18,24 +18,31 @@ export type RadioOption = {
     FieldsetComponent
   ],
   template: `
-<vn-fieldset [label]="label()">
-    <mat-radio-group  
-      matInput
-      [ariaLabel]="label()"
-      [formControl]="formControl()"
-      [disabled]="disabled()"
-      [required]="required()"
-    >
+ 
+    @let __control   =  formControl(); 
+    @let __label     =  label();
+    @let __required  =  required(); 
+    @let __disabled  =  disabled();
+    @let __options   =  options();
+   
 
+   @if(__control){ 
 
-      @for(option of options(); track option){ 
+    <vn-fieldset [label]="label()">
+      <mat-radio-group  
+      [formControl]="__control"
+      [disabled]="__disabled"
+      [required]="__required"
+      [ariaLabel]="__label"
+      >
+      @for(option of __options; track option){ 
         <mat-radio-button [value]="option.value" >{{option.label}}</mat-radio-button>
       }
     </mat-radio-group>
-
-</vn-fieldset>
+  </vn-fieldset>
+  }
   `
 })
 export class RadioComponent extends BaseInput {
-  type = input.required<'radio'>()
+  type = input.required<'radio' | 'radio-group'>()
 }

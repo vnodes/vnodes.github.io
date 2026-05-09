@@ -6,31 +6,40 @@ import { BaseInput } from '@vnodes/material/input';
 
 @Component({
 
-  selector: 'vn-input[type="list"]',
+  selector: 'vn-input[type="list"], vn-input[type="list-select"],',
   imports: [
     FieldsetComponent,
     ReactiveFormsModule,
     MatListModule
   ],
   template: `
-  <vn-fieldset [label]="label()">
+
+  @let __label       =  label();
+  @let __control     =  formControl();
+  @let __multiple    =  multiple();
+  @let __minitems    =  minitems();
+  @let __maxitems    =  maxitems();
+  @let __required    =  required();
+  @let __options     =  options();
+
+  <vn-fieldset [label]="__label">
     <mat-selection-list 
       #componentRef
-      [ariaLabel]="label()"
-      [formControl]="formControl()" 
-      [multiple]="multiple()"
-      [minlength]="minitems()"
-      [maxlength]="maxitems()"
-      [required]="required()"
+      [formControl]="__control" 
+      [multiple]="__multiple"
+      [minlength]="__minitems"
+      [maxlength]="__maxitems"
+      [required]="__required"
+      [ariaLabel]="__label"
       >
 
-    @for (option of options(); track option) {
-      <mat-list-option  [value]="option.value"   >{{option.label}}</mat-list-option>
+    @for (option of __options; track option) {
+      <mat-list-option  [value]="option.value">{{option.label}}</mat-list-option>
     }
   </mat-selection-list>
 </vn-fieldset>
   `,
 })
 export class ListSelectComponent extends BaseInput<any> {
-  type = input.required<"list">()
+  type = input.required<'list' | 'list-select'>()
 }

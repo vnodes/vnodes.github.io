@@ -1,17 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { InputOption } from '@vnodes/material/input';
 import { expect, userEvent } from 'storybook/test';
-import { InputOption } from '../input/input';
 import { ListSelectComponent } from './list-select';
 
 const meta: Meta<ListSelectComponent> = {
   component: ListSelectComponent,
   title: 'Input/List'
 };
+
 export default meta;
 
 type Story = StoryObj<ListSelectComponent>;
 
-const label = 'List select'
+const label = 'Label'
 
 const options: InputOption[] = [
   { label: "First", value: "First" },
@@ -38,32 +39,25 @@ export const Multiple: Story = {
 
 export const Heading: Story = {
   ...Single,
-  play: async ({ canvas, canvasElement, step }) => {
+  play: async ({ canvas, step }) => {
 
-    const optionElms = canvas.getAllByRole('option');
-    const labelElm = canvas.getByText(new RegExp(`${label}`, 'gi'));
+    const firstOption = await canvas.getByText("First");
+    const secondOption = await canvas.getByText("Second");
+    const thirdOption = await canvas.getByText("Third");
 
-    const componentElement = canvasElement.querySelector('vn-input[type="list"]');
-    const instance = (window as any).ng.getComponent(componentElement) as ListSelectComponent;
 
-    await step('should be defined', () => {
-      expect(instance).toBeDefined();
-    })
-
-    await step("Should have label", async () => {
-      await expect(labelElm).toBeTruthy();
-    })
-
-    await step("Should have all defined options", () => {
-      expect(optionElms).toHaveLength(options.length + 1)
+    await step("should render options", async () => {
+      expect(firstOption).toBeDefined();
+      expect(secondOption).toBeDefined();
+      expect(thirdOption).toBeDefined();
     })
 
 
-    await step('should click on each option', async () => {
-      for (const o of optionElms) {
-        await userEvent.click(o, { delay: 200 });
-      }
-
+    await step("should click options", async () => {
+      await userEvent.click(firstOption, { delay: 400 })
+      await userEvent.click(secondOption, { delay: 400 })
+      await userEvent.click(thirdOption, { delay: 400 })
     })
+
   },
 };

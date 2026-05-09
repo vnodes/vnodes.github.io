@@ -13,33 +13,48 @@ import { BaseInput } from '@vnodes/material/input';
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatTimepickerModule],
   providers: [provideNativeDateAdapter()],
   template: ` 
-  @let control =  formControl(); 
+  
+   @let __control =  formControl(); 
+   @let __label = label();
+   @let __hint = hint();
+   @let __placeholder=placeholder();
+   @let __prefix= textPrefix();
+   @let __suffix= textSuffix();
+   @let __iconPrefix=iconPrefix();
+   @let __iconSuffix=iconSuffix();
+   @let __required = required(); 
+   @let __disabled=disabled();
+   @let __error = errorMessage();
 
-  @if(control) { 
-    <mat-form-field>
+   @if(__control){ 
+     <mat-form-field>
 
-      <!-- Description -->
-      @if(label()){ <mat-label>{{ label() }}</mat-label>}
-      @if (hint()) { <mat-hint>{{ hint() || "HH:MM" }}</mat-hint> }
-
+      <!-- Labels -->
+      @if(__label && __label!=='') { <mat-label>{{ __label }}</mat-label> }
+      <mat-hint>{{ __hint || "HH:MM" }}</mat-hint>   
+      
       <!-- Prefix/Suffix -->
-      @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
-      @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
-      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
-      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
+      @if(__prefix){      <span matTextPrefix>{{__prefix}}</span>}
+      @if(__suffix){      <span matTextSuffix>{{__suffix}}</span>}
+      @if(__iconPrefix){  <mat-icon matIconPrefix>{{__iconPrefix}}</mat-icon>}
+      @if(__iconSuffix){  <mat-icon matIconSuffix>{{__iconSuffix}}</mat-icon>}
 
-      <mat-error>{{errorMessage()}}</mat-error>
-
+      <!-- Error Message -->
+      @if(__error){   <mat-error>{{__error}} </mat-error> }
+    
       <input 
-      matInput
-      autocomplete="off" 
-      [formControl]="formControl()"
-      [disabled]="disabled()"
-      [required]="required()"
-      [matTimepicker]="picker"
+        matInput
+        type="text"
+        autocomplete="off" 
+        [formControl]="__control"
+        [disabled]="__disabled"
+        [required]="__required"
+        [matTimepicker]="picker"
+        [ariaLabel]="__label"
+        [placeholder]="__placeholder"
+        (dblclick)="picker.open()"
       >
       <mat-timepicker-toggle matIconSuffix [for]="picker"/>
-
       <mat-timepicker #picker/>
     </mat-form-field>
     }

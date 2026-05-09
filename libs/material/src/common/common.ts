@@ -53,9 +53,17 @@ export type Color =
 
 
 
-export function colorVar(value?: Color) {
+export function colorVar(value: Color) {
     return `var(--mat-sys-${value})`
 }
 
 
-export type Shadow = '1' | '2' | '3' | '4' | '5'  
+/**
+ * Shadow level variable name
+ */
+export type ShadowLevel = '1' | '2' | '3' | '4' | '5'
+
+
+export function shadowVar(value: ShadowLevel) {
+    return `var(--mat-sys-level${value})`
+}

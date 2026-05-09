@@ -13,22 +13,28 @@ export type ButtonToggleOption = {
   standalone: true,
   imports: [ReactiveFormsModule, MatButtonToggleModule],
   template: `
-  @let control = formControl();
 
-  @if(control){ 
+  @let __control =  formControl(); 
+  @let __options =  options();
+  @let __disabled = disabled();
+  @let __minlength = minlength();
+  @let __maxlength = maxlength();
+  @let __required = required();
+  @let __multiple = multiple();
+  @let __label =    label();
 
+   @if(__control){ 
+    
       <mat-button-toggle-group 
-      matInput
-      [formControl]="formControl()"
-      [disabled]="disabled()"
-      [minlength]="minlength()"
-      [maxlength]="maxlength()"
-      [required]="required()"
-      [ariaLabel]="label()"
-      [multiple]="multiple()"
+        [formControl]="__control"
+        [disabled]="__disabled"
+        [minlength]="__minlength"
+        [maxlength]="__maxlength"
+        [required]="__required"
+        [multiple]="__multiple"
+        [ariaLabel]="__label"
       >
-      
-      @for(option of options(); track option){ 
+      @for(option of __options; track option.value){ 
         <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
       }
     </mat-button-toggle-group>

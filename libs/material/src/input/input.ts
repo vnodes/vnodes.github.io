@@ -113,6 +113,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
    * Prefix icon
    */
   iconPrefix = input<string>()
+
   /**
    * Suffix icon
    */
@@ -122,6 +123,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
    * Prefix text
    */
   textPrefix = input<string>()
+
   /**
    * Suffix text
    */
@@ -135,17 +137,14 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     // 
   };
 
+  writeValue(value: ValueType): void {
+    // const control = this.formControl();
+    // if (control && control.value !== value) {
+    //   control.setValue(value, { emitEvent: false });
+    // }
+  }
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
-  constructor() {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this
-    }
-  }
-
-  writeValue(value: ValueType): void {
-    // this.value.set(value);
-  }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;

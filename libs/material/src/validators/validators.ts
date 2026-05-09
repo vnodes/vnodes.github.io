@@ -25,12 +25,12 @@ export type Constraints = Partial<{
 export type ValidatorFn = (control: AbstractControl) => null | Constraints;
 
 export const DEFAULT_ERROR_MESSAGE = new InjectionToken<string>('DEFAULT_ERROR_MESSAGE');
+
 export type InputValidatorMessageResolver = (value: any, constraint: string, constraintValue: ConstraintValue) => string;
 
 export function isDefined<T>(value: T | undefined | null): value is T {
     return value !== null && value !== undefined;
 }
-
 
 
 @Injectable()
@@ -76,6 +76,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static min(length: number): ValidatorFn {
         return (control) => {
             if (Validators.min(length)(control)) {
@@ -85,7 +86,9 @@ export class InputValidator {
             }
             return null;
         }
+
     }
+
     static max(length: number): ValidatorFn {
         return (control) => {
             if (Validators.max(length)(control)) {
@@ -96,6 +99,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static maxitems(length: number): ValidatorFn {
         return (control) => {
             if (Validators.max(length)(control)) {
@@ -106,6 +110,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static minitems(length: number): ValidatorFn {
         return (control) => {
             if (Validators.max(length)(control)) {
@@ -125,6 +130,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static hasLowercase(count = 1): ValidatorFn {
         return ({ value }) => {
             if (!/[a-z]{1,}/.test(value)) {
@@ -133,6 +139,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static hasNumber(count = 1): ValidatorFn {
         return ({ value }) => {
             if (!/[0-9]{1,}/.test(value)) {
@@ -141,6 +148,7 @@ export class InputValidator {
             return null;
         }
     }
+
     static hasSpecialchar(count = 1): ValidatorFn {
         return ({ value }) => {
             if (!/[\W]{1,}/.test(value)) {
@@ -149,6 +157,7 @@ export class InputValidator {
             return null;
         }
     }
+    
     static noSpace(): ValidatorFn {
         return ({ value }) => {
             if (/[\s]{1,}/.test(value)) {

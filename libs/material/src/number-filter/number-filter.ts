@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 import { NumberInputType } from '@vnodes/material/input';
-import { clipboardText, dispatchEmptyInputEvent, isCommandEvent, isDigitString, isIntegerString, isNumberString } from '@vnodes/material/utils';
+import { clipboardText, dispatchEmptyInputEvent, isDigitString, isIntegerString, isKeyboardCommandEvent, isNumberString } from '@vnodes/material/utils';
 
 
 
@@ -33,7 +33,7 @@ export class NumberFilterDirective {
 
 
 
-        if (isCommandEvent(event)) {
+        if (isKeyboardCommandEvent(event)) {
             return;
         } else if (!isDigitString(currentKey) && !(currentKey === '.' || currentKey === '-')) {
             this.preventDefault(event)

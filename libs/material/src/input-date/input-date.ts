@@ -1,7 +1,6 @@
 
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,38 +10,50 @@ import { BaseInput } from '@vnodes/material/input';
   selector: 'vn-input[type="date"]',
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule],
   template: `
-   @let control =  formControl(); 
 
-  @if(control) { 
-    <mat-form-field>
-     
-      <!-- Description -->
-      @if(label()){ <mat-label>{{ label() }}</mat-label>}
-      @if (hint()) { <mat-hint>{{ hint() || "MM/DD/YYYY" }}</mat-hint> }
+   @let __control =  formControl(); 
+   @let __label = label();
+   @let __hint = hint();
+   @let __placeholder=placeholder();
+   @let __prefix= textPrefix();
+   @let __suffix= textSuffix();
+   @let __iconPrefix=iconPrefix();
+   @let __iconSuffix=iconSuffix();
+   @let __required = required(); 
+   @let __disabled=disabled();
+   @let __error = errorMessage();
+
+   @if(__control){ 
+     <mat-form-field>
+
+      <!-- Labels -->
+      @if(__label && __label!=='') { <mat-label>{{ __label }}</mat-label> }
+      <mat-hint>{{ __hint || "DD/MM/YY" }}</mat-hint>   
       
-
       <!-- Prefix/Suffix -->
-      @if(textPrefix()){ <span matTextPrefix>{{textPrefix()}}</span>}
-      @if(textSuffix()){ <span matTextSuffix>{{textSuffix()}}</span>}
-      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>}
-      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>}
-      <mat-error>{{errorMessage()}} </mat-error>
+      @if(__prefix){      <span matTextPrefix>{{__prefix}}</span>}
+      @if(__suffix){      <span matTextSuffix>{{__suffix}}</span>}
+      @if(__iconPrefix){  <mat-icon matIconPrefix>{{__iconPrefix}}</mat-icon>}
+      @if(__iconSuffix){  <mat-icon matIconSuffix>{{__iconSuffix}}</mat-icon>}
 
+      <!-- Error Message -->
+      @if(__error){   <mat-error>{{__error}} </mat-error> }
+    
       <input 
         matInput 
+        type="text"
         autocomplete="off"
-        [disabled]="disabled()"
+        [formControl]="__control" 
+        [disabled]="__disabled"
         [matDatepicker]="picker" 
-        [placeholder]="placeholder()" 
-        [formControl]="formControl()" 
-        [required]="required()" 
+        [placeholder]="__placeholder" 
+        [required]="__required" 
         (dblclick)="picker.open()"
         >
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   }
-  `,
-  providers: [provideNativeDateAdapter()]
+  `
 })
 export class InputDateComponent extends BaseInput<Date> { }

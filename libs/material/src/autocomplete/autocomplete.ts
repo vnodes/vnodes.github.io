@@ -19,33 +19,42 @@ import { map, startWith } from 'rxjs';
     AsyncPipe
   ],
   template: `
-   @let control =  formControl(); 
+   @let __control =  formControl(); 
+   @let __label = label();
+   @let __hint = hint();
+   @let __placeholder=placeholder();
+   @let __prefix= textPrefix();
+   @let __suffix= textSuffix();
+   @let __iconPrefix=iconPrefix();
+   @let __iconSuffix=iconSuffix();
+   @let __required = required(); 
+   @let __disabled=disabled();
+   @let __error = errorMessage();
 
-   @if(control){ 
+   @if(__control){ 
      <mat-form-field>
 
-       <!-- Description -->
-      @if(label()) { <mat-label>{{ label() }}</mat-label> }
-      @if(hint()) { <mat-hint>{{ hint() }}</mat-hint> }
-
+      <!-- Labels -->
+      @if(__label && __label!=='') { <mat-label>{{ __label }}</mat-label> }
+      @if(__hint && __hint!=='')   { <mat-hint>{{ __hint }}</mat-hint>   }
+      
       <!-- Prefix/Suffix -->
-      @if(textPrefix()){  <span matTextPrefix>{{textPrefix()}}</span>  }
-      @if(textSuffix()){  <span matTextSuffix>{{textSuffix()}}</span>  }
-      @if(iconPrefix()){  <mat-icon matIconPrefix>{{iconPrefix()}}</mat-icon>  }
-      @if(iconSuffix()){  <mat-icon matIconSuffix>{{iconSuffix()}}</mat-icon>  }
+      @if(__prefix){      <span matTextPrefix>{{__prefix}}</span>}
+      @if(__suffix){      <span matTextSuffix>{{__suffix}}</span>}
+      @if(__iconPrefix){  <mat-icon matIconPrefix>{{__iconPrefix}}</mat-icon>}
+      @if(__iconSuffix){  <mat-icon matIconSuffix>{{__iconSuffix}}</mat-icon>}
 
-
-    <!-- Errors -->
-    <mat-error>{{errorMessage()}}</mat-error>
+      <!-- Error Message -->
+      @if(__error){   <mat-error>{{__error}} </mat-error> }
     
     <input 
+      matInput
       type="text"
       autocomplete="off"
-      matInput
-      [formControl]="control"
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [required]="required()"
+      [formControl]="__control"
+      [placeholder]="__placeholder"
+      [disabled]="__disabled"
+      [required]="__required"
       [matAutocomplete]="auto"
       >
 

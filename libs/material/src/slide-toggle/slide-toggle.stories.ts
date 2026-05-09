@@ -12,13 +12,13 @@ type Story = StoryObj<SlideToggleComponent>;
 
 export const Primary: Story = {
   args: {
-    label: "Slide Toggle"
+    label: "Label"
   }
 };
 
 export const Heading: Story = {
   ...Primary,
   play: async ({ canvas }) => {
-    await expect(canvas.getByText(/Slide Toggle/gi)).toBeTruthy();
+    await expect(canvas.getByText(/Label/gi)).toBeTruthy();
   },
 };

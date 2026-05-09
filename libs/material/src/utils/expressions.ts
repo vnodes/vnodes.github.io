@@ -1,25 +1,66 @@
 
 
+/**
+ * Expression to check the character is a digit
+ */
 export const DigitExp = /^[0-9]{1}$/;
+
+/**
+ * Expression to check the number is decimal number
+ */
 export const NumberExp = /^(?!0+$)(?!0\.0+$)\d+(\.\d+)?$/
+
+/**
+ * Expression to check the number is an integer
+ */
 export const IntegerExp = /^[0-9]{1,}$/
 
 
-
-export function isDigitString(digit: string) {
-    return DigitExp.test(digit)
+/**
+ * Expression {@link DigitExp}
+ * @param value number string
+ * @returns 
+ */
+export function isDigitString(value: string) {
+    return DigitExp.test(value)
 }
 
-export function isNumberString(numberString: string) {
-    return NumberExp.test(numberString)
+/**
+ * Expression {@link NumberExp}
+ * @param value number string
+ * @returns 
+ */
+export function isNumberString(value: string) {
+    return NumberExp.test(value)
 }
 
-export function isIntegerString(integerString: string) {
-    return IntegerExp.test(integerString)
+
+
+/**
+ * Expression {@link IntegerExp}
+ * @param value number string
+ * @returns 
+ */
+export function isIntegerString(value: string) {
+    return IntegerExp.test(value)
 }
 
+/**
+ * Get the decimal part of {@link value}
+ * @param value number string
+ * @returns 
+ */
+export function decimalPart(value: string) {
+    return value.split(".")[1];
+}
 
-export function hasNumberOfDecimalsOrMore(numberString: string, count: number): boolean {
-    const decimalCount = numberString.split('.')[1]?.length ?? 0;
-    return decimalCount >= count
+/**
+ * Check the number has ({@link maximumNumberOfDecimals}) of decimals or not.
+ * @param value number string
+ * @param maximumNumberOfDecimals 
+ * @returns 
+ */
+export function hasNumberOfDecimalsOrMore(value: string, maximumNumberOfDecimals: number): boolean {
+    const decimalCount = decimalPart(value)?.length ?? 0;
+    return decimalCount >= maximumNumberOfDecimals
 }
