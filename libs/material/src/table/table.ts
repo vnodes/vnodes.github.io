@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
-import { PascalcasePipe } from '@vnodes/material/pascalcase';
+import { CasingPipe } from '@vnodes/material/casing';
 
 export type TableColumn = {
   name: string;
@@ -13,7 +13,7 @@ export type TableColumn = {
 
 @Component({
   selector: 'vn-table',
-  imports: [MatTableModule, MatPaginatorModule, PascalcasePipe],
+  imports: [MatTableModule, MatPaginatorModule, CasingPipe],
   template: `
 
     @let __data = data(); 
@@ -34,7 +34,7 @@ export type TableColumn = {
       @for(col of __columns; track col.name){ 
         <ng-container [matColumnDef]="col.name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            {{(col.label || col.name) | pascalcase}}
+            {{(col.label || col.name) | casing: 'title'}}
           </th>
           <td mat-cell *matCellDef="let row">
             {{col.prefixText ?? ""}}{{ row[col.name] }} {{col.suffixText ?? ""}}

@@ -123,8 +123,8 @@
       "@vnodes/material/table": [
         "libs/material/src/table/public-api.ts"
       ],
-      "@vnodes/material/pascalcase": [
-        "libs/material/src/pascalcase/public-api.ts"
+      "@vnodes/material/casing": [
+        "libs/material/src/casing/public-api.ts"
       ]
     }
   },

@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Vnodes Material Library",
   "keywords": [
     "plugin"
@@ -164,9 +164,9 @@
       "types": "./src/table/public-api.ts",
       "default": "./src/table/public-api.ts"
     },
-    "./pascalcase": {
-      "types": "./src/pascalcase/public-api.ts",
-      "default": "./src/pascalcase/public-api.ts"
+    "./casing": {
+      "types": "./src/casing/public-api.ts",
+      "default": "./src/casing/public-api.ts"
     }
   },
   "peerDependencies": {
