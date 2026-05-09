@@ -155,6 +155,10 @@
     "./input-field": {
       "types": "./src/input-field/public-api.ts",
       "default": "./src/input-field/public-api.ts"
+    },
+    "./shadow": {
+      "types": "./src/shadow/public-api.ts",
+      "default": "./src/shadow/public-api.ts"
     }
   },
   "peerDependencies": {
