@@ -10,7 +10,7 @@ export type CasingType = keyof ReturnType<typeof names>
 /**
  * Casing transform pipe 
  */
-@Pipe({ name: 'casing' })
+@Pipe({ name: 'casing', standalone: true })
 export class CasingPipe implements PipeTransform {
   transform(value: any, type: CasingType) {
     if (typeof value === 'string') {
