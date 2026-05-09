@@ -19,14 +19,12 @@ const config: StorybookConfig = {
     }
   },
   staticDirs: [
-    '../../../dist/apps/web/browser',
-    '../src/assets',
+    '../../../dist/apps/web/browser'
   ],
   docs: {
     defaultName: "Doc",
   },
   webpackFinal: async (config) => {
-    console.log("Storybook Mode: ", config.mode)
     if (config.mode === 'production') {
       config.output ??= {};
       config.output.publicPath = './'

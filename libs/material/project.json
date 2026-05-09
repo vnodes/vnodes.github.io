@@ -30,13 +30,7 @@
         },
         "development": {}
       },
-      "defaultConfiguration": "production",
-      "dependsOn": [
-        "generate-package"
-      ]
-    },
-    "generate-package": {
-      "command": "node {projectRoot}/scripts/generate-package.mjs"
+      "defaultConfiguration": "production"
     },
     "nx-release-publish": {
       "options": {
@@ -81,9 +75,6 @@
         "outputDir": "public/libs/material",
         "configDir": "libs/material/.storybook",
         "browserTarget": "material:build-storybook",
-        "assets": [
-          "libs/material/src/assets"
-        ],
         "compodoc": true,
         "compodocArgs": [
           "-p",

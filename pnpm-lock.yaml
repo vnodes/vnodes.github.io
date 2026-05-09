@@ -174,9 +174,6 @@ importers:
       nx:
         specifier: 22.6.5
         version: 22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21))
-      plugin:latest:
-        specifier: link:@vnodes/plugin:latest
-        version: link:@vnodes/plugin:latest
       postcss:
         specifier: ^8.4.5
         version: 8.5.9
@@ -226,6 +223,9 @@ importers:
       '@vnodes/material':
         specifier: workspace:*
         version: 'link:'
+      '@vnodes/names':
+        specifier: ^0.1.1
+        version: 0.1.1(@vnodes/types@0.1.0)
 
 packages:
 
@@ -3597,6 +3597,12 @@ packages:
     peerDependencies:
       '@vnodes/errors': 0.1.1
       js-yaml: ^4.1.1
+
+  '@vnodes/names@0.1.1':
+    resolution: {integrity: sha512-seAgEFHJCGWRMPel8DePthwyNyUK85DxLZBC5s8HCcg51XojeqhXvad077DMP7Y/7C+8t94+CNkyMIaNFjMbDg==}
+    hasBin: true
+    peerDependencies:
+      '@vnodes/types': 0.1.1
 
   '@vnodes/plugin@0.1.10':
     resolution: {integrity: sha512-8bEZ5A9GuFt1wrNdxLffE3WKHxzgUNDsCVRG0wD09v2frDtheBQuWGEcIuBDepPjB7aD3t//0Ci7r7vL29Ggpw==}
@@ -13486,6 +13492,11 @@ snapshots:
       '@swc/helpers': 0.5.21
       '@vnodes/errors': 0.1.1
       js-yaml: 4.1.1
+
+  '@vnodes/names@0.1.1(@vnodes/types@0.1.0)':
+    dependencies:
+      '@swc/helpers': 0.5.21
+      '@vnodes/types': 0.1.0
 
   '@vnodes/plugin@0.1.10(nx@22.6.5(@swc-node/register@1.11.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@swc/core@1.15.24(@swc/helpers@0.5.21))(@swc/types@0.1.26)(typescript@5.9.3))(@swc/core@1.15.24(@swc/helpers@0.5.21)))':
     dependencies:

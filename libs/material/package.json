@@ -1,6 +1,6 @@
 {
   "name": "@vnodes/material",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Vnodes Material Library",
   "keywords": [
     "plugin"
@@ -159,17 +159,27 @@
     "./shadow": {
       "types": "./src/shadow/public-api.ts",
       "default": "./src/shadow/public-api.ts"
+    },
+    "./table": {
+      "types": "./src/table/public-api.ts",
+      "default": "./src/table/public-api.ts"
+    },
+    "./pascalcase": {
+      "types": "./src/pascalcase/public-api.ts",
+      "default": "./src/pascalcase/public-api.ts"
     }
   },
   "peerDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
+    "@vnodes/names": "^0.1.1",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5",
-    "@vnodes/material": "workspace:*"
+    "@vnodes/material": "workspace:*",
+    "@vnodes/names": "^0.1.1"
   }
 }

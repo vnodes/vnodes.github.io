@@ -1,12 +1,15 @@
 packages:
   - libs/*
   - apps/*
+
 autoInstallPeers: true
 
 onlyBuiltDependencies:
-  - "@compodoc/compodoc"
-  - "@swc/core"
+  - '@compodoc/compodoc'
+  - '@parcel/watcher'
+  - '@swc/core'
   - esbuild
+  - less
   - lmdb
   - msgpackr-extract
   - nx

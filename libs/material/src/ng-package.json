@@ -3,8 +3,8 @@
   "deleteDestPath": true,
   "dest": "../../../dist/libs/material",
   "assets": [
-    "media",
-    "assets",
+    "./media",
+    "./assets",
     "README.md"
   ],
   "lib": {
