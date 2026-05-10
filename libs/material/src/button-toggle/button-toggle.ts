@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BaseInput } from '@vnodes/material/input';
@@ -22,17 +22,20 @@ export type ButtonToggleOption = {
   @let __required = required();
   @let __multiple = multiple();
   @let __label =    label();
+  @let __hideSingleSelectionIndicator = hideSingleSelectionIndicator();
 
    @if(__control){ 
     
       <mat-button-toggle-group 
         [formControl]="__control"
+        [(value)]="value"
         [disabled]="__disabled"
         [minlength]="__minlength"
         [maxlength]="__maxlength"
         [required]="__required"
         [multiple]="__multiple"
         [ariaLabel]="__label"
+        [hideSingleSelectionIndicator]="__hideSingleSelectionIndicator"
       >
       @for(option of __options; track option.value){ 
         <mat-button-toggle [value]="option.value">{{option.label }}</mat-button-toggle>
@@ -43,4 +46,7 @@ export type ButtonToggleOption = {
   
   `
 })
-export class ButtonToggleComponent extends BaseInput<string | number> { }
+export class ButtonToggleComponent extends BaseInput<string | number> {
+
+  hideSingleSelectionIndicator = input<boolean>(true);
+}

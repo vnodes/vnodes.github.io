@@ -167,12 +167,21 @@
     "./casing": {
       "types": "./src/casing/public-api.ts",
       "default": "./src/casing/public-api.ts"
+    },
+    "./slider": {
+      "types": "./src/slider/public-api.ts",
+      "default": "./src/slider/public-api.ts"
+    },
+    "./chart": {
+      "types": "./src/chart/public-api.ts",
+      "default": "./src/chart/public-api.ts"
     }
   },
   "peerDependencies": {
     "@angular/cdk": "^21.2.6",
     "@angular/material": "^21.2.6",
     "@vnodes/names": "^0.1.1",
+    "chart.js": "^4.5.1",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
@@ -180,6 +189,7 @@
     "@angular/material": "^21.2.6",
     "@storybook/addon-docs": "^10.3.5",
     "@vnodes/material": "workspace:*",
-    "@vnodes/names": "^0.1.1"
+    "@vnodes/names": "^0.1.1",
+    "chart.js": "^4.5.1"
   }
 }

@@ -125,6 +125,12 @@
       ],
       "@vnodes/material/casing": [
         "libs/material/src/casing/public-api.ts"
+      ],
+      "@vnodes/material/slider": [
+        "libs/material/src/slider/public-api.ts"
+      ],
+      "@vnodes/material/chart": [
+        "libs/material/src/chart/public-api.ts"
       ]
     }
   },

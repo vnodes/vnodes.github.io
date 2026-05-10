@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { names } from '@vnodes/names';
 
-
 /**
  * Casing type camel, pascal, kebab, snake, constant, title, sentence, dot
  */

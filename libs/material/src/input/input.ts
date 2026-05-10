@@ -1,4 +1,4 @@
-import { Directive, inject, input, OnInit, signal } from '@angular/core';
+import { Directive, inject, input, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { InputValidator, isDefined } from '@vnodes/material/validators';
 
@@ -99,6 +99,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   defaultValue = input<ValueType | null>(null)
 
 
+  value = model<ValueType>();
   /**
    * Define the input field disabled or enabled
    */
@@ -138,10 +139,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   };
 
   writeValue(value: ValueType): void {
-    // const control = this.formControl();
-    // if (control && control.value !== value) {
-    //   control.setValue(value, { emitEvent: false });
-    // }
+    // 
   }
   readonly ngControl = inject(NgControl, { self: true, optional: true });
 
@@ -216,7 +214,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
    */
   protected setDefaultValue(control: FormControl, value: ValueType) {
     control.setValue(value, { emitEvent: false })
-
+    this.value.update(() => value);
   }
 
 }
