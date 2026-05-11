@@ -175,6 +175,22 @@
     "./chart": {
       "types": "./src/chart/public-api.ts",
       "default": "./src/chart/public-api.ts"
+    },
+    "./input-model": {
+      "types": "./src/input-model/public-api.ts",
+      "default": "./src/input-model/public-api.ts"
+    },
+    "./input-model-text": {
+      "types": "./src/input-model-text/public-api.ts",
+      "default": "./src/input-model-text/public-api.ts"
+    },
+    "./input-model-number": {
+      "types": "./src/input-model-number/public-api.ts",
+      "default": "./src/input-model-number/public-api.ts"
+    },
+    "./input-model-checkbox": {
+      "types": "./src/input-model-checkbox/public-api.ts",
+      "default": "./src/input-model-checkbox/public-api.ts"
     }
   },
   "peerDependencies": {

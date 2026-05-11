@@ -1,16 +1,12 @@
 import { AfterViewInit, Component, ElementRef, input, viewChild } from '@angular/core';
 import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js';
 
-export type Dataset = {
-  label: string;
-  data: number[]
-}
-
 
 @Component({
   selector: 'vn-chart',
   template: `
-  <canvas #canvas [style.width]="width() +'px'" [style.height]="height() +'px'" ></canvas>`,
+  <canvas #canvas [style.width]="width() +'px'" [style.height]="height() +'px'" ></canvas>
+  `,
 
 })
 export class ChartComponent<TChartType extends ChartType, TChartData extends ChartData<TChartType> = ChartData<TChartType>, TChartOptions extends ChartOptions<TChartType> = ChartOptions<TChartType>> implements AfterViewInit {
@@ -20,7 +16,9 @@ export class ChartComponent<TChartType extends ChartType, TChartData extends Cha
 
 
   width = input<number>(350);
-  height = input<number>(250);
+  height = input<number>(360 / 1.618);
+
+
 
   type = input.required<TChartType>();
   data = input.required<TChartData>();

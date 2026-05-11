@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseInput, NumberInputType } from '@vnodes/material/input';
+import { BaseInput } from '@vnodes/material/input';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
 
@@ -56,7 +56,7 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
     `
 })
 export class InputNumberComponent extends BaseInput<number> {
-  type = input.required<NumberInputType>();
+  type = input.required<'number' | 'integer'>();
   decimals = input<number>(6);
 
 

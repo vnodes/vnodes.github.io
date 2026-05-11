@@ -2,17 +2,11 @@ import { Directive, inject, input, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { InputValidator, isDefined } from '@vnodes/material/validators';
 
-
-export type NumberInputType = 'number' | 'integer';
-export type StringInputType = 'text';
-export type InputType = (NumberInputType | StringInputType);
-
 export type InputOption<T = any> = {
   id?: string;
   label: string;
   value: T;
 }
-
 
 @Directive()
 export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
@@ -131,6 +125,10 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   textSuffix = input<string>()
 
 
+  constructor() {
+    this.__setValueAccessor();
+    this.__setDefaultValue()
+  }
   protected onChange: (value: ValueType | null) => void = () => {
     // 
   };

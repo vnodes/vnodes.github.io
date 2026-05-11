@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj } from '@storybook/angular';
 import { Chart, ChartData, ChartType, registerables } from 'chart.js';
 import { ChartComponent } from './chart';
-
 
 Chart.register(...registerables);
 
@@ -18,10 +17,10 @@ export const BarChart: Story<'bar' | 'line'> = {
   args: {
     type: 'bar',
     data: {
-      labels: ["1", '2', '3', '4'],
+      labels: ["Mon", 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [
-        { label: "Second", data: [100, 50, 50, 100], backgroundColor: "blue", borderRadius: 100 },
-        { label: "First", data: [100, 50, 50, 100], backgroundColor: "orange", borderRadius: 100 },
+        { label: "API Requests", data: [1240, 1580, 1420, 1900, 2100, 850, 720], backgroundColor: "blue", borderRadius: 100 },
+        { label: "Database Queries", data: [800, 950, 1100, 1300, 1450, 400, 350], backgroundColor: "orange", borderRadius: 100 },
       ]
     },
     options: {
@@ -29,26 +28,24 @@ export const BarChart: Story<'bar' | 'line'> = {
       scales: {
         y: {
           title: {
-            text: "y Title"
+            text: "Request Count"
           },
         },
         x: {
-          title: { text: "X Title" }
+          title: { text: "Days of Week" }
         }
       }
     },
   }
 };
-
-
 
 export const LineChart: Story<'line'> = {
   args: {
     type: "line",
     data: {
-      labels: ["1", '2', 'm', '3', '4'],
+      labels: ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       datasets: [
-        { label: "First", data: [100, 50, 0, 50, 30], backgroundColor: "orange", borderColor: 'orange', borderCapStyle: 'round', borderDash: [1, 10] },
+        { label: "Active Users", data: [450, 520, 610, 590, 820, 950], backgroundColor: "orange", borderColor: 'orange', borderCapStyle: 'round', borderDash: [1, 10] },
       ]
     },
     options: {
@@ -56,67 +53,51 @@ export const LineChart: Story<'line'> = {
       scales: {
         y: {
           title: {
-            text: "y Title"
+            text: "User Count"
           },
         },
         x: {
-          title: { text: "X Title" }
+          title: { text: "H1 2026" }
         }
       }
     },
   }
 };
 
-
-
 export const PieChart: Story<'pie'> = {
   args: {
     type: "pie",
     data: {
-      labels: [
-        'orange', 'teal', 'crimson', 'cyan', 'purple'
-      ],
+      labels: ['PostgreSQL', 'Redis', 'Elasticsearch', 'S3 Storage', 'MongoDB'],
       datasets: [
         {
-          label: "Color Pie",
-          data: [20, 20, 20, 20, 20],
-          backgroundColor: [
-            'orange', 'teal', 'crimson', 'cyan', 'purple'
-          ]
+          label: "Resource Allocation",
+          data: [45, 15, 20, 10, 10],
+          backgroundColor: ['orange', 'teal', 'crimson', 'cyan', 'purple']
         },
       ]
     },
-
     options: {
       responsive: true,
-
     },
   }
 };
-
-
 
 export const DoughnutChart: Story<'doughnut'> = {
   args: {
     type: "doughnut",
     data: {
-      labels: [
-        'orange', 'teal', 'crimson', 'cyan', 'purple'
-      ],
+      labels: ['TypeScript', 'HTML/CSS', 'Python', 'Go', 'Rust'],
       datasets: [
         {
-          label: "Color Pie",
-          data: [25, 15, 20, 15, 20],
-          backgroundColor: [
-            'orange', 'teal', 'crimson', 'cyan', 'purple'
-          ]
+          label: "Repo Language Distribution",
+          data: [60, 15, 10, 10, 5],
+          backgroundColor: ['orange', 'teal', 'crimson', 'cyan', 'purple']
         },
       ]
     },
-
     options: {
       responsive: true,
-
     },
   }
 };
@@ -125,23 +106,17 @@ export const PolarAreaChart: Story<'polarArea'> = {
   args: {
     type: "polarArea",
     data: {
-      labels: [
-        'orange', 'teal', 'crimson', 'cyan', 'purple'
-      ],
+      labels: ['North America', 'Europe', 'Asia', 'South America', 'Africa'],
       datasets: [
         {
-          label: "Color Pie",
-          data: [25, 15, 20, 15, 20],
-          backgroundColor: [
-            'orange', 'teal', 'crimson', 'cyan', 'purple'
-          ]
+          label: "Traffic by Region",
+          data: [40, 30, 15, 10, 5],
+          backgroundColor: ['orange', 'teal', 'crimson', 'cyan', 'purple']
         },
       ]
     },
-
     options: {
       responsive: true,
-
     },
   }
 };
@@ -150,32 +125,21 @@ export const RadarChart: Story<'radar'> = {
   args: {
     type: "radar",
     data: {
-      labels: [
-        'orange', 'teal', 'crimson', 'cyan', 'purple',
-      ],
+      labels: ['Performance', 'Security', 'Reliability', 'Scalability', 'Maintainability'],
       datasets: [
         {
-          label: "Colors",
-
-          data: [25, 15, 20, 15, 20],
-          pointBackgroundColor: [
-            'orange', 'teal', 'crimson', 'cyan', 'purple'
-          ],
+          label: "System Health Score",
+          data: [90, 85, 70, 80, 95],
+          pointBackgroundColor: ['orange', 'teal', 'crimson', 'cyan', 'purple'],
           pointRadius: 5,
-
           showLine: false,
           backgroundColor: 'lightgreen',
-          pointBorderColor: [
-            'orange', 'teal', 'crimson', 'cyan', 'purple'
-          ]
+          pointBorderColor: ['orange', 'teal', 'crimson', 'cyan', 'purple']
         },
       ]
     },
-
     options: {
       responsive: true
     },
   }
 };
-
-

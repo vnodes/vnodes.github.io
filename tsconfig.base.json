@@ -11,49 +11,30 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "@vnodes/material/samples": [
-        "libs/material/src/samples/public-api.ts"
-      ],
-      "@vnodes/material/flex": [
-        "libs/material/src/flex/public-api.ts"
-      ],
-      "@vnodes/material/form": [
-        "libs/material/src/form/public-api.ts"
-      ],
+      "@vnodes/material/samples": ["libs/material/src/samples/public-api.ts"],
+      "@vnodes/material/flex": ["libs/material/src/flex/public-api.ts"],
+      "@vnodes/material/form": ["libs/material/src/form/public-api.ts"],
       "@vnodes/material/input-number": [
         "libs/material/src/input-number/public-api.ts"
       ],
       "@vnodes/material/input-text": [
         "libs/material/src/input-text/public-api.ts"
       ],
-      "@vnodes/material/input": [
-        "libs/material/src/input/public-api.ts"
-      ],
+      "@vnodes/material/input": ["libs/material/src/input/public-api.ts"],
       "@vnodes/material/number-filter": [
         "libs/material/src/number-filter/public-api.ts"
       ],
-      "@vnodes/material/utils": [
-        "libs/material/src/utils/public-api.ts"
-      ],
-      "@vnodes/material/card": [
-        "libs/material/src/card/public-api.ts"
-      ],
-      "@vnodes/material/layout": [
-        "libs/material/src/layout/public-api.ts"
-      ],
+      "@vnodes/material/utils": ["libs/material/src/utils/public-api.ts"],
+      "@vnodes/material/card": ["libs/material/src/card/public-api.ts"],
+      "@vnodes/material/layout": ["libs/material/src/layout/public-api.ts"],
       "@vnodes/material/layout-app": [
         "libs/material/src/layout-app/public-api.ts"
       ],
-      "@vnodes/material/logo": [
-        "libs/material/src/logo/public-api.ts"
-      ],
+      "@vnodes/material/logo": ["libs/material/src/logo/public-api.ts"],
       "@vnodes/material/input-date": [
         "libs/material/src/input-date/public-api.ts"
       ],
@@ -63,79 +44,56 @@
       "@vnodes/material/validators": [
         "libs/material/src/validators/public-api.ts"
       ],
-      "@vnodes/material/select": [
-        "libs/material/src/select/public-api.ts"
-      ],
+      "@vnodes/material/select": ["libs/material/src/select/public-api.ts"],
       "@vnodes/material/autocomplete": [
         "libs/material/src/autocomplete/public-api.ts"
       ],
-      "@vnodes/material/checkbox": [
-        "libs/material/src/checkbox/public-api.ts"
-      ],
+      "@vnodes/material/checkbox": ["libs/material/src/checkbox/public-api.ts"],
       "@vnodes/material/button-toggle": [
         "libs/material/src/button-toggle/public-api.ts"
       ],
       "@vnodes/material/slide-toggle": [
         "libs/material/src/slide-toggle/public-api.ts"
       ],
-      "@vnodes/material/radio": [
-        "libs/material/src/radio/public-api.ts"
-      ],
-      "@vnodes/material/fieldset": [
-        "libs/material/src/fieldset/public-api.ts"
-      ],
+      "@vnodes/material/radio": ["libs/material/src/radio/public-api.ts"],
+      "@vnodes/material/fieldset": ["libs/material/src/fieldset/public-api.ts"],
       "@vnodes/source/checkbox-group": [
         "libs/material/src/checkbox-group/public-api.ts"
       ],
-      "@vnodes/material/list": [
-        "libs/material/src/list/public-api.ts"
-      ],
-      "@vnodes/material/nav-list": [
-        "libs/material/src/nav-list/public-api.ts"
-      ],
-      "@vnodes/material/common": [
-        "libs/material/src/common/public-api.ts"
-      ],
-      "@vnodes/material/icon": [
-        "libs/material/src/icon/public-api.ts"
-      ],
-      "@vnodes/material/color": [
-        "libs/material/src/color/public-api.ts"
-      ],
-      "@vnodes/material/menu": [
-        "libs/material/src/menu/public-api.ts"
-      ],
+      "@vnodes/material/list": ["libs/material/src/list/public-api.ts"],
+      "@vnodes/material/nav-list": ["libs/material/src/nav-list/public-api.ts"],
+      "@vnodes/material/common": ["libs/material/src/common/public-api.ts"],
+      "@vnodes/material/icon": ["libs/material/src/icon/public-api.ts"],
+      "@vnodes/material/color": ["libs/material/src/color/public-api.ts"],
+      "@vnodes/material/menu": ["libs/material/src/menu/public-api.ts"],
       "@vnodes/material/layout-web": [
         "libs/material/src/layout-web/public-api.ts"
       ],
-      "@vnodes/material/list-nav": [
-        "libs/material/src/list-nav/public-api.ts"
-      ],
+      "@vnodes/material/list-nav": ["libs/material/src/list-nav/public-api.ts"],
       "@vnodes/material/list-select": [
         "libs/material/src/list-select/public-api.ts"
       ],
       "@vnodes/material/input-field": [
         "libs/material/src/input-field/public-api.ts"
       ],
-      "@vnodes/material/shadow": [
-        "libs/material/src/shadow/public-api.ts"
+      "@vnodes/material/shadow": ["libs/material/src/shadow/public-api.ts"],
+      "@vnodes/material/table": ["libs/material/src/table/public-api.ts"],
+      "@vnodes/material/casing": ["libs/material/src/casing/public-api.ts"],
+      "@vnodes/material/slider": ["libs/material/src/slider/public-api.ts"],
+      "@vnodes/material/chart": ["libs/material/src/chart/public-api.ts"],
+      "@vnodes/material/input-model": [
+        "libs/material/src/input-model/public-api.ts"
       ],
-      "@vnodes/material/table": [
-        "libs/material/src/table/public-api.ts"
+      "@vnodes/material/input-model-text": [
+        "libs/material/src/input-model-text/public-api.ts"
       ],
-      "@vnodes/material/casing": [
-        "libs/material/src/casing/public-api.ts"
+      "@vnodes/material/input-model-number": [
+        "libs/material/src/input-model-number/public-api.ts"
       ],
-      "@vnodes/material/slider": [
-        "libs/material/src/slider/public-api.ts"
-      ],
-      "@vnodes/material/chart": [
-        "libs/material/src/chart/public-api.ts"
+      "@vnodes/material/input-model-checkbox": [
+        "libs/material/src/input-model-checkbox/public-api.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

@@ -1,5 +1,4 @@
 import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
-import { NumberInputType } from '@vnodes/material/input';
 import { clipboardText, dispatchEmptyInputEvent, isDigitString, isIntegerString, isKeyboardCommandEvent, isNumberString } from '@vnodes/material/utils';
 
 
@@ -10,7 +9,7 @@ import { clipboardText, dispatchEmptyInputEvent, isDigitString, isIntegerString,
 })
 export class NumberFilterDirective {
     vnDecimals = input<number>(6);
-    vnNumberType = input.required<NumberInputType>()
+    vnNumberType = input.required<'number' | 'integer'>()
 
     readonly elementRef = inject(ElementRef<HTMLInputElement>);
 
@@ -23,14 +22,16 @@ export class NumberFilterDirective {
         const currentKey = event.key;
 
         const element = this.elementRef.nativeElement
-        const previousValue = element.value
+
+        const previousValue = element.value?.toString() ?? "";
         const hasMinus = !!previousValue?.includes('-');
         const hasDot = !!previousValue?.includes('.')
         const selectionStart = (event.target as HTMLInputElement).selectionStart
+        const selectionEnd = (event.target as HTMLInputElement).selectionEnd
         const [intPart, decimalPart] = (previousValue ?? '').toString().split('.');
         const intLen = intPart?.length ?? 0;
         const decimalLen = decimalPart?.length ?? 0;
-
+        const isOverriding = Math.abs((selectionStart ?? 0) - (selectionEnd ?? 0)) > 0;
 
 
         if (isKeyboardCommandEvent(event)) {
@@ -40,15 +41,20 @@ export class NumberFilterDirective {
         }
 
 
-        if (previousValue) {
+        if (previousValue !== '') {
             if (intLen >= Number.MAX_SAFE_INTEGER.toString().length) {
                 this.preventDefault(event);
                 return;
             }
 
+            // Here
+
+           
             if (decimalLen >= this.vnDecimals()) {
-                if (selectionStart && selectionStart > intLen) {
-                    this.preventDefault(event)
+                if (!isOverriding) {
+                    if (selectionStart && selectionStart > intLen) {
+                        this.preventDefault(event)
+                    }
                 }
             }
         }
@@ -60,10 +66,18 @@ export class NumberFilterDirective {
             if (this.isInteger() || hasDot) {
                 // Then prevent event 
                 this.preventDefault(event)
+            } else {
+
+                if (previousValue === '') {
+                    this.preventDefault(event)
+                    element.value = `0.`
+                    dispatchEmptyInputEvent(element)
+                }
             }
 
             // If the key is minus
         } else if (currentKey === '-') {
+
             // If the current input is "0"
             if (previousValue === '0') {
                 this.preventDefault(event)
@@ -76,7 +90,7 @@ export class NumberFilterDirective {
             } else {
                 // Else add the sign
                 event.preventDefault()
-                element.value = `-${previousValue}`
+                element.value = `-${previousValue}`;
                 dispatchEmptyInputEvent(element)
 
             }
@@ -91,9 +105,6 @@ export class NumberFilterDirective {
             element.value = `${currentKey}`
             dispatchEmptyInputEvent(element)
         }
-
-
-
 
     }
 
