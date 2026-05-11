@@ -38,6 +38,7 @@ export class NumberFilterDirective {
             return;
         } else if (!isDigitString(currentKey) && !(currentKey === '.' || currentKey === '-')) {
             this.preventDefault(event)
+            return;
         }
 
 
@@ -49,7 +50,7 @@ export class NumberFilterDirective {
 
             // Here
 
-           
+
             if (decimalLen >= this.vnDecimals()) {
                 if (!isOverriding) {
                     if (selectionStart && selectionStart > intLen) {

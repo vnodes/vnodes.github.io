@@ -191,6 +191,10 @@
     "./input-model-checkbox": {
       "types": "./src/input-model-checkbox/public-api.ts",
       "default": "./src/input-model-checkbox/public-api.ts"
+    },
+    "./form-model": {
+      "types": "./src/form-model/public-api.ts",
+      "default": "./src/form-model/public-api.ts"
     }
   },
   "peerDependencies": {

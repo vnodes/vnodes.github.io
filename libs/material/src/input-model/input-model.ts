@@ -1,5 +1,14 @@
 import { Directive, input, model } from '@angular/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Icon } from '@vnodes/material/common';
+
+export class FormModelErrorStateMatcher implements ErrorStateMatcher {
+  constructor(private isInvalid: () => boolean, private isTouched: () => boolean) { }
+  isErrorState(): boolean {
+    console.log('FormModelErrorStateMatcher is working')
+    return this.isInvalid() && this.isTouched();
+  }
+}
 
 
 export type InputType =
@@ -19,9 +28,9 @@ export type InputType =
 
 @Directive()
 export class InputModel<ValueType, TInputTYpe extends InputType> {
-  name = input<string>();
+  name = input.required<string>();
   type = input.required<TInputTYpe>()
-  value = model<ValueType | null>(null);
+  value = model<ValueType>();
   label = input<string>();
   hint = input<string>();
 
@@ -31,6 +40,11 @@ export class InputModel<ValueType, TInputTYpe extends InputType> {
   textSuffix = input<string>();
 
   required = input<boolean>(false);
+
+  readonly matcher = new FormModelErrorStateMatcher(
+    () => this.isInvalid(),
+    () => this.isTouched()
+  );
 
   /**
    * Minimum length for text and number of items for multiple inputs
@@ -67,10 +81,10 @@ export class InputModel<ValueType, TInputTYpe extends InputType> {
   isEmail = input<boolean>(false)
 
 
-  isDirty = model<boolean>(false);
-  isTouched = model<boolean>(false);
-  isValid = model<boolean>(false);
-  isSubmitted = model<boolean>(false)
+  isDirty = model<boolean>(true);
+  isTouched = model<boolean>(true);
+  isValid = model<boolean>(true);
+  isSubmitted = model<boolean>(true)
   isInvalid = model<boolean>(false);
 
   errorMessages = model<string[] | undefined>(undefined);

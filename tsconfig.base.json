@@ -92,6 +92,9 @@
       ],
       "@vnodes/material/input-model-checkbox": [
         "libs/material/src/input-model-checkbox/public-api.ts"
+      ],
+      "@vnodes/material/form-model": [
+        "libs/material/src/form-model/public-api.ts"
       ]
     }
   },

@@ -1,6 +1,6 @@
 
 export const KEYBOARD_NAVIGATION_EVENTS: Readonly<string[]> = [
-    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight'
+    'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End', 'ArrowLeft', 'ArrowRight', 'Shift'
 ];
 
 

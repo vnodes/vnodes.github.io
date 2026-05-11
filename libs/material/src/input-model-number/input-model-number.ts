@@ -11,7 +11,7 @@ import { NumberFilterDirective } from '@vnodes/material/number-filter';
 export type InputNumberType = 'number' | 'integer';
 
 @Component({
-  selector: 'vn-input-model-number',
+  selector: 'vn-input[type="integer"], vn-input[type="number"],',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, NumberFilterDirective],
   template: `
 
@@ -29,6 +29,7 @@ export type InputNumberType = 'number' | 'integer';
   @let __iconSuffix = iconSuffix();
   @let __textPrefix = textPrefix();
   @let __textSuffix = textSuffix();
+  @let __errorMessages = errorMessages();
 
   @if(__label){ <mat-label>{{__label}}</mat-label> }
   @if(__hint){ <mat-hint>{{__hint}}</mat-hint> }
@@ -38,6 +39,8 @@ export type InputNumberType = 'number' | 'integer';
   @if(__textPrefix){ <span matTextPrefix>{{__textPrefix}}</span> }
   @if(__textSuffix){ <span matTextSuffix>{{__textSuffix}}</span> }
 
+
+ @if(__errorMessages){  <mat-error>{{__errorMessages}}</mat-error> }
 
     <input 
     matInput  
@@ -52,9 +55,13 @@ export type InputNumberType = 'number' | 'integer';
     vnNumberFilter
     [vnNumberType]="__type"
     [vnDecimals]="__decimals"
+
+    [errorStateMatcher]="matcher"
+
     >
 
   </mat-form-field>
   `,
+  providers: [{ provide: InputModel, useExisting: InputModelNumberComponent }]
 })
 export class InputModelNumberComponent extends InputModel<number, InputNumberType> { }
