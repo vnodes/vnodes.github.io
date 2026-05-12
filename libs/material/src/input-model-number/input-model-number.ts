@@ -14,8 +14,6 @@ export type InputNumberType = 'number' | 'integer';
   selector: 'vn-input[type="integer"], vn-input[type="number"],',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, NumberFilterDirective],
   template: `
-
-  Value: {{value()}}
   <mat-form-field>
 
   @let __label = label(); 
@@ -30,6 +28,8 @@ export type InputNumberType = 'number' | 'integer';
   @let __textPrefix = textPrefix();
   @let __textSuffix = textSuffix();
   @let __errorMessages = errorMessages();
+  @let __disabled = disabled();
+
 
   @if(__label){ <mat-label>{{__label}}</mat-label> }
   @if(__hint){ <mat-hint>{{__hint}}</mat-hint> }
@@ -40,12 +40,17 @@ export type InputNumberType = 'number' | 'integer';
   @if(__textSuffix){ <span matTextSuffix>{{__textSuffix}}</span> }
 
 
- @if(__errorMessages){  <mat-error>{{__errorMessages}}</mat-error> }
+  @if(__errorMessages){  
+    <mat-error >{{__errorMessages}}</mat-error>
+  } 
 
     <input 
     matInput  
     type="text" 
     autocomplete="off" 
+
+    [disabled]="__disabled"
+
     [(ngModel)]="value"
 
     [required]="__required" 
@@ -57,7 +62,9 @@ export type InputNumberType = 'number' | 'integer';
     [vnDecimals]="__decimals"
 
     [errorStateMatcher]="matcher"
+    
 
+    (input)="handleInputEvent($event)"
     >
 
   </mat-form-field>

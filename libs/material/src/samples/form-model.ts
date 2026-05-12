@@ -1,5 +1,5 @@
 import { JsonPipe } from "@angular/common";
-import { AfterViewInit, Component, ComponentRef, viewChild } from "@angular/core";
+import { Component, viewChild } from "@angular/core";
 import { FormModelComponent } from "@vnodes/material/form-model";
 import { InputModelNumberComponent } from "@vnodes/material/input-model-number";
 
@@ -8,26 +8,22 @@ import { InputModelNumberComponent } from "@vnodes/material/input-model-number";
 @Component({
     imports: [InputModelNumberComponent, FormModelComponent, JsonPipe],
     template: `
-    {{form.value() | json}}
+    FormValue : {{form.value() | json}}
     <form vnForm #form  (formValueChange)="handleChange($event)">
-        <vn-input name="first" #inputField type="number" label="First"  ></vn-input>
-        <vn-input name="second" #inputField type="number" label="Second" ></vn-input>
+        <vn-input [required]="true" name="first" #inputField type="number" label="First"  ></vn-input>
+        <vn-input [required]="true" name="second" #inputField type="number" label="Second" ></vn-input>
     </form>
+    <button [disabled]="form.isInvalid()" type="button" (click)="form.isSubmitted.set(true)">Submit</button>
     `
 })
-export class FormModelSampleComponent implements AfterViewInit {
+export class FormModelSampleComponent {
 
-    form = viewChild<ComponentRef<FormModelComponent>>("form")
-
-
-
+    form = viewChild<FormModelComponent>("form")
 
     handleChange(value: any) {
         console.log(value);
     }
 
 
-    ngAfterViewInit(): void {
-        this.form()?.instance.setErrors({ first: "First error" })
-    }
+
 }
