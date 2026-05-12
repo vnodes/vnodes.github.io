@@ -4,17 +4,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { InputModel } from '@vnodes/material/input-model';
+import { InputModelDirective } from '@vnodes/material/form-model';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
 
+
 export type InputNumberType = 'number' | 'integer';
+
 
 @Component({
   selector: 'vn-input[type="integer"], vn-input[type="number"],',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, NumberFilterDirective],
   template: `
+ isValid: {{ isValid()}} <br>
+ isInvalid: {{isInvalid()}} <br>
+ isTouched: {{isTouched()}} <br>
+ isDirty: {{isDirty()}} <br>
+ isSubmitted: {{isSubmitted()}} <br>
+ error: {{errorMessages()}}
   <mat-form-field>
+
 
   @let __label = label(); 
   @let __hint = hint(); 
@@ -47,6 +56,7 @@ export type InputNumberType = 'number' | 'integer';
     <input 
     matInput  
     type="text" 
+    [name]="name()"
     autocomplete="off" 
 
     [disabled]="__disabled"
@@ -54,21 +64,24 @@ export type InputNumberType = 'number' | 'integer';
     [(ngModel)]="value"
 
     [required]="__required" 
-    [minLength]="0"
-    [maxLength]="22"
+    [minLength]="(minlength() || 0)"
+    [maxLength]="(maxlength() || 22)"
 
     vnNumberFilter
     [vnNumberType]="__type"
     [vnDecimals]="__decimals"
 
-    [errorStateMatcher]="matcher"
-    
 
+    (keyup)="handleKeyupEvent($event)"
     (input)="handleInputEvent($event)"
+    (click)="handleClickEvent($event)"
+
+    [errorStateMatcher]="errorStateMatcher"
     >
 
   </mat-form-field>
-  `,
-  providers: [{ provide: InputModel, useExisting: InputModelNumberComponent }]
+  `
 })
-export class InputModelNumberComponent extends InputModel<number, InputNumberType> { }
+export class InputModelNumberComponent extends InputModelDirective<number, InputNumberType> {
+
+}

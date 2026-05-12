@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { InputModel } from '@vnodes/material/input-model';
+import { InputModelDirective } from '@vnodes/material/form-model';
 
 @Component({
-  selector: 'vn-input-model-text',
-  imports: [],
+  selector: 'vn-input[type="text"]',
   template: `<p>input-model-text</p>`,
-  providers: [{ provide: InputModel, useExisting: InputModelTextComponent }]
 })
-export class InputModelTextComponent { }
+export class InputModelTextComponent extends InputModelDirective<string, 'text'> { }

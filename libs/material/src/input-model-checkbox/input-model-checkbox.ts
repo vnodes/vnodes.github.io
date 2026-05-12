@@ -1,24 +1,34 @@
 import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { InputModel } from '@vnodes/material/input-model';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { InputModelDirective } from '@vnodes/material/form-model';
+
 
 @Component({
   selector: 'vn-input[type="checkbox"][value]',
   imports: [MatCheckboxModule],
   template: `
-  value: {{value()}}
+
   @let __value = value();
   @let __label = label();
-  <mat-checkbox
-  [checked]="__value" 
+  @let __required = required();
   
-  [ariaChecked]="__value"
-  [ariaChecked]="__value"
-  (change)="value.update(()=>$event.checked)" 
+  <mat-checkbox
+    [checked]="__value" 
+    [ariaChecked]="__value"
+    [ariaChecked]="__value"
+    (change)="handleChange($event)" 
+    [required]="__required"
+
   >
-  {{__label}}
-</mat-checkbox>
+    {{__label}}
+  </mat-checkbox>
   `,
 })
-export class InputModelCheckboxComponent extends InputModel<boolean, 'checkbox'> {
+export class InputModelCheckboxComponent extends InputModelDirective<boolean, 'checkbox'> {
+
+  handleChange(checkboxChange: MatCheckboxChange) {
+    this.value.set(checkboxChange.checked);
+    this.isTouched.set(true);
+    this.isDirty.set(true);
+  }
 }
