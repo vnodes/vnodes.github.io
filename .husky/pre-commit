@@ -1,6 +1,5 @@
 # #!/bin/bash
 
+npx nx run-many -t lint test
 npx nx run-many -t build
 npx nx run-many -t build-storybook
-npx nx run-many -t lint 
-npx nx run-many -t test 
