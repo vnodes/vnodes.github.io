@@ -16,15 +16,7 @@ export type InputNumberType = 'number' | 'integer';
   selector: 'vn-input[type="integer"], vn-input[type="number"],',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, NumberFilterDirective],
   template: `
- isValid: {{ isValid()}} <br>
- isInvalid: {{isInvalid()}} <br>
- isTouched: {{isTouched()}} <br>
- isDirty: {{isDirty()}} <br>
- isSubmitted: {{isSubmitted()}} <br>
- error: {{errorMessages()}}
   <mat-form-field>
-
-
   @let __label = label(); 
   @let __hint = hint(); 
 
@@ -58,7 +50,7 @@ export type InputNumberType = 'number' | 'integer';
     type="text" 
     [name]="name()"
     autocomplete="off" 
-
+    [attr.inputmode]="inputmode()"
     [disabled]="__disabled"
 
     [(ngModel)]="value"
@@ -66,13 +58,15 @@ export type InputNumberType = 'number' | 'integer';
     [required]="__required" 
     [minLength]="(minlength() || 0)"
     [maxLength]="(maxlength() || 22)"
+    [min]="min()"
+    [max]="max()"
 
     vnNumberFilter
     [vnNumberType]="__type"
     [vnDecimals]="__decimals"
 
 
-    (keyup)="handleKeyupEvent($event)"
+    (blur)="handleTouchEvent($event)"
     (input)="handleInputEvent($event)"
     (click)="handleClickEvent($event)"
 

@@ -9,13 +9,15 @@ import { clipboardText, dispatchEmptyInputEvent, isDigitString, isIntegerString,
 })
 export class NumberFilterDirective {
     vnDecimals = input<number>(6);
-    vnNumberType = input.required<'number' | 'integer'>()
+    vnNumberType = input.required<'number' | 'integer' | 'decimal'>();
+    
 
     readonly elementRef = inject(ElementRef<HTMLInputElement>);
 
     protected isInteger() {
         return this.vnNumberType() === 'integer'
     }
+
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {

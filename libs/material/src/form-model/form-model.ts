@@ -6,7 +6,7 @@ import { InputModelDirective } from './input-model';
   exportAs: "vnForm",
   template: `
       <form vnFlexCol vnFlexGap>
-        <ng-content select="[vnInput]"></ng-content>
+        <ng-content ></ng-content>
       </form>
   `
 })

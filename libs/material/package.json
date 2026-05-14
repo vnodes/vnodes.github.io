@@ -191,6 +191,10 @@
     "./form-model": {
       "types": "./src/form-model/public-api.ts",
       "default": "./src/form-model/public-api.ts"
+    },
+    "./form-field": {
+      "types": "./src/form-field/public-api.ts",
+      "default": "./src/form-field/public-api.ts"
     }
   },
   "peerDependencies": {

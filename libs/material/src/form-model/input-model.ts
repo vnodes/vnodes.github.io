@@ -20,20 +20,29 @@ export type InputType =
 
 
 
-@Directive({
-  selector: "[vnInput]"
-})
+/**
+ * Base model base input component
+ */
+@Directive({ selector: "[vnInput]" })
 export class InputModelDirective<ValueType, TInputTYpe extends InputType> {
   readonly formModel = inject(FormModelComponent, { optional: true })
 
   name = input.required<string>();
   type = input.required<TInputTYpe>()
+  inputmode = computed<HTMLInputElement['inputMode']>(() => {
+    if (this.type() === 'integer') {
+      return 'numeric'
+    } else if (this.type() === 'number') {
+      return 'decimal'
+    }
+    return 'text';
+  })
   value = model<ValueType | null>();
+  disabled = model<boolean>(false)
+
+
   label = input<string>();
   hint = input<string>();
-
-
-  disabled = model<boolean>(false)
 
   iconPrefix = input<Icon>();
   iconSuffix = input<Icon>();
@@ -41,6 +50,7 @@ export class InputModelDirective<ValueType, TInputTYpe extends InputType> {
   textSuffix = input<string>();
 
   required = input<boolean>(false);
+
   /**
    * Minimum length for text and number of items for multiple inputs
    */
@@ -86,11 +96,11 @@ export class InputModelDirective<ValueType, TInputTYpe extends InputType> {
     if (name && errors) {
       return errors[name]
     }
-  })
+  });
 
   readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: () => {
-      return this.isSubmitted() && this.isTouched() && this.isInvalid()
+      return this.isTouched() && this.isInvalid()
     }
   }
 
@@ -121,7 +131,7 @@ export class InputModelDirective<ValueType, TInputTYpe extends InputType> {
     this.disabled.set(true);
   }
 
-  handleKeyupEvent(event: Event) {
+  handleTouchEvent(event: Event) {
     this.isTouched.set(true);
   }
 
