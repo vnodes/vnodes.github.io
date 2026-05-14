@@ -16,7 +16,7 @@ export const TextInput: Story = {
     label: "Label",
     hint: "Label",
     minlength: 3,
-    maxlength: 255
+    maxlength: 255,
   },
 };
 
@@ -26,7 +26,8 @@ export const NumberInput: Story = {
     name: "name",
     label: "Label",
     hint: "Label",
-    decimals: 6
+    decimals: 6,
+    defaultValue: 100.99
   },
 };
 
@@ -36,6 +37,7 @@ export const IntegerInput: Story = {
     name: "name",
     label: "Label",
     hint: "Label",
+    defaultValue: 100
   },
 };
 
@@ -46,7 +48,8 @@ export const DateInput: Story = {
     type: "date",
     name: "name",
     label: "Label",
-    hint: "Label"
+    hint: "Label",
+    defaultValue: "10/10/1990"
   },
 };
 
@@ -57,7 +60,8 @@ export const TimeInput: Story = {
     type: "time",
     name: "name",
     label: "Label",
-    hint: "Label"
+    hint: "Label",
+    defaultValue: new Date()
   },
 };
 
@@ -73,7 +77,9 @@ export const SelectInput: Story = {
       { id: 2, label: "Option 2", value: "option value 2" },
       { id: 3, label: "Option 3", value: "option value 3" },
       { id: 4, label: "Option 4", value: "option value 4" },
-    ]
+      { id: 5, label: "Option 5", value: "option value 5", disabled: true },
+    ],
+    defaultValue: "option value 5"
   },
 };
 
@@ -90,7 +96,8 @@ export const ListSelectInput: Story = {
       { id: 2, label: "Option 2", value: "option value 2" },
       { id: 3, label: "Option 3", value: "option value 3" },
       { id: 4, label: "Option 4", value: "option value 4" },
-    ]
+    ], 
+    defaultValue:['option value 1', 'option value 3']
   },
 };
 
@@ -103,9 +110,10 @@ export const AutocompleteInput: Story = {
     options: [
       { id: 1, label: "Option 1", value: "option value 1" },
       { id: 2, label: "Option 2", value: "option value 2" },
-      { id: 3, label: "Option 3", value: "option value 3" },
+      { id: 3, label: "Option 3", value: "option value 3", disabled: true },
       { id: 4, label: "Option 4", value: "option value 4" },
-    ]
+    ],
+    defaultValue: "option value 4"
   },
 };
 
@@ -143,5 +151,23 @@ export const SlideInput: Story = {
     label: "Label",
     hint: "Label",
     value: true
+  },
+};
+
+
+
+export const ButtonsInput: Story = {
+  args: {
+    type: "buttons",
+    name: "name",
+    label: "Label",
+    hint: "Label",
+    defaultValue: "option value 1",
+    options: [
+      { value: "option value 1" },
+      { value: "option value 2" },
+      { value: "option value 3" },
+      { value: "option value 4" },
+    ]
   },
 };

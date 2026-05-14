@@ -1,4 +1,4 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, input, model, OnInit, signal } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -18,9 +18,13 @@ import { FieldsetComponent } from '@vnodes/material/fieldset';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
 export type FormFieldOption = {
-  id: any;
+  id?: any;
   value: any
-  label: string;
+  label?: string;
+  icon?: Icon;
+  avatar?: string;
+  disabled?: boolean
+  title?: string;
 }
 
 export type FormFieldType =
@@ -36,8 +40,8 @@ export type FormFieldType =
   | 'checkbox'
   | 'radio'
   | 'list'
-
   | 'buttons'
+
   | 'slide'
   | 'select'
   | 'autocomplete'
@@ -68,7 +72,8 @@ export type FormFieldType =
     FieldsetComponent,
     MatTimepickerInput,
     MatTimepicker,
-    MatTimepickerToggle
+    MatTimepickerToggle,
+    MatButtonToggleModule
   ],
   providers: [provideNativeDateAdapter()],
   template: `
@@ -88,6 +93,9 @@ Value : {{value()}}
 @let __disabled = disabled(); 
 
 
+@let __defaultValue =defaultValue();
+@let __timeInterval = timeInterval();
+
 <!-- Validation options  -->
 @let __required =required();
 
@@ -102,6 +110,7 @@ Value : {{value()}}
 <!-- Input options -->
 @let __options = options();
 @let __multiple = multiple();
+@let __hideSingleSelectionIndicator = hideSingleSelectionIndicator();
 @let __filteredOptions =filteredOptions();
 
 @let __decimals = decimals();
@@ -159,6 +168,7 @@ Value : {{value()}}
             matInput
             [id]="__id ??__name"
             [name]="__name"
+            [defaultValue]="__defaultValue ?? ''"
             [placeholder]="__placeholder"
             [minLength]="__minlength"
             [maxLength]="__maxlength"
@@ -182,6 +192,7 @@ Value : {{value()}}
             type="text"
             autocomplete="off"
             inputmode="numeric"
+            [value]="__defaultValue ?? ''"
             [id]="__id"
             [name]="__name"
             [placeholder]="__placeholder"
@@ -208,16 +219,17 @@ Value : {{value()}}
         @case ('select'){ 
           <mat-select 
           [id]="__id"  
+          [attr.name]="__name"
           [ariaLabel]="__label" 
           [multiple]="__multiple"
+          [value]="__defaultValue"
           (openedChange)="handleTouchEvent()" 
           (selectionChange)="handleSelectValueChange($event)"  
           >
-
-          <mat-option [value]="null" >None</mat-option>
             @for(o of __options ; track o.id){ 
-              <mat-option [value]="o.value" >{{o.label}}</mat-option>
+              <mat-option [value]="o.value" [disabled]="o.disabled">{{o.label}}</mat-option>
             }
+            @if(__required!==true){ <mat-option [value]="null" >None</mat-option> }
           </mat-select>
         }
         
@@ -234,14 +246,21 @@ Value : {{value()}}
             [disabled]="__disabled"
             [required]="__required"
             [matAutocomplete]="auto"
-
+            [defaultValue]="__defaultValue??''"
+            
             (blur)="handleTouchEvent()"
-            (input)="handleInputEvent($event)"
+            (input)="handleInputEventForAutocomplete($event); "
             >
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="handleValueChange($event.option.value)">
-            @for (option of __filteredOptions; track option) {
-              <mat-option [value]="option.value">{{option.label || option.value}}</mat-option>
+          <mat-autocomplete 
+            #auto="matAutocomplete" 
+            autoActiveFirstOption 
+            (optionSelected)="handleValueChange($event.option.value)" 
+            [autoActiveFirstOption]="true"
+            >
+            @for (option of __filteredOptions; track option.value) {
+              <mat-option  [value]="option.value" [disabled]="option.disabled">{{option.value}}</mat-option>
             }
+            @if(__required!==true){  <mat-option [value]="null">None</mat-option> }
           </mat-autocomplete>
 
           
@@ -284,18 +303,20 @@ Value : {{value()}}
         autocomplete="off"
         [id]="__id"
         [name]="__name"
+        [defaultValue]="__defaultValue?? ''"
         [placeholder]="__placeholder" 
         [disabled]="__disabled"
         [matDatepicker]="picker" 
         [required]="__required" 
         (dblclick)="picker.open()"
 
+        (dateChange)="handleValueChange($event.value)"
         (blur)="handleTouchEvent()"
         (input)="handleInputEvent($event)"
       >
       
       <mat-datepicker-toggle matIconSuffix [for]="picker"> </mat-datepicker-toggle>
-      <mat-datepicker #picker  ></mat-datepicker>
+      <mat-datepicker   #picker></mat-datepicker>
     </mat-form-field>
    }
 
@@ -329,6 +350,8 @@ Value : {{value()}}
 
 
       <input 
+        
+        #timeInput
         matInput 
         autocomplete="off"
         [id]="__id"
@@ -337,14 +360,16 @@ Value : {{value()}}
         [disabled]="__disabled"
         [matTimepicker]="picker" 
         [required]="__required" 
+        [max]="__max"
+        [min]="__min"
         (dblclick)="picker.open()"
 
-        (blur)="handleTouchEvent()"
+        [value]="__defaultValue ?? ''"
+        (blur)="handleTouchEvent();"
         (input)="handleInputEvent($event)"
       >
-      
-      <mat-timepicker-toggle matIconSuffix [for]="picker"> </mat-timepicker-toggle>
-      <mat-timepicker #picker  ></mat-timepicker>
+      <mat-timepicker-toggle  matIconSuffix [for]="picker" >  </mat-timepicker-toggle>
+      <mat-timepicker (selected)="handleValueChange($event.value);" #picker [interval]="__timeInterval" ></mat-timepicker>
     </mat-form-field>
    }
 
@@ -356,10 +381,10 @@ Value : {{value()}}
   @case('radio'){ 
     <vn-fieldset [label]="__label ?? __name">
       <mat-radio-group [id]="__id" [name]="__name" (change)="handleValueChange($event.value)">
-        <mat-radio-button  [value]="null">None</mat-radio-button>
         @for(o of __options; track o.id){ 
           <mat-radio-button [id]="o.id" [value]="o.value">{{o.label}}</mat-radio-button>
         }
+        @if(__required!==true){ <mat-radio-button  [value]="null">None</mat-radio-button> }
       </mat-radio-group>
     </vn-fieldset>
   }
@@ -372,9 +397,12 @@ Value : {{value()}}
    
     (change)="handleValueChange($event.checked)"
     [labelPosition]="__labelPosition"
-    >{{__label}}</mat-checkbox>
+    >
+    {{__label}}
+    </mat-checkbox>
   }
 
+  <!-- Slide Toggle -->
   @case('slide'){ 
 
       <mat-slide-toggle
@@ -391,22 +419,62 @@ Value : {{value()}}
   }
 
 
+  <!-- List select -->
   @case('list'){ 
 
 
   <vn-fieldset [label]="__label??__name">
     <mat-selection-list 
       #ref
+      [id]="__id"
+      [attr.name]="__name"
       [multiple]="__multiple"
       [ariaLabel]="__label"
+      
       (selectionChange)="handleValueChange(ref._value)"
       >
 
     @for (option of __options; track option) {
-      <mat-list-option  [value]="option.value">{{option.label}}</mat-list-option>
+      <mat-list-option 
+      [selected]="__defaultValue.find(e=>e===option.value)"  
+      [value]="option.value"
+      [disabled]="option.disabled"
+      >
+        <span matListItemLine>{{option.label}}</span>
+
+        @if(option.icon){ <span matListItemIcon><mat-icon>info</mat-icon></span> }
+        @if(option.avatar){ <img matListItemAvatar [src]="option.avatar" [alt]="option.label"> }      
+        @if(option.title){ <span matListItemTitle>{{option.title}}</span> }
+        
+    
+    </mat-list-option>
     }
   </mat-selection-list>
 </vn-fieldset>
+  }
+
+
+  <!-- Button Toggle -->
+  @case ("buttons") {
+      <mat-button-toggle-group 
+        [id]="__id"
+        [name]="__name"
+        [(value)]="value"
+        [disabled]="__disabled"
+        [multiple]="__multiple"
+        [ariaLabel]="__label"
+        [hideSingleSelectionIndicator]="__hideSingleSelectionIndicator"
+        (valueChange)="handleValueChange($event)"
+      >
+      @for(option of __options; track option.value){ 
+        <mat-button-toggle 
+        [id]="option.id ?? option.label ?? option.value" 
+        [disabled]="option.disabled" 
+        [value]="option.value">
+          {{option.label ?? option.value }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
   }
 
   @default{}
@@ -414,7 +482,7 @@ Value : {{value()}}
   
   `,
 })
-export class FormFieldComponent {
+export class FormFieldComponent implements OnInit {
   type = input<FormFieldType>('text');
   decimals = input<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10>(6);
 
@@ -426,18 +494,17 @@ export class FormFieldComponent {
   hint = input<string | null>(null);
   disabled = input<boolean | null>(null);
 
+  timeInterval = input<string>('5m')
 
-  options = input<FormFieldOption[]>([
-    { id: 1, value: 1, label: "First" },
-    { id: 2, value: 2, label: "Second" },
-    { id: 3, value: 3, label: "Third" },
-  ])
+
+  options = input<FormFieldOption[] | null>(null)
 
   multiple = input<boolean | null>(null);
+  hideSingleSelectionIndicator = input<boolean | null>(null)
 
-  filterValue = signal<string>('',);
+  filteredValue = signal<string>('');
   filteredOptions = computed(() => {
-    return this.options().filter(e => e.label.startsWith(this.filterValue()))
+    return this.options()?.filter(e => e.value.startsWith(this.filteredValue()))
   })
 
 
@@ -461,7 +528,9 @@ export class FormFieldComponent {
 
 
   // Value and value validation
+  defaultValue = input<any>(null);
   value = model<any>(null);
+
   isTouched = model<boolean | null>(null);
   isDirty = model<boolean | null>(null);
   isInvalid = model<boolean | null>(null);
@@ -472,12 +541,19 @@ export class FormFieldComponent {
 
 
   protected handleTouchEvent() {
-    this.isTouched.set(true)
+    this.isTouched.set(true);
+  }
+
+  protected handleInputEventForAutocomplete(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.filteredValue.set(inputValue);
   }
 
   protected handleInputEvent(event: Event) {
+
     const inputValue = (event.target as HTMLInputElement).value;
-    this.handleValueChange(inputValue)
+    this.handleValueChange(inputValue);
+
 
   }
 
@@ -488,6 +564,16 @@ export class FormFieldComponent {
   protected handleValueChange(value: any) {
     this.value.set(value);
     this.isDirty.set(true);
+  }
+
+
+
+  ngOnInit(): void {
+    const __defaultValue = this.defaultValue();
+
+    if (__defaultValue !== undefined && __defaultValue !== null) {
+      this.value.set(__defaultValue)
+    }
   }
 
 }
