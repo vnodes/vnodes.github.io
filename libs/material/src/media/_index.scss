@@ -87,3 +87,14 @@ legend {
     padding-left: 1em;
     padding-right: 1em;
 }
+
+
+
+
+.is-touched.invalid {
+    color: var(--mat-sys-error);
+}
+
+.is-touched.valid {
+    color: var(--mat-sys-primary);
+}

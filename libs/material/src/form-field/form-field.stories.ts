@@ -9,7 +9,7 @@ export default meta;
 
 type Story = StoryObj<FormFieldComponent>;
 
-export const TextInput: Story = {
+export const TextInputRequired: Story = {
   args: {
     type: "text",
     name: "name",
@@ -21,7 +21,18 @@ export const TextInput: Story = {
   },
 };
 
-export const NumberInput: Story = {
+export const TextInputOptional: Story = {
+  args: {
+    type: "text",
+    name: "name",
+    label: "Label",
+    hint: "Label",
+    minlength: 3,
+    maxlength: 10,
+  },
+};
+
+export const NumberInputRequired: Story = {
   args: {
     type: "number",
     name: "name",
@@ -29,6 +40,18 @@ export const NumberInput: Story = {
     hint: "Label",
     decimals: 6,
     required: true,
+    min: 0,
+    max: 10
+  },
+};
+
+export const NumberInputOptional: Story = {
+  args: {
+    type: "number",
+    name: "name",
+    label: "Label",
+    hint: "Label",
+    decimals: 6,
     min: 0,
     max: 10
   },
@@ -51,13 +74,25 @@ export const NumberInputWithDefaultValue: Story = {
   },
 };
 
-export const IntegerInput: Story = {
+export const IntegerInputRequired: Story = {
   args: {
     type: "integer",
     name: "name",
     label: "Label",
     hint: "Label",
     required: true,
+    min: 0,
+    max: 100,
+    defaultValue: 100
+  },
+};
+
+export const IntegerInputOptinal: Story = {
+  args: {
+    type: "integer",
+    name: "name",
+    label: "Label",
+    hint: "Label",
     min: 0,
     max: 100,
     defaultValue: 100
@@ -72,7 +107,9 @@ export const DateInput: Story = {
     name: "name",
     label: "Label",
     hint: "Label",
-    defaultValue: "10/10/1990"
+    defaultValue: new Date("10/10/1990"),
+    minDate: new Date("5/1/2026"),
+    maxDate: new Date("5/20/2026"),
   },
 };
 
@@ -186,6 +223,22 @@ export const ButtonsInput: Story = {
     label: "Label",
     hint: "Label",
     defaultValue: "option value 1",
+    options: [
+      { value: "option value 1" },
+      { value: "option value 2" },
+      { value: "option value 3" },
+      { value: "option value 4" },
+    ]
+  },
+};
+export const ButtonsInputMultiple: Story = {
+  args: {
+    type: "buttons",
+    name: "name",
+    label: "Label",
+    hint: "Label",
+    defaultValue: "option value 1",
+    multiple: true,
     options: [
       { value: "option value 1" },
       { value: "option value 2" },

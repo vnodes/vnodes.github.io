@@ -89,437 +89,11 @@ export type FormFieldType =
     MatTimepickerToggle,
     MatButtonToggleModule,
   ],
-  providers: [provideNativeDateAdapter(), { provide: ErrorStateMatcher, useClass: FormFieldErrorStateMatcher }],
-  template: `
-<!-- Type -->
-@let __type = type();
-
-<!-- Input description -->
-@let __name =name();
-@let __id =id() ?? __name;
-@let __label =label();
-@let __labelPosition = labelPosition();
-@let __hint =hint();
-@let __placeholder =placeholder() ?? '';
-
-@let __disabled = disabled(); 
-
-
-@let __defaultValue =defaultValue();
-@let __timeInterval = timeInterval();
-
-<!-- Validation options  -->
-@let __required =required();
-
-@let __minlength =minlength();
-@let __maxlength =maxlength();
-@let __min =min();
-@let __max =max();
-
-<!-- Errors -->
-
-    
-<!-- Prefix/Suffix -->
-@let __isInvalid = isInvalid();
-@let __validationErrors =validationErrors();
-
-<!-- Input options -->
-@let __options = options();
-@let __multiple = multiple();
-@let __hideSingleSelectionIndicator = hideSingleSelectionIndicator();
-@let __filteredOptions =filteredOptions();
-
-@let __decimals = decimals();
-
-<!-- Prefix/Suffix -->
-
-@let __isTouched = isTouched();
-
-@let __suffixText = suffixText();
-@let __prefixText = prefixText();
-@let __suffixIcon = suffixIcon();
-@let __prefixIcon = prefixIcon();
-
-
-@switch (__type) {
-
-
-      <!-- Mat form field inputs -->
-      @case("text")
-      @case("number")
-      @case("integer")
-      @case('autocomplete')
-      @case('select')
-      { 
-   
-      <mat-form-field>
-
-  
-    
-        <!-- Descriptions -->
-        @if(__label) { <mat-label> {{__label}} </mat-label> }
-        @if(__hint) {<mat-hint>  {{__hint}} </mat-hint> }  
-
-
-
-        @if(__suffixText) { <span matTextSuffix > {{__suffixText}} </span> }
-        @if(__prefixText) { <span matTextPrefix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid"  [class.valid]="!__isInvalid" > {{__prefixText}} </span> }
-        @if(__suffixIcon) { <mat-icon matIconSuffix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid" [class.valid]="!__isInvalid" > {{__suffixIcon}} </mat-icon> }
-        @if(__prefixIcon) { <mat-icon matIconPrefix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid" [class.valid]="!__isInvalid" > {{__prefixIcon}} </mat-icon> }
-      
-
-
-            <!-- Errors -->
-        @if(__validationErrors){   <mat-error> {{__validationErrors}} </mat-error> }
-       
-
-        @switch (__type) {
-          
-
-          <!-- Text input -->
-          @case ("text") {
-            
-            <input 
-            type="text"
-            autocomplete="off"
-            matInput
-            [id]="__id ??__name"
-            [name]="__name"
-            [defaultValue]="__defaultValue ?? ''"
-            [placeholder]="__placeholder"
-            [minLength]="__minlength"
-            [maxLength]="__maxlength"
-            [required]="__required"
-
-            (blur)="handleTouchEvent()"
-            (input)="handleInputEvent($event)"
-            
-           
-            >
-        }
-
-        
-
-
-
-        <!-- Number inputs -->
-        @case ('number')
-        @case ('integer'){ 
-          <input 
-            matInput
-            type="text"
-            autocomplete="off"
-            inputmode="numeric"
-            [value]="__defaultValue ?? ''"
-            [formControl]="control"
-            [id]="__id"
-            [name]="__name"
-            [placeholder]="__placeholder"
-            [minLength]="__minlength ?? 0"
-            [maxLength]="__maxlength ?? 22"
-            [required]="__required"
-            
-            [min]="__min"
-            [max]="__max"
-            
-            [vnNumberType]="__type==='integer' ? 'integer' : 'number'"
-            [vnDecimals]="__decimals"
-            vnNumberFilter
-            
-            (blur)="handleTouchEvent()"
-            (input)="handleInputEvent($event)"
-            >
-          
-        }
-
-
-        <!-- Select input -->
-        @case ('select'){ 
-          <mat-select 
-          [id]="__id"  
-          [attr.name]="__name"
-          [ariaLabel]="__label" 
-          [multiple]="__multiple"
-          [value]="__defaultValue"
-          (openedChange)="handleTouchEvent()" 
-          (selectionChange)="handleSelectValueChange($event)"  
-         
-          >
-            @for(o of __options ; track o.id){ 
-              <mat-option [value]="o.value" [disabled]="o.disabled">{{o.label}}</mat-option>
-            }
-            @if(__required!==true){ <mat-option [value]="null" >None</mat-option> }
-          </mat-select>
-        }
-        
-
-        <!-- Autocomplete input -->
-        @case ('autocomplete'){ 
-          <input 
-            matInput
-            type="text"
-            [id]="__id"
-            [name]="__name"
-            autocomplete="off"
-            [placeholder]="__placeholder"
-            [disabled]="__disabled"
-            [required]="__required"
-            [matAutocomplete]="auto"
-            [defaultValue]="__defaultValue??''"
-            
-            (blur)="handleTouchEvent()"
-            (input)="handleInputEventForAutocomplete($event)"
-
-           
-            >
-          <mat-autocomplete 
-            #auto="matAutocomplete" 
-            autoActiveFirstOption 
-            (optionSelected)="handleValueChange($event.option.value)" 
-            [autoActiveFirstOption]="true"
-            >
-            @for (option of __filteredOptions; track option.value) {
-              <mat-option  [value]="option.value" [disabled]="option.disabled">{{option.value}}</mat-option>
-            }
-            @if(__required!==true){  <mat-option [value]="null">None</mat-option> }
-          </mat-autocomplete>
-
-          
-        }
-        
-     
-    }
-    
-  </mat-form-field>
-  }
-
-
-
-  <!-- Date picker -->
-  @case ('date'){
-
-    <mat-form-field>
-
-        <!-- Descriptions -->
-        @if(__label) { <mat-label> {{__label}} </mat-label> }
-        @if(__hint) {<mat-hint>  {{__hint}} </mat-hint> }  
-
-
-        <!-- Errors -->
-        @if(__validationErrors){    <mat-error> {{__validationErrors}} </mat-error> }
-
-
-        <!-- Prefix/Suffix -->
-
-        @if(__suffixText) { <span matTextSuffix> {{__suffixText}} </span> }
-        @if(__prefixText) { <span matTextPrefix> {{__prefixText}} </span> }
-
-        @if(__suffixIcon) { <mat-icon matIconSuffix> {{__suffixIcon}} </mat-icon> }
-        @if(__prefixIcon) { <mat-icon matIconPrefix> {{__prefixIcon}} </mat-icon> }
-      
-
-
-      <input 
-        matInput 
-        autocomplete="off"
-        [id]="__id"
-        [name]="__name"
-        [defaultValue]="__defaultValue?? ''"
-        [placeholder]="__placeholder" 
-        [disabled]="__disabled"
-        [matDatepicker]="picker" 
-        [required]="__required" 
-        (dblclick)="picker.open()"
-
-        (dateChange)="handleValueChange($event.value)"
-        (blur)="handleTouchEvent()"
-        (input)="handleInputEvent($event)"
-
-       
-      >
-      
-      <mat-datepicker-toggle matIconSuffix [for]="picker"> </mat-datepicker-toggle>
-      <mat-datepicker   #picker></mat-datepicker>
-    </mat-form-field>
-   }
-
-
-
-
-
-
-  <!-- Date picker -->
-  @case ('time'){
-
-    <mat-form-field>
-
-        <!-- Descriptions -->
-        @if(__label) { <mat-label> {{__label}} </mat-label> }
-        @if(__hint) {<mat-hint>  {{__hint}} </mat-hint> }  
-
-
-        <!-- Errors -->
-        @if(__validationErrors){    <mat-error> {{__validationErrors}} </mat-error> }
-
-
-        <!-- Prefix/Suffix -->
-
-        @if(__suffixText) { <span matTextSuffix> {{__suffixText}} </span> }
-        @if(__prefixText) { <span matTextPrefix> {{__prefixText}} </span> }
-
-        @if(__suffixIcon) { <mat-icon matIconSuffix> {{__suffixIcon}} </mat-icon> }
-        @if(__prefixIcon) { <mat-icon matIconPrefix> {{__prefixIcon}} </mat-icon> }
-      
-
-
-      <input 
-        
-        #timeInput
-        matInput 
-        autocomplete="off"
-        [id]="__id"
-        [name]="__name"
-        [placeholder]="__placeholder" 
-        [disabled]="__disabled"
-        [matTimepicker]="picker" 
-        [required]="__required" 
-        [max]="__max"
-        [min]="__min"
-        (dblclick)="picker.open()"
-
-        [value]="__defaultValue ?? ''"
-        (blur)="handleTouchEvent();"
-        (input)="handleInputEvent($event)"
-
-       
-      >
-      <mat-timepicker-toggle  matIconSuffix [for]="picker" >  </mat-timepicker-toggle>
-      <mat-timepicker (selected)="handleValueChange($event.value);" #picker [interval]="__timeInterval" ></mat-timepicker>
-    </mat-form-field>
-   }
-
-
-
-  <!-- None Mat form field inputs -->
-
-  <!-- Radio group -->
-  @case('radio'){ 
-    <vn-fieldset [label]="__label ?? __name">
-      <mat-radio-group 
-      [id]="__id" 
-      [name]="__name" 
-      (change)="handleValueChange($event.value)"
-      >
-        @for(o of __options; track o.id){ 
-          <mat-radio-button [id]="o.id" [value]="o.value">{{o.label}}</mat-radio-button>
-        }
-        @if(__required!==true){ <mat-radio-button  [value]="null">None</mat-radio-button> }
-      </mat-radio-group>
-    </vn-fieldset>
-  }
-
-<!-- Checkbox component -->
-  @case("checkbox"){ 
-    <mat-checkbox  
-    [id]="__id"
-    [name]="__name"
-   
-    (change)="handleValueChange($event.checked)"
-    [labelPosition]="__labelPosition"
-    >
-    {{__label}}
-    </mat-checkbox>
-  }
-
-  <!-- Slide Toggle -->
-  @case('slide'){ 
-
-      <mat-slide-toggle
-        [id]="__id"
-        [name]="__name"
-        [disabled]="__disabled"
-        [ariaLabel]="__label"
-        [required]="__required"
-        [labelPosition]="__labelPosition"
-        (change)="handleValueChange($event.checked)"
-      >
-      {{__label}}
-    </mat-slide-toggle>
-  }
-
-
-  <!-- List select -->
-  @case('list'){ 
-
-
-  <vn-fieldset [label]="__label??__name">
-    <mat-selection-list 
-      #ref
-      [id]="__id"
-      [attr.name]="__name"
-      [multiple]="__multiple"
-      [ariaLabel]="__label"
-
-      (selectionChange)="handleValueChange(ref._value)"
-      >
-
-    @for (option of __options; track option) {
-      <mat-list-option 
-      [selected]="__defaultValue.find(e=>e===option.value)"  
-      [value]="option.value"
-      [disabled]="option.disabled"
-      >
-        <span matListItemLine>{{option.label}}</span>
-
-        @if(option.icon){ <span matListItemIcon><mat-icon>info</mat-icon></span> }
-        @if(option.avatar){ <img matListItemAvatar [src]="option.avatar" [alt]="option.label"> }      
-        @if(option.title){ <span matListItemTitle>{{option.title}}</span> }
-        
-    
-    </mat-list-option>
-    }
-  </mat-selection-list>
-</vn-fieldset>
-  }
-
-
-  <!-- Button Toggle -->
-  @case ("buttons") {
-      <mat-button-toggle-group 
-        [id]="__id"
-        [name]="__name"
-        [(value)]="value"
-        [disabled]="__disabled"
-        [multiple]="__multiple"
-        [ariaLabel]="__label"
-        [hideSingleSelectionIndicator]="__hideSingleSelectionIndicator"
-        (valueChange)="handleValueChange($event)"
-      >
-      @for(option of __options; track option.value){ 
-        <mat-button-toggle 
-        [id]="option.id ?? option.label ?? option.value" 
-        [disabled]="option.disabled" 
-        [value]="option.value">
-          {{option.label ?? option.value }}
-        </mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-  }
-
-  @default{
-    <!-- Input type does not match! -->
-  }
-}
-  
-  `,
-  styles: `
-  .is-touched.invalid { 
-    color: crimson
-  }
-  .is-touched.valid { 
-    color: green;
-  }
-  `
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: ErrorStateMatcher, useClass: FormFieldErrorStateMatcher }
+  ],
+  templateUrl: "./form-field.html"
 })
 export class FormFieldComponent implements OnInit {
 
@@ -538,7 +112,7 @@ export class FormFieldComponent implements OnInit {
   labelPosition = input<'before' | 'after'>('after')
   placeholder = input<string | null>();
   hint = input<string | null>(null);
-  disabled = input<boolean | null>(null);
+  disabled = input<boolean>(false);
 
   timeInterval = input<string>('5m')
 
@@ -568,6 +142,8 @@ export class FormFieldComponent implements OnInit {
   minlength = input<number>(0)
   maxlength = input<number>(1000)
 
+  minDate = input<Date | null>(null);
+  maxDate = input<Date | null>(null);
   min = input<number | null>(null)
   max = input<number | null>(null)
 
@@ -612,6 +188,19 @@ export class FormFieldComponent implements OnInit {
         return `Must be more than or equal to ${__min}`;
       }
     }
+
+    if (__minlength != undefined) {
+      if (__value.length < __minlength) {
+        return `At least ${__minlength} characters`
+      }
+    }
+
+    if (__maxlength != undefined) {
+      if (__value.length > __maxlength) {
+        return `At most ${__maxlength} characters`
+      }
+    }
+
     return null;
   })
 

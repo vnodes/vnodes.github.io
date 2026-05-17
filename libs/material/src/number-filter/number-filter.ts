@@ -10,7 +10,7 @@ import { clipboardText, dispatchEmptyInputEvent, isDigitString, isIntegerString,
 export class NumberFilterDirective {
     vnDecimals = input<number>(6);
     vnNumberType = input.required<'number' | 'integer' | 'decimal'>();
-    
+
 
     readonly elementRef = inject(ElementRef<HTMLInputElement>);
 
@@ -80,12 +80,7 @@ export class NumberFilterDirective {
 
             // If the key is minus
         } else if (currentKey === '-') {
-
-            // If the current input is "0"
-            if (previousValue === '0') {
-                this.preventDefault(event)
-                // If the current input is negative 
-            } else if (hasMinus) {
+            if (hasMinus) {
                 // Then toggle the sign
                 this.preventDefault(event)
                 element.value = previousValue.slice(1);
@@ -98,14 +93,18 @@ export class NumberFilterDirective {
 
             }
         } else if (currentKey === '0') {
-            if (previousValue === '0' || selectionStart === 0) {
-                event.preventDefault()
+            if (previousValue === '0' || previousValue === '-0' || selectionStart === 0) {
+                this.preventDefault(event);
             }
 
 
         } else if (previousValue === '0') {
             this.preventDefault(event)
             element.value = `${currentKey}`
+            dispatchEmptyInputEvent(element)
+        } else if (previousValue === '-0') {
+            this.preventDefault(event)
+            element.value = `-${currentKey}`
             dispatchEmptyInputEvent(element)
         }
 
