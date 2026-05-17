@@ -15,8 +15,9 @@ export const TextInput: Story = {
     name: "name",
     label: "Label",
     hint: "Label",
+    required: true,
     minlength: 3,
-    maxlength: 255,
+    maxlength: 10,
   },
 };
 
@@ -27,7 +28,26 @@ export const NumberInput: Story = {
     label: "Label",
     hint: "Label",
     decimals: 6,
-    defaultValue: 100.99
+    required: true,
+    min: 0,
+    max: 10
+  },
+};
+
+export const NumberInputWithDefaultValue: Story = {
+  args: {
+    type: "number",
+    name: "name",
+    label: "Label",
+    hint: "Label",
+    prefixIcon: "info",
+    suffixIcon: "info",
+    prefixText: "Count :",
+    decimals: 6,
+    required: true,
+    min: 0,
+    max: 10,
+    defaultValue: 9
   },
 };
 
@@ -37,6 +57,9 @@ export const IntegerInput: Story = {
     name: "name",
     label: "Label",
     hint: "Label",
+    required: true,
+    min: 0,
+    max: 100,
     defaultValue: 100
   },
 };
@@ -96,8 +119,8 @@ export const ListSelectInput: Story = {
       { id: 2, label: "Option 2", value: "option value 2" },
       { id: 3, label: "Option 3", value: "option value 3" },
       { id: 4, label: "Option 4", value: "option value 4" },
-    ], 
-    defaultValue:['option value 1', 'option value 3']
+    ],
+    defaultValue: ['option value 1', 'option value 3']
   },
 };
 

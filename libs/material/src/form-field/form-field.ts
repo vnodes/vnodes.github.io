@@ -1,9 +1,10 @@
-import { Component, computed, input, model, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, Injectable, input, model, OnInit, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { ErrorStateMatcher, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +17,18 @@ import { MatTimepicker, MatTimepickerInput, MatTimepickerToggle } from "@angular
 import { Icon } from '@vnodes/material/common';
 import { FieldsetComponent } from '@vnodes/material/fieldset';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
+
+
+
+
+@Injectable()
+export class FormFieldErrorStateMatcher implements ErrorStateMatcher {
+  protected readonly formField = inject(FormFieldComponent)
+  isErrorState(): boolean {
+
+    return !!this.formField.isTouched() && !!this.formField.validationErrors()
+  }
+}
 
 export type FormFieldOption = {
   id?: any;
@@ -56,6 +69,7 @@ export type FormFieldType =
 @Component({
   selector: 'vn-field',
   imports: [
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -73,12 +87,10 @@ export type FormFieldType =
     MatTimepickerInput,
     MatTimepicker,
     MatTimepickerToggle,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), { provide: ErrorStateMatcher, useClass: FormFieldErrorStateMatcher }],
   template: `
-
-Value : {{value()}}
 <!-- Type -->
 @let __type = type();
 
@@ -105,6 +117,10 @@ Value : {{value()}}
 @let __max =max();
 
 <!-- Errors -->
+
+    
+<!-- Prefix/Suffix -->
+@let __isInvalid = isInvalid();
 @let __validationErrors =validationErrors();
 
 <!-- Input options -->
@@ -117,10 +133,13 @@ Value : {{value()}}
 
 <!-- Prefix/Suffix -->
 
+@let __isTouched = isTouched();
+
 @let __suffixText = suffixText();
 @let __prefixText = prefixText();
 @let __suffixIcon = suffixIcon();
 @let __prefixIcon = prefixIcon();
+
 
 @switch (__type) {
 
@@ -142,19 +161,17 @@ Value : {{value()}}
         @if(__hint) {<mat-hint>  {{__hint}} </mat-hint> }  
 
 
-        <!-- Errors -->
-        @if(__validationErrors){    <mat-error> {{__validationErrors}} </mat-error> }
 
-
-        <!-- Prefix/Suffix -->
-
-        @if(__suffixText) { <span matTextSuffix> {{__suffixText}} </span> }
-        @if(__prefixText) { <span matTextPrefix> {{__prefixText}} </span> }
-
-        @if(__suffixIcon) { <mat-icon matIconSuffix> {{__suffixIcon}} </mat-icon> }
-        @if(__prefixIcon) { <mat-icon matIconPrefix> {{__prefixIcon}} </mat-icon> }
+        @if(__suffixText) { <span matTextSuffix > {{__suffixText}} </span> }
+        @if(__prefixText) { <span matTextPrefix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid"  [class.valid]="!__isInvalid" > {{__prefixText}} </span> }
+        @if(__suffixIcon) { <mat-icon matIconSuffix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid" [class.valid]="!__isInvalid" > {{__suffixIcon}} </mat-icon> }
+        @if(__prefixIcon) { <mat-icon matIconPrefix [class.is-touched]="__isTouched" [class.invalid]="__isInvalid" [class.valid]="!__isInvalid" > {{__prefixIcon}} </mat-icon> }
       
 
+
+            <!-- Errors -->
+        @if(__validationErrors){   <mat-error> {{__validationErrors}} </mat-error> }
+       
 
         @switch (__type) {
           
@@ -177,6 +194,7 @@ Value : {{value()}}
             (blur)="handleTouchEvent()"
             (input)="handleInputEvent($event)"
             
+           
             >
         }
 
@@ -193,6 +211,7 @@ Value : {{value()}}
             autocomplete="off"
             inputmode="numeric"
             [value]="__defaultValue ?? ''"
+            [formControl]="control"
             [id]="__id"
             [name]="__name"
             [placeholder]="__placeholder"
@@ -209,9 +228,8 @@ Value : {{value()}}
             
             (blur)="handleTouchEvent()"
             (input)="handleInputEvent($event)"
-            
             >
-
+          
         }
 
 
@@ -225,6 +243,7 @@ Value : {{value()}}
           [value]="__defaultValue"
           (openedChange)="handleTouchEvent()" 
           (selectionChange)="handleSelectValueChange($event)"  
+         
           >
             @for(o of __options ; track o.id){ 
               <mat-option [value]="o.value" [disabled]="o.disabled">{{o.label}}</mat-option>
@@ -249,7 +268,9 @@ Value : {{value()}}
             [defaultValue]="__defaultValue??''"
             
             (blur)="handleTouchEvent()"
-            (input)="handleInputEventForAutocomplete($event); "
+            (input)="handleInputEventForAutocomplete($event)"
+
+           
             >
           <mat-autocomplete 
             #auto="matAutocomplete" 
@@ -313,6 +334,8 @@ Value : {{value()}}
         (dateChange)="handleValueChange($event.value)"
         (blur)="handleTouchEvent()"
         (input)="handleInputEvent($event)"
+
+       
       >
       
       <mat-datepicker-toggle matIconSuffix [for]="picker"> </mat-datepicker-toggle>
@@ -367,6 +390,8 @@ Value : {{value()}}
         [value]="__defaultValue ?? ''"
         (blur)="handleTouchEvent();"
         (input)="handleInputEvent($event)"
+
+       
       >
       <mat-timepicker-toggle  matIconSuffix [for]="picker" >  </mat-timepicker-toggle>
       <mat-timepicker (selected)="handleValueChange($event.value);" #picker [interval]="__timeInterval" ></mat-timepicker>
@@ -380,7 +405,11 @@ Value : {{value()}}
   <!-- Radio group -->
   @case('radio'){ 
     <vn-fieldset [label]="__label ?? __name">
-      <mat-radio-group [id]="__id" [name]="__name" (change)="handleValueChange($event.value)">
+      <mat-radio-group 
+      [id]="__id" 
+      [name]="__name" 
+      (change)="handleValueChange($event.value)"
+      >
         @for(o of __options; track o.id){ 
           <mat-radio-button [id]="o.id" [value]="o.value">{{o.label}}</mat-radio-button>
         }
@@ -430,7 +459,7 @@ Value : {{value()}}
       [attr.name]="__name"
       [multiple]="__multiple"
       [ariaLabel]="__label"
-      
+
       (selectionChange)="handleValueChange(ref._value)"
       >
 
@@ -477,14 +506,31 @@ Value : {{value()}}
     </mat-button-toggle-group>
   }
 
-  @default{}
+  @default{
+    <!-- Input type does not match! -->
+  }
 }
   
   `,
+  styles: `
+  .is-touched.invalid { 
+    color: crimson
+  }
+  .is-touched.valid { 
+    color: green;
+  }
+  `
 })
 export class FormFieldComponent implements OnInit {
+
+  isInvalid = computed<boolean>(() => {
+    return !!this.isTouched() && !!this.validationErrors()
+  })
+
+  control = new FormControl(null);
+
   type = input<FormFieldType>('text');
-  decimals = input<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10>(6);
+  decimals = input<number>(6);
 
   id = input<string | null>(null);
   name = input.required<string>();
@@ -517,10 +563,10 @@ export class FormFieldComponent implements OnInit {
 
 
   /** Valiation options  */
-  required = input<boolean | null>(null);
+  required = input<boolean>(false);
 
-  minlength = input<number | null>(null)
-  maxlength = input<number | null>(null)
+  minlength = input<number>(0)
+  maxlength = input<number>(1000)
 
   min = input<number | null>(null)
   max = input<number | null>(null)
@@ -532,11 +578,43 @@ export class FormFieldComponent implements OnInit {
   value = model<any>(null);
 
   isTouched = model<boolean | null>(null);
-  isDirty = model<boolean | null>(null);
-  isInvalid = model<boolean | null>(null);
-  isValid = model<boolean | null>(null);
 
-  validationErrors = signal<string[] | null>(null);
+
+
+  validationErrors = computed<string | null>(() => {
+
+    const __value = this.value();
+    const __required = this.required();
+    const __minlength = this.minlength();
+    const __maxlength = this.maxlength();
+    const __min = this.min();
+    const __max = this.max();
+
+    const isUndefinedOrEmpty = __value === undefined || __value === null || __value === '';
+
+    console.log("isUndefinedOrEmpty:", isUndefinedOrEmpty, __value)
+    if (isUndefinedOrEmpty) {
+      if (__required === true) {
+        return 'Field is required'
+      }
+      return null;
+    }
+
+    if (__max != undefined) {
+      if (__value > __max) {
+        return `Must be less than or equal to ${__max}`;
+      }
+    }
+
+
+    if (__min != undefined) {
+      if (__value < __min) {
+        return `Must be more than or equal to ${__min}`;
+      }
+    }
+    return null;
+  })
+
 
 
 
@@ -563,17 +641,19 @@ export class FormFieldComponent implements OnInit {
 
   protected handleValueChange(value: any) {
     this.value.set(value);
-    this.isDirty.set(true);
   }
 
 
 
   ngOnInit(): void {
     const __defaultValue = this.defaultValue();
-
     if (__defaultValue !== undefined && __defaultValue !== null) {
-      this.value.set(__defaultValue)
+      this.value.set(__defaultValue);
+      this.control.setValue(__defaultValue);
     }
   }
+
+
+
 
 }
