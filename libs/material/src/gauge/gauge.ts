@@ -125,15 +125,15 @@ export class GaugeComponent {
   gaugeContainer = viewChild<ElementRef<HTMLDivElement>>('gaugeContainer');
 
   // SVG Geometry Config
-  readonly radius = input(80);
-  readonly strokeWidth = input(16);
-  readonly viewBoxSize = input(200);
-  readonly center = computed(() => this.viewBoxSize() / 2)
+  radius = input(80);
+  strokeWidth = input(16);
+  viewBoxSize = input(200);
+  center = computed(() => this.viewBoxSize() / 2)
 
   // Circumference calculations
-  readonly circumference = computed(() => 2 * Math.PI * this.radius())
-  readonly totalArcLength = computed(() => this.circumference() * 0.75) // 270 degrees
-  readonly totalArcGap = computed(() => this.circumference() * 0.25)
+  circumference = computed(() => 2 * Math.PI * this.radius())
+  totalArcLength = computed(() => this.circumference() * 0.75) // 270 degrees
+  totalArcGap = computed(() => this.circumference() * 0.25)
 
   private isDragging = signal(false);
 

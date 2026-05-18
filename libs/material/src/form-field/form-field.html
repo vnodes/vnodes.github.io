@@ -301,7 +301,8 @@ Value: {{value()}}
 
 @case('gauge'){
 
-<vn-gauge [label]="__label" [(value)]="value"></vn-gauge>
+<vn-gauge [label]="__label" [(value)]="value" [radius]="radius()" [strokeWidth]="strokeWidth()"
+    [viewBoxSize]="viewBoxSize()"></vn-gauge>
 <!--  -->
 }
 @default{

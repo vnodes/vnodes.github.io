@@ -118,6 +118,13 @@ export class FormFieldComponent implements OnInit {
   hint = input<string | null>(null);
   disabled = input<boolean>(false);
 
+
+  // Gauge Input Field
+  radius = input(80);
+  strokeWidth = input(16);
+  viewBoxSize = input(200);
+
+
   timeInterval = input<string>('5m')
 
 
