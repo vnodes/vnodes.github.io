@@ -195,6 +195,10 @@
     "./form-field": {
       "types": "./src/form-field/public-api.ts",
       "default": "./src/form-field/public-api.ts"
+    },
+    "./gauge": {
+      "types": "./src/gauge/public-api.ts",
+      "default": "./src/gauge/public-api.ts"
     }
   },
   "peerDependencies": {

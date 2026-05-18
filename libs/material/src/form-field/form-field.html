@@ -12,16 +12,16 @@
 @let __disabled = disabled();
 
 
-@let __defaultValue =defaultValue();
+@let __defaultValue = defaultValue();
 @let __timeInterval = timeInterval();
 
 <!-- Validation options  -->
-@let __required =required();
+@let __required = required();
 
-@let __minlength =minlength();
-@let __maxlength =maxlength();
-@let __min =min();
-@let __max =max();
+@let __minlength = minlength();
+@let __maxlength = maxlength();
+@let __min = min();
+@let __max = max();
 
 @let __maxDate = maxDate();
 @let __minDate = minDate();
@@ -38,7 +38,7 @@
 @let __options = options();
 @let __multiple = multiple();
 @let __hideSingleSelectionIndicator = hideSingleSelectionIndicator();
-@let __filteredOptions =filteredOptions();
+@let __filteredOptions = filteredOptions();
 
 @let __decimals = decimals();
 
@@ -52,6 +52,7 @@
 @let __prefixIcon = prefixIcon();
 
 
+Value: {{value()}}
 @switch (__type) {
 
 
@@ -242,7 +243,7 @@
 
 <!-- Checkbox component -->
 @case("checkbox"){
-<mat-checkbox [id]="__id" [name]="__name" (change)="handleValueChange($event.checked)"
+<mat-checkbox [id]="__id" [name]="__name" [checked]="__defaultValue" (change)="handleValueChange($event.checked)"
     [labelPosition]="__labelPosition">
     {{__label}}
 </mat-checkbox>
@@ -252,7 +253,7 @@
 @case('slide'){
 
 <mat-slide-toggle [id]="__id" [name]="__name" [disabled]="__disabled" [ariaLabel]="__label" [required]="__required"
-    [labelPosition]="__labelPosition" (change)="handleValueChange($event.checked)">
+    [labelPosition]="__labelPosition" [checked]="__defaultValue" (change)="handleValueChange($event.checked)">
     {{__label}}
 </mat-slide-toggle>
 }
@@ -267,12 +268,13 @@
         (selectionChange)="handleValueChange(ref._value)">
 
         @for (option of __options; track option) {
-        <mat-list-option [selected]="__defaultValue.find(e=>e===option.value)" [value]="option.value"
+        <mat-list-option [selected]="__defaultValue?.find(e=>e===option.value)" [value]="option.value"
             [disabled]="option.disabled">
             <span matListItemLine>{{option.label}}</span>
 
             @if(option.icon){ <span matListItemIcon><mat-icon>info</mat-icon></span> }
-            @if(option.avatar){ <img matListItemAvatar [src]="option.avatar" [alt]="option.label"> }
+            @else if(option.avatar){ <img matListItemAvatar [src]="option.avatar" [alt]="option.label"> }
+
             @if(option.title){ <span matListItemTitle>{{option.title}}</span> }
 
 
@@ -285,8 +287,8 @@
 
 <!-- Button Toggle -->
 @case ("buttons") {
-<mat-button-toggle-group [id]="__id" [name]="__name" [(value)]="value" [disabled]="__disabled" [multiple]="__multiple"
-    [ariaLabel]="__label" [hideSingleSelectionIndicator]="__hideSingleSelectionIndicator"
+<mat-button-toggle-group [id]="__id" [name]="__name" [value]="__defaultValue" [disabled]="__disabled"
+    [multiple]="__multiple" [ariaLabel]="__label" [hideSingleSelectionIndicator]="__hideSingleSelectionIndicator"
     (valueChange)="handleValueChange($event)">
     @for(option of __options; track option.value){
     <mat-button-toggle [id]="option.id ?? option.label ?? option.value" [disabled]="option.disabled"
@@ -297,6 +299,11 @@
 </mat-button-toggle-group>
 }
 
+@case('gauge'){
+
+<vn-gauge [label]="__label" [(value)]="value"></vn-gauge>
+<!--  -->
+}
 @default{
 <!-- Input type does not match! -->
 }

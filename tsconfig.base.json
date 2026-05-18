@@ -95,7 +95,8 @@
       ],
       "@vnodes/material/form-field": [
         "libs/material/src/form-field/public-api.ts"
-      ]
+      ],
+      "@vnodes/material/gauge": ["libs/material/src/gauge/public-api.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

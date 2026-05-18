@@ -16,6 +16,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTimepicker, MatTimepickerInput, MatTimepickerToggle } from "@angular/material/timepicker";
 import { Icon } from '@vnodes/material/common';
 import { FieldsetComponent } from '@vnodes/material/fieldset';
+import { GaugeComponent } from '@vnodes/material/gauge';
 import { NumberFilterDirective } from '@vnodes/material/number-filter';
 
 
@@ -62,6 +63,8 @@ export type FormFieldType =
   | 'date'
   | 'time'
 
+  | 'gauge'
+
 
 
 
@@ -88,6 +91,7 @@ export type FormFieldType =
     MatTimepicker,
     MatTimepickerToggle,
     MatButtonToggleModule,
+    GaugeComponent
   ],
   providers: [
     provideNativeDateAdapter(),
@@ -168,7 +172,7 @@ export class FormFieldComponent implements OnInit {
 
     const isUndefinedOrEmpty = __value === undefined || __value === null || __value === '';
 
-    console.log("isUndefinedOrEmpty:", isUndefinedOrEmpty, __value)
+
     if (isUndefinedOrEmpty) {
       if (__required === true) {
         return 'Field is required'
