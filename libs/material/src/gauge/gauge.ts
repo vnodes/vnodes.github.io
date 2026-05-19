@@ -121,6 +121,7 @@ export class GaugeComponent {
   max = input(100);
   label = input<string | null>(null);
   value = model.required<number>();
+  interactive = input<boolean>(true);
 
   gaugeContainer = viewChild<ElementRef<HTMLDivElement>>('gaugeContainer');
 
@@ -147,17 +148,26 @@ export class GaugeComponent {
 
   // Handle pointer interactions (mouse & touch)
   onPointerDown(event: PointerEvent): void {
+    if (!this.interactive()) {
+      return;
+    }
     this.isDragging.set(true);
     this.gaugeContainer()?.nativeElement.setPointerCapture(event.pointerId);
     this.updateValueFromCoords(event);
   }
 
   onPointerMove(event: PointerEvent): void {
+    if (!this.interactive()) {
+      return;
+    }
     if (!this.isDragging()) return;
     this.updateValueFromCoords(event);
   }
 
   onPointerUp(event: PointerEvent): void {
+    if (!this.interactive()) {
+      return;
+    }
     if (!this.isDragging()) return;
     this.isDragging.set(false)
     this.gaugeContainer()?.nativeElement.releasePointerCapture(event.pointerId);

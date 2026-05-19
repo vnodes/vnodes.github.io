@@ -41,34 +41,32 @@ export type FormFieldOption = {
   title?: string;
 }
 
-export type FormFieldType =
-  | 'text'
-  | "textarea"
-  | 'tel'
-  | 'email'
-  | 'url'
 
-  | 'number'
-  | 'integer'
+export const FormFieldTypes = {
+  'text': 'text',
+  "textarea": "textarea",
+  'tel': 'tel',
+  'email': 'email',
+  'url': 'url',
+  'number': 'number',
+  'integer': 'integer',
+  'checkbox': 'checkbox',
+  'radio': 'radio',
+  'list': 'list',
+  'buttons': 'buttons',
+  'slide': 'slide',
+  'select': 'select',
+  'autocomplete': 'autocomplete',
+  'date': 'date',
+  'time': 'time',
+  'gauge': 'gauge',
+} as const
 
-  | 'checkbox'
-  | 'radio'
-  | 'list'
-  | 'buttons'
+export type FormFieldType = keyof typeof FormFieldTypes
 
-  | 'slide'
-  | 'select'
-  | 'autocomplete'
-
-  | 'date'
-  | 'time'
-
-  | 'gauge'
-
-
-
-
-
+/**
+ * Generic input componentF
+ */
 @Component({
   selector: 'vn-field',
   imports: [
@@ -101,73 +99,199 @@ export type FormFieldType =
 })
 export class FormFieldComponent implements OnInit {
 
+  /**
+   * Computed boolean signal defining invalid status
+   */
   isInvalid = computed<boolean>(() => {
     return !!this.isTouched() && !!this.validationErrors()
   })
 
+  /**
+   * Only for internal usage to satisfiy the mat-input
+   */
   control = new FormControl(null);
 
+  /**
+   * Input type
+   */
   type = input<FormFieldType>('text');
+
+
+  /**
+   * Number of allowed decimals
+   */
   decimals = input<number>(6);
 
+  /**
+   * Optional id
+   */
   id = input<string | null>(null);
+
+  /**
+   * Input name
+   */
   name = input.required<string>();
+
+  /**
+   * Input description
+   */
   label = input<string | null>(null);
+
+  /**
+   * Label position for checkbox input
+   */
   labelPosition = input<'before' | 'after'>('after')
+
+  /**
+   * Placeholder
+   */
   placeholder = input<string | null>();
+
+  /**
+   * Detailed input description 
+   */
   hint = input<string | null>(null);
+
+  /**
+   * Defines disabled and enabled input state.
+   */
   disabled = input<boolean>(false);
 
 
-  // Gauge Input Field
+
+  /**
+   * Radius of the gauge input
+   */
   radius = input(80);
+
+  /**
+   * Stroke width of the gauge input
+   */
   strokeWidth = input(16);
+
+  /**
+   * Box size of the gauge input
+   */
   viewBoxSize = input(200);
 
 
+  /**
+   * Time interval for time inputs such as "5m", "5h"
+   */
   timeInterval = input<string>('5m')
 
 
+  /**
+   * List of options for multi select inputs such as "autocomplete", "select", "list" etc.
+   */
   options = input<FormFieldOption[] | null>(null)
 
+
+  /**
+   * Defines the input is multiple or single
+   */
   multiple = input<boolean | null>(null);
+
+  /**
+   * Hides the selection indicator of "buttons", "list", and "select" inputs
+   */
   hideSingleSelectionIndicator = input<boolean | null>(null)
 
+  /**
+   * Internal filtered value for "autocomplte" input
+   */
   filteredValue = signal<string>('');
+
+  /**
+   * Internal filtered options for "autocomplte" input
+   */
   filteredOptions = computed(() => {
     return this.options()?.filter(e => e.value.startsWith(this.filteredValue()))
   })
 
 
-  /** Suffix/Prefix */
 
+  /**
+   * Suffix text
+   */
   suffixText = input<string | null>(null);
+
+  /**
+   * Prefix text
+   */
   prefixText = input<string | null>(null);
+
+  /**
+   * Suffix icon
+   */
   suffixIcon = input<Icon | null>(null);
+
+  /**
+   * Prefix icon
+   */
   prefixIcon = input<Icon | null>(null);
 
 
-  /** Valiation options  */
+  /**
+   * Defines the input is either requried or optional (default false)
+   */
   required = input<boolean>(false);
 
+  /**
+   * Minimum allowed length for text, and size for multi select inputs
+   */
   minlength = input<number>(0)
+
+  /**
+   * Maximum allowed length for text, and size for multi select inputs
+   */
   maxlength = input<number>(1000)
 
+  /**
+   * Minimum allowed date
+   */
   minDate = input<Date | null>(null);
+
+  /**
+   * Maximum allowed date
+   */
   maxDate = input<Date | null>(null);
+
+
+  /**
+   * Minimum allowed number
+   */
   min = input<number | null>(null)
+
+  /**
+   * Maximum allowed number
+   */
   max = input<number | null>(null)
 
 
 
-  // Value and value validation
+  /**
+   * Default value
+   */
   defaultValue = input<any>(null);
+
+
+  /**
+   * Value model signal which also create `valueChange` output.
+   */
   value = model<any>(null);
 
-  isTouched = model<boolean | null>(null);
+
+  /**
+   * Controls the input element is touched or not
+   */
+  isTouched = signal<boolean | null>(null);
 
 
 
+  /**
+   * Validation error messages
+   */
   validationErrors = computed<string | null>(() => {
 
     const __value = this.value();
@@ -218,31 +342,59 @@ export class FormFieldComponent implements OnInit {
 
 
 
+  /**
+   * Handle the touch event
+   */
   protected handleTouchEvent() {
     this.isTouched.set(true);
   }
 
+
+  /**
+   * Handle input event sepecifically for autocomplte input
+   * @param event 
+   */
   protected handleInputEventForAutocomplete(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
     this.filteredValue.set(inputValue);
   }
 
-  protected handleInputEvent(event: Event) {
 
+  /**
+   * Handle input event, emit changes 
+   * @param event 
+   */
+  protected handleInputEvent(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
     this.handleValueChange(inputValue);
-
-
   }
 
+  /**
+   * Handle input event for "select" inputs
+   */
   protected handleSelectValueChange(event: MatSelectChange) {
     this.handleValueChange(event.value)
   }
 
+
+  /**
+   * Handle the value change 
+   */
   protected handleValueChange(value: any) {
     this.value.set(value);
   }
 
+
+  /**
+   * Reset input 
+   */
+  reset() {
+    this.filteredValue.set('');
+    this.control.reset();
+    this.control.markAsUntouched();
+    this.value.set(this.defaultValue());
+    this.isTouched.set(false);
+  }
 
 
   ngOnInit(): void {

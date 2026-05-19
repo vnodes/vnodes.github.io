@@ -13,5 +13,8 @@ import { Component, input } from '@angular/core';
 })
 export class FieldsetComponent {
 
+  /**
+   * Input description
+   */
   label = input.required<string>()
 }

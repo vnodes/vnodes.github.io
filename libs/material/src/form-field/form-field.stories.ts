@@ -1,9 +1,59 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { FormFieldComponent, FormFieldOption } from './form-field';
+import { FormFieldComponent, FormFieldOption, FormFieldTypes } from './form-field';
 
 const meta: Meta<FormFieldComponent> = {
   component: FormFieldComponent,
   title: 'FormField',
+
+  argTypes: {
+    name: {
+      description: "Input name",
+    },
+    type: {
+      description: "Input type",
+      control: "select",
+      options: Object.keys(FormFieldTypes)
+    },
+    label: {
+      description: "Input description",
+    },
+    hint: {
+      description: "Detailed input description"
+    },
+    id: {
+      description: "Optional input id"
+    },
+    labelPosition: {
+      description: "Label position for checkbox inputs"
+    },
+
+    options: {
+      description: "List options for multi select inputs"
+    },
+    control: {
+      description: "Internal reactive form control"
+    },
+    min: {
+      description: "Minimum allowed number value"
+    },
+    max: {
+      description: "Maximum allowed number value"
+    },
+
+    minlength: {
+      description: "Minimum alllowed legnth for text and multi select inpts"
+    },
+    maxlength: {
+      description: "Maximum alllowed legnth for text and multi select inpts"
+    },
+    defaultValue: {
+      description: "Default value"
+    },
+    decimals: {
+      description: "Maximum allowed decimals", 
+      control:"number"
+    }
+  }
 };
 export default meta;
 
@@ -35,7 +85,6 @@ export const TextInputRequired: Story = {
 
 export const TextInputOptional: Story = {
   args: {
-
     type: "text",
     name: "name",
     label: "Label",
