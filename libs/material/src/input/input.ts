@@ -2,17 +2,18 @@ import { Directive, inject, input, model, OnInit, signal } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { InputValidator, isDefined } from '@vnodes/material/validators';
 
-export type InputOption<T = any> = {
+export type InputOption<T> = {
   id?: string;
   label: string;
   value: T;
-}
+};
 
 @Directive()
-export abstract class BaseInput<ValueType = any> implements ControlValueAccessor, OnInit {
-
+export abstract class BaseInput<ValueType = any>
+  implements ControlValueAccessor, OnInit
+{
   /**
-   * Custom validators built on top of Validators class. 
+   * Custom validators built on top of Validators class.
    */
   inputValidator = inject(InputValidator);
 
@@ -23,7 +24,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
    */
   required = input<boolean>(false);
   /**
-   * Enforce minimum length 
+   * Enforce minimum length
    */
   minlength = input<number>(1);
 
@@ -35,20 +36,20 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   /**
    * Enforce minimum items for list inputs
    */
-  minitems = input<number>(0)
+  minitems = input<number>(0);
   /**
    * Enforce maximum items for list inputs
    */
-  maxitems = input<number>(Number.MAX_SAFE_INTEGER)
+  maxitems = input<number>(Number.MAX_SAFE_INTEGER);
 
   /**
-   * Enforce minimum number value 
+   * Enforce minimum number value
    */
-  min = input<number>(Number.MIN_SAFE_INTEGER)
+  min = input<number>(Number.MIN_SAFE_INTEGER);
   /**
-   * Enforce maximum number value 
+   * Enforce maximum number value
    */
-  max = input<number>(Number.MAX_SAFE_INTEGER)
+  max = input<number>(Number.MAX_SAFE_INTEGER);
 
   /**
    * Enforce email pattern matching
@@ -60,20 +61,19 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
    */
   password = input<boolean>(false);
 
-
   /**
    * Options for selectable inputs such as select, autocomplete, button-toggle, radio and so on
    */
-  options = input<InputOption<ValueType>[]>();
+  options = input<InputOption<ValueType>[]>([]);
 
   /**
    * Allow multiple selection for selectable components
    */
   multiple = input<boolean>(false);
 
-  // 
+  //
   /**
-   * Input label 
+   * Input label
    */
   label = input<string>('');
 
@@ -90,8 +90,7 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   /**
    * Default input value
    */
-  defaultValue = input<ValueType | null>(null)
-
+  defaultValue = input<ValueType | null>(null);
 
   value = model<ValueType>();
   /**
@@ -102,45 +101,43 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   /**
    * Reactive FormControl instance
    */
-  formControl = signal<FormControl>(new FormControl())
+  formControl = signal<FormControl>(new FormControl());
 
   /**
    * Prefix icon
    */
-  iconPrefix = input<string>()
+  iconPrefix = input<string>();
 
   /**
    * Suffix icon
    */
-  iconSuffix = input<string>()
+  iconSuffix = input<string>();
 
   /**
    * Prefix text
    */
-  textPrefix = input<string>()
+  textPrefix = input<string>();
 
   /**
    * Suffix text
    */
-  textSuffix = input<string>()
-
+  textSuffix = input<string>();
 
   constructor() {
     this.__setValueAccessor();
-    this.__setDefaultValue()
+    this.__setDefaultValue();
   }
   protected onChange: (value: ValueType | null) => void = () => {
-    // 
+    //
   };
   protected onTouched: () => void = () => {
-    // 
+    //
   };
 
   writeValue(value: ValueType): void {
-    // 
+    //
   }
   readonly ngControl = inject(NgControl, { self: true, optional: true });
-
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -154,7 +151,6 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.disabled.set(isDisabled);
   }
 
-
   /**
    * Resolve error message from formControl errors
    * @returns error message
@@ -163,12 +159,15 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     const errors = this.formControl().errors;
     if (errors) {
       const [constraint, constraintValue] = Object.entries(errors)[0];
-      return this.inputValidator.errorMessage(this.formControl().value, constraint, constraintValue)
+      return this.inputValidator.errorMessage(
+        this.formControl().value,
+        constraint,
+        constraintValue,
+      );
     }
 
-    return null
+    return null;
   }
-
 
   /**
    * Reset the form control
@@ -178,12 +177,10 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
     this.formControl().setErrors(null);
   }
 
-
   ngOnInit(): void {
     this.__setValueAccessor();
-    this.__setDefaultValue()
+    this.__setDefaultValue();
   }
-
 
   private __setValueAccessor() {
     if (this.ngControl) {
@@ -192,31 +189,30 @@ export abstract class BaseInput<ValueType = any> implements ControlValueAccessor
   }
 
   private __setDefaultValue() {
-    const __control = this.ngControl?.control as FormControl
+    const __control = this.ngControl?.control as FormControl;
 
     if (isDefined(__control)) {
       this.formControl.update(() => __control as FormControl);
 
       const __defaultValue = this.defaultValue();
       if (isDefined(__defaultValue)) {
-        this.setDefaultValue(__control, __defaultValue)
+        this.setDefaultValue(__control, __defaultValue);
       }
     }
   }
 
+  protected transformValue(value: ValueType): any {
+    return value;
+  }
 
   /**
    * Set value to the form control without firing event
-   * @param control 
-   * @param value 
+   * @param control
+   * @param value
    */
   protected setDefaultValue(control: FormControl, value: ValueType) {
-    control.setValue(value, { emitEvent: false })
-    this.value.update(() => value);
+    const tValue = this.transformValue(value);
+    control.setValue(tValue, { emitEvent: false });
+    this.value.update(() => tValue);
   }
-
 }
-
-
-
-

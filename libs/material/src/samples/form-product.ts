@@ -28,32 +28,108 @@ import { SelectComponent } from '../select/select';
     SlideToggleComponent,
     ButtonToggleComponent,
     FlexModule,
-    JsonPipe
+    JsonPipe,
   ],
   template: `
-
-  {{ formGroup.value | json}}
-  <form vnForm vnFlexCol vnFlexGap [formGroup]="formGroup" (formSubmitEvet)="handleFormSubmit($event)">  
-    <vn-input formControlName="name" type="text" [required]="true" label="Name" ></vn-input>
-    <vn-input formControlName="description" type="text" [required]="true" label="Description" ></vn-input>
-    <vn-input formControlName="upc" type="text" [required]="true" label="Unique Product Code" ></vn-input>
-    <vn-input formControlName="serialNumber" type="text" [required]="true" label="Serial Number" ></vn-input>
-    <vn-input formControlName="price" type="number" [decimals]="2" [required]="true" label="Price" ></vn-input>
-    <vn-input formControlName="cost" type="number" [decimals]="2" [required]="true" label="Cost" ></vn-input>
-    <vn-input formControlName="quantity" type="integer" [min]="0"  [required]="true" label="Quantity" ></vn-input>
-    <vn-input formControlName="category" type="select" [options]="categories" [defaultValue]="categories[0].value"  [required]="true" label="Category" ></vn-input>
-    <vn-input formControlName="supplier" type="list" [defaultValue]="suppliers[0].value" [options]="suppliers"  [required]="true" label="Supplier" ></vn-input>
-    <vn-input formControlName="size" type="button-toggle" [defaultValue]="sizes[0].value" [options]="sizes"  [required]="true" label="Size" ></vn-input>
-    <vn-input formControlName="store" type="radio" [options]="stores" [defaultValue]="stores[0].value"  label="Store" ></vn-input>
-    <vn-input formControlName="active" type="slider"  label="Active" ></vn-input>
-    <vn-input formControlName="onSale" type="checkbox"  label="On Sale" ></vn-input>
-
-  </form>
-
-  `
+    {{ formGroup.value | json }}
+    <form
+      vnForm
+      vnFlexCol
+      vnFlexGap
+      [formGroup]="formGroup"
+      (formSubmitEvet)="handleFormSubmit($event)"
+    >
+      <vn-input
+        formControlName="name"
+        type="text"
+        [required]="true"
+        label="Name"
+      ></vn-input>
+      <vn-input
+        formControlName="description"
+        type="text"
+        [required]="true"
+        label="Description"
+      ></vn-input>
+      <vn-input
+        formControlName="upc"
+        type="text"
+        [required]="true"
+        label="Unique Product Code"
+      ></vn-input>
+      <vn-input
+        formControlName="serialNumber"
+        type="text"
+        [required]="true"
+        label="Serial Number"
+      ></vn-input>
+      <vn-input
+        formControlName="price"
+        type="number"
+        [decimals]="2"
+        [required]="true"
+        label="Price"
+      ></vn-input>
+      <vn-input
+        formControlName="cost"
+        type="number"
+        [decimals]="2"
+        [required]="true"
+        label="Cost"
+      ></vn-input>
+      <vn-input
+        formControlName="quantity"
+        type="integer"
+        [min]="0"
+        [required]="true"
+        label="Quantity"
+      ></vn-input>
+      <vn-input
+        formControlName="category"
+        type="select"
+        [options]="categories"
+        [defaultValue]="categories[0].value"
+        [required]="true"
+        label="Category"
+      ></vn-input>
+      <vn-input
+        formControlName="supplier"
+        type="list"
+        [defaultValue]="suppliers[0].value"
+        [options]="suppliers"
+        [required]="true"
+        label="Supplier"
+      ></vn-input>
+      <vn-input
+        formControlName="size"
+        type="button-toggle"
+        [defaultValue]="sizes[0].value"
+        [options]="sizes"
+        [required]="true"
+        label="Size"
+      ></vn-input>
+      <vn-input
+        formControlName="store"
+        type="radio"
+        [options]="stores"
+        [defaultValue]="stores[0].value"
+        label="Store"
+      ></vn-input>
+      <vn-input
+        formControlName="active"
+        type="slider"
+        label="Active"
+      ></vn-input>
+      <vn-input
+        formControlName="onSale"
+        type="checkbox"
+        label="On Sale"
+      ></vn-input>
+    </form>
+  `,
 })
 export class FormProduct {
-  inputValidator = inject(InputValidator)
+  inputValidator = inject(InputValidator);
   formGroup = new FormGroup({
     name: new FormControl(null, []),
     description: new FormControl(null, [InputValidator.required]),
@@ -68,48 +144,39 @@ export class FormProduct {
     store: new FormControl(null, [InputValidator.required]),
     active: new FormControl(null, [InputValidator.required]),
     onSale: new FormControl(null, [InputValidator.required]),
-
   });
 
-  suppliers: InputOption[] = [
-    { value: 1, label: "Supplier 1" },
-    { value: 2, label: "Supplier 2" },
-    { value: 3, label: "Supplier 3" },
-    { value: 4, label: "Supplier 4" },
-    { value: 5, label: "Supplier 5" },
-  ]
+  suppliers: InputOption<number>[] = [
+    { value: 1, label: 'Supplier 1' },
+    { value: 2, label: 'Supplier 2' },
+    { value: 3, label: 'Supplier 3' },
+    { value: 4, label: 'Supplier 4' },
+    { value: 5, label: 'Supplier 5' },
+  ];
 
+  sizes: InputOption<string>[] = [
+    { value: 'XS', label: 'XS' },
+    { value: 'S', label: 'S' },
+    { value: 'M', label: 'M' },
+    { value: 'L', label: 'L' },
+    { value: 'XL', label: 'XL' },
+  ];
 
-  sizes: InputOption[] = [
-    { value: "XS", label: "XS" },
-    { value: 'S', label: "S" },
-    { value: 'M', label: "M" },
-    { value: 'L', label: "L" },
-    { value: "XL", label: "XL" },
+  categories: InputOption<number>[] = [
+    { value: 1, label: 'Category 1' },
+    { value: 2, label: 'Category 2' },
+    { value: 3, label: 'Category 3' },
+    { value: 4, label: 'Category 4' },
+  ];
 
-
-  ]
-
-  categories: InputOption[] = [
-
-    { value: 1, label: "Category 1" },
-    { value: 2, label: "Category 2" },
-    { value: 3, label: "Category 3" },
-    { value: 4, label: "Category 4" },
-  ]
-
-  stores: InputOption[] = [
-
-    { value: 1, label: "Store 1" },
-    { value: 2, label: "Store 2" },
-    { value: 3, label: "Store 3" },
-    { value: 4, label: "Store 4" },
-  ]
+  stores: InputOption<number>[] = [
+    { value: 1, label: 'Store 1' },
+    { value: 2, label: 'Store 2' },
+    { value: 3, label: 'Store 3' },
+    { value: 4, label: 'Store 4' },
+  ];
 
   handleFormSubmit(value: any) {
-    console.log("Addredd form submit: ", value)
-
+    console.log('Addredd form submit: ', value);
   }
-
-
 }

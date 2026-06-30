@@ -12,13 +12,13 @@ type Story = StoryObj<InputFieldComponent>;
 
 export const Primary: Story = {
   args: {
-    label: "Label",
-    type: "text"
+    label: 'Label',
+    type: 'text',
   },
 };
 
 export const Heading: Story = {
-  args: {},
+  ...Primary,
   play: async ({ canvas }) => {
     await expect(canvas.getByText(/Label/gi)).toBeTruthy();
   },

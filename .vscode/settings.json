@@ -1,4 +1,7 @@
 {
+  "github.copilot.enable": {
+    "*": false
+  },
   "editor.codeActionsOnSave": {
     "source.addMissingImports.ts": "always",
     "source.fixAll.eslint": "always",
@@ -7,5 +10,7 @@
     "source.organizeLinkDefinitions": "always",
     "source.removeUnusedImports": "always"
   },
-  "eslint.validate": ["json"]
+  "eslint.validate": [
+    "json"
+  ]
 }

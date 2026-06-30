@@ -38,7 +38,7 @@ export class CardActionDirective {
         </mat-card-content>
     }
     <mat-card-actions>
-      <div vnFlexRow vnFlexFull  vnFlexWrap vnFlexCenter vnFlexGap >
+      <div vnFlexRow vnFlexFull vnFlexWrap vnFlexCenter vnFlexGap >
         <ng-content select="button[vnCardAction]"></ng-content>
       </div>
     </mat-card-actions>
