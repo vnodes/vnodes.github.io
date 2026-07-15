@@ -15,19 +15,16 @@ const config: StorybookConfig = {
         compodocJson: '../documentation.json',
       },
       theme,
-
-    }
+    },
   },
-  staticDirs: [
-    '../../../dist/apps/web/browser'
-  ],
+  staticDirs: ['../../../dist/apps/web/browser'],
   docs: {
-    defaultName: "Doc",
+    defaultName: 'Doc',
   },
   webpackFinal: async (config) => {
     if (config.mode === 'production') {
       config.output ??= {};
-      config.output.publicPath = './'
+      config.output.publicPath = './';
     }
     return config;
   },
