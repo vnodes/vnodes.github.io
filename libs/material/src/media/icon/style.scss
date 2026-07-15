@@ -24,7 +24,7 @@
 }
 
 .material-icons {
-    font-family: "Material Symbol Rounded";
+    font-family: "Material Symbol Rounded", sans-serif;
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
@@ -42,11 +42,11 @@
     font-feature-settings: "liga";
 
     &.outlined {
-        font-family: "Material Symbol Outlined";
+        font-family: "Material Symbol Outlined", sans-serif;
     }
 
     &.sharp {
-        font-family: "Material Symbol Sharp";
+        font-family: "Material Symbol Sharp", sans-serif;
     }
 
     &.fill {
